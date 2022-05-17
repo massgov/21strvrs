@@ -1,0 +1,1757 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/28/2020 10:52:22 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WSAMZN-71UGVA8R"
+  DTS:CreatorName="ES\BFrasca"
+  DTS:DTSID="{1DBD732D-5AAB-4D1E-8F8D-0998B54184B4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Extract_LegacyPlus_Death_19691984"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{FE694F31-63E1-4416-8B3B-6287A4ECE917}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C4C18D20-9A2C-4073-9438-D3ED8ED19EEC}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\Deathtbl19691984"
+              componentClassID="Microsoft.SSISODBCSrc"
+              contactInfo="ODBC Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="ODBC Source"
+              name="Deathtbl19691984"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">"public"."death_tbl_19691984"</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  expressionType="Notify"
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Deathtbl19691984.Connections[ODBCConnection]"
+                  connectionManagerID="{D745DCBF-643C-4620-9553-E651CDA40C50}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_Postgres32_unicode]"
+                  description="The ODBC runtime connection used to access the database."
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output]"
+                  errorRowDisposition="FailComponent"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="FailComponent">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_1]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_1]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_1]"
+                      name="filler_1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_2]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_2]"
+                      length="8"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_2]"
+                      name="filler_2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_3]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_3]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_3]"
+                      name="filler_3" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_4]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_4]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_4]"
+                      name="filler_4" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[title]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[title]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[title]"
+                      name="title" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[subtitle]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[subtitle]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[subtitle]"
+                      name="subtitle" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[has_possible_matches]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[has_possible_matches]"
+                      length="5"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[has_possible_matches]"
+                      name="has_possible_matches" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[created_by_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[created_by_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[created_by_id]"
+                      name="created_by_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[created_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[created_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[created_date]"
+                      name="created_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_calculated_srv_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_calculated_srv_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_calculated_srv_date]"
+                      name="last_calculated_srv_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_modified_by_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_modified_by_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_modified_by_id]"
+                      name="last_modified_by_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_modified_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_modified_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_modified_date]"
+                      name="last_modified_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[entity_version]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[entity_version]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[entity_version]"
+                      name="entity_version" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[marital_status_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[marital_status_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[marital_status_id]"
+                      name="marital_status_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[dedupe_status_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[dedupe_status_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[dedupe_status_id]"
+                      name="dedupe_status_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[death_year]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[death_year]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[death_year]"
+                      name="death_year" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[certificate_number]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[certificate_number]"
+                      length="6"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[certificate_number]"
+                      name="certificate_number" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[lst_nme_decedent]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[lst_nme_decedent]"
+                      length="12"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[lst_nme_decedent]"
+                      name="lst_nme_decedent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[first_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[first_name]"
+                      length="8"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[first_name]"
+                      name="first_name" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[middle_initial]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[middle_initial]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[middle_initial]"
+                      name="middle_initial" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      name="bstn_cns_trct_rsdce_beg_72_tpe" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[dte_of_death]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[dte_of_death]"
+                      length="6"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[dte_of_death]"
+                      name="dte_of_death" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[cda_code_for_cause_of_death]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[cda_code_for_cause_of_death]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[cda_code_for_cause_of_death]"
+                      name="cda_code_for_cause_of_death" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[was_acc_dth_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[was_acc_dth_occ]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[was_acc_dth_occ]"
+                      name="was_acc_dth_occ" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[acc_dth_type_plc_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[acc_dth_type_plc_occ]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[acc_dth_type_plc_occ]"
+                      name="acc_dth_type_plc_occ" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      name="ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[race]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[race]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[race]"
+                      name="race" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[age_at_death]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[age_at_death]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[age_at_death]"
+                      name="age_at_death" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      length="9"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      name="ssn_7276_mdn_nme_if_fem_beg_77" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[state_of_nativity_birth]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[state_of_nativity_birth]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[state_of_nativity_birth]"
+                      name="state_of_nativity_birth" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      name="fed_cty_cnty_cde_ot_of_st_res_77" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[med_exm_dist_of_res]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[med_exm_dist_of_res]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[med_exm_dist_of_res]"
+                      name="med_exm_dist_of_res" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[med_exmnr_dist_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[med_exmnr_dist_occ]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[med_exmnr_dist_occ]"
+                      name="med_exmnr_dist_occ" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[occupation_1982_on]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[occupation_1982_on]"
+                      length="6"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[occupation_1982_on]"
+                      name="occupation_1982_on" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[flag_1982_on]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[flag_1982_on]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[flag_1982_on]"
+                      name="flag_1982_on" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[hsa_ar_subar_res]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[hsa_ar_subar_res]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[hsa_ar_subar_res]"
+                      name="hsa_ar_subar_res" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[hsa_area_subarea_of_dth_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[hsa_area_subarea_of_dth_occ]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[hsa_area_subarea_of_dth_occ]"
+                      name="hsa_area_subarea_of_dth_occ" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[welfare_fac_vndr_no_beg_75]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[welfare_fac_vndr_no_beg_75]"
+                      length="7"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[welfare_fac_vndr_no_beg_75]"
+                      name="welfare_fac_vndr_no_beg_75" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[city_town_of_death_occ_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[city_town_of_death_occ_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[city_town_of_death_occ_id]"
+                      name="city_town_of_death_occ_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[fac_plce_whr_dth_occ_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[fac_plce_whr_dth_occ_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[fac_plce_whr_dth_occ_id]"
+                      name="fac_plce_whr_dth_occ_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[city_town_of_residence_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[city_town_of_residence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[city_town_of_residence_id]"
+                      name="city_town_of_residence_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[autopsy_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[autopsy_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[autopsy_id]"
+                      name="autopsy_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[certifier_of_death_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[certifier_of_death_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[certifier_of_death_id]"
+                      name="certifier_of_death_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[sex_of_decedent_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[sex_of_decedent_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[sex_of_decedent_id]"
+                      name="sex_of_decedent_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[county_of_residence_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[county_of_residence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[county_of_residence_id]"
+                      name="county_of_residence_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[county_of_death_occurrence_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[county_of_death_occurrence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[county_of_death_occurrence_id]"
+                      name="county_of_death_occurrence_id" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[id]"
+                      dataType="guid"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_1]"
+                      dataType="wstr"
+                      length="4"
+                      name="filler_1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_2]"
+                      dataType="wstr"
+                      length="7"
+                      name="filler_2" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_3]"
+                      dataType="wstr"
+                      length="1"
+                      name="filler_3" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_4]"
+                      dataType="wstr"
+                      length="1"
+                      name="filler_4" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[title]"
+                      dataType="wstr"
+                      length="200"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[subtitle]"
+                      dataType="wstr"
+                      length="200"
+                      name="subtitle" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[has_possible_matches]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="has_possible_matches" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[created_by_id]"
+                      dataType="guid"
+                      name="created_by_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[created_date]"
+                      dataType="dbTimeStamp2"
+                      name="created_date"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_calculated_srv_date]"
+                      dataType="dbTimeStamp2"
+                      name="last_calculated_srv_date"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_modified_by_id]"
+                      dataType="guid"
+                      name="last_modified_by_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_modified_date]"
+                      dataType="dbTimeStamp2"
+                      name="last_modified_date"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[entity_version]"
+                      dataType="i4"
+                      name="entity_version" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[marital_status_id]"
+                      dataType="guid"
+                      name="marital_status_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[dedupe_status_id]"
+                      dataType="guid"
+                      name="dedupe_status_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[death_year]"
+                      dataType="wstr"
+                      length="4"
+                      name="death_year" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[certificate_number]"
+                      dataType="wstr"
+                      length="6"
+                      name="certificate_number" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[lst_nme_decedent]"
+                      dataType="wstr"
+                      length="12"
+                      name="lst_nme_decedent" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[first_name]"
+                      dataType="wstr"
+                      length="8"
+                      name="first_name" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[middle_initial]"
+                      dataType="wstr"
+                      length="1"
+                      name="middle_initial" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      dataType="wstr"
+                      length="4"
+                      name="bstn_cns_trct_rsdce_beg_72_tpe" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[dte_of_death]"
+                      dataType="wstr"
+                      length="6"
+                      name="dte_of_death" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[cda_code_for_cause_of_death]"
+                      dataType="wstr"
+                      length="4"
+                      name="cda_code_for_cause_of_death" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[was_acc_dth_occ]"
+                      dataType="wstr"
+                      length="1"
+                      name="was_acc_dth_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[acc_dth_type_plc_occ]"
+                      dataType="wstr"
+                      length="1"
+                      name="acc_dth_type_plc_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      dataType="wstr"
+                      length="2"
+                      name="ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[race]"
+                      dataType="wstr"
+                      length="1"
+                      name="race" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[age_at_death]"
+                      dataType="wstr"
+                      length="3"
+                      name="age_at_death" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      dataType="wstr"
+                      length="9"
+                      name="ssn_7276_mdn_nme_if_fem_beg_77" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[state_of_nativity_birth]"
+                      dataType="wstr"
+                      length="2"
+                      name="state_of_nativity_birth" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      dataType="wstr"
+                      length="3"
+                      name="fed_cty_cnty_cde_ot_of_st_res_77" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[med_exm_dist_of_res]"
+                      dataType="wstr"
+                      length="2"
+                      name="med_exm_dist_of_res" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[med_exmnr_dist_occ]"
+                      dataType="wstr"
+                      length="2"
+                      name="med_exmnr_dist_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[occupation_1982_on]"
+                      dataType="wstr"
+                      length="6"
+                      name="occupation_1982_on" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[flag_1982_on]"
+                      dataType="wstr"
+                      length="1"
+                      name="flag_1982_on" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[hsa_ar_subar_res]"
+                      dataType="wstr"
+                      length="2"
+                      name="hsa_ar_subar_res" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[hsa_area_subarea_of_dth_occ]"
+                      dataType="wstr"
+                      length="2"
+                      name="hsa_area_subarea_of_dth_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[welfare_fac_vndr_no_beg_75]"
+                      dataType="wstr"
+                      length="7"
+                      name="welfare_fac_vndr_no_beg_75" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[city_town_of_death_occ_id]"
+                      dataType="guid"
+                      name="city_town_of_death_occ_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[fac_plce_whr_dth_occ_id]"
+                      dataType="guid"
+                      name="fac_plce_whr_dth_occ_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[city_town_of_residence_id]"
+                      dataType="guid"
+                      name="city_town_of_residence_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[autopsy_id]"
+                      dataType="guid"
+                      name="autopsy_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[certifier_of_death_id]"
+                      dataType="guid"
+                      name="certifier_of_death_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[sex_of_decedent_id]"
+                      dataType="guid"
+                      name="sex_of_decedent_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[county_of_residence_id]"
+                      dataType="guid"
+                      name="county_of_residence_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[county_of_death_occurrence_id]"
+                      dataType="guid"
+                      name="county_of_death_occurrence_id" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[filler_1]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_1]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[filler_1]"
+                      name="filler_1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[filler_2]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_2]"
+                      length="7"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[filler_2]"
+                      name="filler_2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[filler_3]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_3]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[filler_3]"
+                      name="filler_3" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[filler_4]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[filler_4]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[filler_4]"
+                      name="filler_4" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[title]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[title]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[title]"
+                      name="title" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[subtitle]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[subtitle]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[subtitle]"
+                      name="subtitle" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[has_possible_matches]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[has_possible_matches]"
+                      length="5"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[has_possible_matches]"
+                      name="has_possible_matches" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[created_by_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[created_by_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[created_by_id]"
+                      name="created_by_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[created_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[created_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[created_date]"
+                      name="created_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[last_calculated_srv_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_calculated_srv_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[last_calculated_srv_date]"
+                      name="last_calculated_srv_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[last_modified_by_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_modified_by_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[last_modified_by_id]"
+                      name="last_modified_by_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[last_modified_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[last_modified_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[last_modified_date]"
+                      name="last_modified_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[entity_version]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[entity_version]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[entity_version]"
+                      name="entity_version" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[marital_status_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[marital_status_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[marital_status_id]"
+                      name="marital_status_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[dedupe_status_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[dedupe_status_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[dedupe_status_id]"
+                      name="dedupe_status_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[death_year]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[death_year]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[death_year]"
+                      name="death_year" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[certificate_number]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[certificate_number]"
+                      length="6"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[certificate_number]"
+                      name="certificate_number" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[lst_nme_decedent]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[lst_nme_decedent]"
+                      length="12"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[lst_nme_decedent]"
+                      name="lst_nme_decedent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[first_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[first_name]"
+                      length="8"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[first_name]"
+                      name="first_name" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[middle_initial]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[middle_initial]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[middle_initial]"
+                      name="middle_initial" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      name="bstn_cns_trct_rsdce_beg_72_tpe" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[dte_of_death]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[dte_of_death]"
+                      length="6"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[dte_of_death]"
+                      name="dte_of_death" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[cda_code_for_cause_of_death]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[cda_code_for_cause_of_death]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[cda_code_for_cause_of_death]"
+                      name="cda_code_for_cause_of_death" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[was_acc_dth_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[was_acc_dth_occ]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[was_acc_dth_occ]"
+                      name="was_acc_dth_occ" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[acc_dth_type_plc_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[acc_dth_type_plc_occ]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[acc_dth_type_plc_occ]"
+                      name="acc_dth_type_plc_occ" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      name="ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[race]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[race]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[race]"
+                      name="race" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[age_at_death]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[age_at_death]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[age_at_death]"
+                      name="age_at_death" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      length="9"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      name="ssn_7276_mdn_nme_if_fem_beg_77" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[state_of_nativity_birth]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[state_of_nativity_birth]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[state_of_nativity_birth]"
+                      name="state_of_nativity_birth" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      name="fed_cty_cnty_cde_ot_of_st_res_77" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[med_exm_dist_of_res]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[med_exm_dist_of_res]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[med_exm_dist_of_res]"
+                      name="med_exm_dist_of_res" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[med_exmnr_dist_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[med_exmnr_dist_occ]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[med_exmnr_dist_occ]"
+                      name="med_exmnr_dist_occ" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[occupation_1982_on]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[occupation_1982_on]"
+                      length="6"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[occupation_1982_on]"
+                      name="occupation_1982_on" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[flag_1982_on]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[flag_1982_on]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[flag_1982_on]"
+                      name="flag_1982_on" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[hsa_ar_subar_res]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[hsa_ar_subar_res]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[hsa_ar_subar_res]"
+                      name="hsa_ar_subar_res" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[hsa_area_subarea_of_dth_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[hsa_area_subarea_of_dth_occ]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[hsa_area_subarea_of_dth_occ]"
+                      name="hsa_area_subarea_of_dth_occ" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[welfare_fac_vndr_no_beg_75]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[welfare_fac_vndr_no_beg_75]"
+                      length="7"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[welfare_fac_vndr_no_beg_75]"
+                      name="welfare_fac_vndr_no_beg_75" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[city_town_of_death_occ_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[city_town_of_death_occ_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[city_town_of_death_occ_id]"
+                      name="city_town_of_death_occ_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[fac_plce_whr_dth_occ_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[fac_plce_whr_dth_occ_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[fac_plce_whr_dth_occ_id]"
+                      name="fac_plce_whr_dth_occ_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[city_town_of_residence_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[city_town_of_residence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[city_town_of_residence_id]"
+                      name="city_town_of_residence_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[autopsy_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[autopsy_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[autopsy_id]"
+                      name="autopsy_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[certifier_of_death_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[certifier_of_death_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[certifier_of_death_id]"
+                      name="certifier_of_death_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[sex_of_decedent_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[sex_of_decedent_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[sex_of_decedent_id]"
+                      name="sex_of_decedent_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[county_of_residence_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[county_of_residence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[county_of_residence_id]"
+                      name="county_of_residence_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[county_of_death_occurrence_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].ExternalColumns[county_of_death_occurrence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[county_of_death_occurrence_id]"
+                      name="county_of_death_occurrence_id" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\RVRS_Staging"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="RVRS_Staging"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[LegacyPlus_Death_tbl_19691984]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">10000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\RVRS_Staging.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="guid"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[filler_1]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="filler_1"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[filler_1]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_1]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[filler_2]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="filler_2"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[filler_2]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_2]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[filler_3]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="filler_3"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[filler_3]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_3]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[filler_4]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="filler_4"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[filler_4]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[filler_4]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[title]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="title"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[title]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[subtitle]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="subtitle"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[subtitle]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[subtitle]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[has_possible_matches]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="has_possible_matches"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[has_possible_matches]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[has_possible_matches]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[created_by_id]"
+                      cachedDataType="guid"
+                      cachedName="created_by_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[created_by_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[created_by_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[created_date]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="created_date"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[created_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[created_date]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[last_calculated_srv_date]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="last_calculated_srv_date"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[last_calculated_srv_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_calculated_srv_date]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[last_modified_by_id]"
+                      cachedDataType="guid"
+                      cachedName="last_modified_by_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[last_modified_by_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_modified_by_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[last_modified_date]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="last_modified_date"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[last_modified_date]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[last_modified_date]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[entity_version]"
+                      cachedDataType="i4"
+                      cachedName="entity_version"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[entity_version]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[entity_version]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[marital_status_id]"
+                      cachedDataType="guid"
+                      cachedName="marital_status_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[marital_status_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[marital_status_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[dedupe_status_id]"
+                      cachedDataType="guid"
+                      cachedName="dedupe_status_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[dedupe_status_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[dedupe_status_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[death_year]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="death_year"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[death_year]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[death_year]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[certificate_number]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="certificate_number"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[certificate_number]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[certificate_number]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[lst_nme_decedent]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="lst_nme_decedent"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[lst_nme_decedent]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[lst_nme_decedent]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[first_name]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="first_name"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[first_name]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[first_name]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[middle_initial]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="middle_initial"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[middle_initial]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[middle_initial]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="bstn_cns_trct_rsdce_beg_72_tpe"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[bstn_cns_trct_rsdce_beg_72_tpe]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[dte_of_death]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="dte_of_death"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[dte_of_death]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[dte_of_death]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[cda_code_for_cause_of_death]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="cda_code_for_cause_of_death"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[cda_code_for_cause_of_death]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[cda_code_for_cause_of_death]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[was_acc_dth_occ]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="was_acc_dth_occ"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[was_acc_dth_occ]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[was_acc_dth_occ]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[acc_dth_type_plc_occ]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="acc_dth_type_plc_occ"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[acc_dth_type_plc_occ]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[acc_dth_type_plc_occ]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[race]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="race"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[race]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[race]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[age_at_death]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="age_at_death"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[age_at_death]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[age_at_death]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      cachedDataType="wstr"
+                      cachedLength="9"
+                      cachedName="ssn_7276_mdn_nme_if_fem_beg_77"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[ssn_7276_mdn_nme_if_fem_beg_77]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[state_of_nativity_birth]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="state_of_nativity_birth"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[state_of_nativity_birth]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[state_of_nativity_birth]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="fed_cty_cnty_cde_ot_of_st_res_77"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[fed_cty_cnty_cde_ot_of_st_res_77]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[med_exm_dist_of_res]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="med_exm_dist_of_res"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[med_exm_dist_of_res]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[med_exm_dist_of_res]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[med_exmnr_dist_occ]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="med_exmnr_dist_occ"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[med_exmnr_dist_occ]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[med_exmnr_dist_occ]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[occupation_1982_on]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="occupation_1982_on"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[occupation_1982_on]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[occupation_1982_on]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[flag_1982_on]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="flag_1982_on"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[flag_1982_on]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[flag_1982_on]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[hsa_ar_subar_res]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="hsa_ar_subar_res"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[hsa_ar_subar_res]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[hsa_ar_subar_res]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[hsa_area_subarea_of_dth_occ]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="hsa_area_subarea_of_dth_occ"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[hsa_area_subarea_of_dth_occ]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[hsa_area_subarea_of_dth_occ]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[welfare_fac_vndr_no_beg_75]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="welfare_fac_vndr_no_beg_75"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[welfare_fac_vndr_no_beg_75]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[welfare_fac_vndr_no_beg_75]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[city_town_of_death_occ_id]"
+                      cachedDataType="guid"
+                      cachedName="city_town_of_death_occ_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[city_town_of_death_occ_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[city_town_of_death_occ_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[fac_plce_whr_dth_occ_id]"
+                      cachedDataType="guid"
+                      cachedName="fac_plce_whr_dth_occ_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[fac_plce_whr_dth_occ_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[fac_plce_whr_dth_occ_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[city_town_of_residence_id]"
+                      cachedDataType="guid"
+                      cachedName="city_town_of_residence_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[city_town_of_residence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[city_town_of_residence_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[autopsy_id]"
+                      cachedDataType="guid"
+                      cachedName="autopsy_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[autopsy_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[autopsy_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[certifier_of_death_id]"
+                      cachedDataType="guid"
+                      cachedName="certifier_of_death_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[certifier_of_death_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[certifier_of_death_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[sex_of_decedent_id]"
+                      cachedDataType="guid"
+                      cachedName="sex_of_decedent_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[sex_of_decedent_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[sex_of_decedent_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[county_of_residence_id]"
+                      cachedDataType="guid"
+                      cachedName="county_of_residence_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[county_of_residence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[county_of_residence_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].Columns[county_of_death_occurrence_id]"
+                      cachedDataType="guid"
+                      cachedName="county_of_death_occurrence_id"
+                      externalMetadataColumnId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[county_of_death_occurrence_id]"
+                      lineageId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output].Columns[county_of_death_occurrence_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="guid"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[filler_1]"
+                      dataType="wstr"
+                      length="4"
+                      name="filler_1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[filler_2]"
+                      dataType="wstr"
+                      length="8"
+                      name="filler_2" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[filler_3]"
+                      dataType="wstr"
+                      length="1"
+                      name="filler_3" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[filler_4]"
+                      dataType="wstr"
+                      length="1"
+                      name="filler_4" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      dataType="wstr"
+                      length="200"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[subtitle]"
+                      dataType="wstr"
+                      length="200"
+                      name="subtitle" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[has_possible_matches]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="has_possible_matches" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[created_by_id]"
+                      dataType="guid"
+                      name="created_by_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[created_date]"
+                      dataType="wstr"
+                      length="26"
+                      name="created_date" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[last_calculated_srv_date]"
+                      dataType="wstr"
+                      length="26"
+                      name="last_calculated_srv_date" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[last_modified_by_id]"
+                      dataType="guid"
+                      name="last_modified_by_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[last_modified_date]"
+                      dataType="wstr"
+                      length="26"
+                      name="last_modified_date" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[entity_version]"
+                      dataType="i4"
+                      name="entity_version" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[marital_status_id]"
+                      dataType="guid"
+                      name="marital_status_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[dedupe_status_id]"
+                      dataType="guid"
+                      name="dedupe_status_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[death_year]"
+                      dataType="wstr"
+                      length="4"
+                      name="death_year" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[certificate_number]"
+                      dataType="wstr"
+                      length="6"
+                      name="certificate_number" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[lst_nme_decedent]"
+                      dataType="wstr"
+                      length="12"
+                      name="lst_nme_decedent" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[first_name]"
+                      dataType="wstr"
+                      length="8"
+                      name="first_name" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[middle_initial]"
+                      dataType="wstr"
+                      length="1"
+                      name="middle_initial" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[bstn_cns_trct_rsdce_beg_72_tpe]"
+                      dataType="wstr"
+                      length="4"
+                      name="bstn_cns_trct_rsdce_beg_72_tpe" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[dte_of_death]"
+                      dataType="wstr"
+                      length="6"
+                      name="dte_of_death" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[cda_code_for_cause_of_death]"
+                      dataType="wstr"
+                      length="4"
+                      name="cda_code_for_cause_of_death" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[was_acc_dth_occ]"
+                      dataType="wstr"
+                      length="1"
+                      name="was_acc_dth_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[acc_dth_type_plc_occ]"
+                      dataType="wstr"
+                      length="1"
+                      name="acc_dth_type_plc_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd]"
+                      dataType="wstr"
+                      length="2"
+                      name="ot_sg_cnd_pr_dth_eth_ne_1_or_2_cnd" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[race]"
+                      dataType="wstr"
+                      length="1"
+                      name="race" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[age_at_death]"
+                      dataType="wstr"
+                      length="3"
+                      name="age_at_death" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ssn_7276_mdn_nme_if_fem_beg_77]"
+                      dataType="wstr"
+                      length="9"
+                      name="ssn_7276_mdn_nme_if_fem_beg_77" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[state_of_nativity_birth]"
+                      dataType="wstr"
+                      length="2"
+                      name="state_of_nativity_birth" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[fed_cty_cnty_cde_ot_of_st_res_77]"
+                      dataType="wstr"
+                      length="3"
+                      name="fed_cty_cnty_cde_ot_of_st_res_77" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[med_exm_dist_of_res]"
+                      dataType="wstr"
+                      length="2"
+                      name="med_exm_dist_of_res" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[med_exmnr_dist_occ]"
+                      dataType="wstr"
+                      length="2"
+                      name="med_exmnr_dist_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[occupation_1982_on]"
+                      dataType="wstr"
+                      length="6"
+                      name="occupation_1982_on" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[flag_1982_on]"
+                      dataType="wstr"
+                      length="1"
+                      name="flag_1982_on" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[hsa_ar_subar_res]"
+                      dataType="wstr"
+                      length="2"
+                      name="hsa_ar_subar_res" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[hsa_area_subarea_of_dth_occ]"
+                      dataType="wstr"
+                      length="2"
+                      name="hsa_area_subarea_of_dth_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[welfare_fac_vndr_no_beg_75]"
+                      dataType="wstr"
+                      length="7"
+                      name="welfare_fac_vndr_no_beg_75" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[city_town_of_death_occ_id]"
+                      dataType="guid"
+                      name="city_town_of_death_occ_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[fac_plce_whr_dth_occ_id]"
+                      dataType="guid"
+                      name="fac_plce_whr_dth_occ_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[city_town_of_residence_id]"
+                      dataType="guid"
+                      name="city_town_of_residence_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[autopsy_id]"
+                      dataType="guid"
+                      name="autopsy_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[certifier_of_death_id]"
+                      dataType="guid"
+                      name="certifier_of_death_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[sex_of_decedent_id]"
+                      dataType="guid"
+                      name="sex_of_decedent_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[county_of_residence_id]"
+                      dataType="guid"
+                      name="county_of_residence_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input].ExternalColumns[county_of_death_occurrence_id]"
+                      dataType="guid"
+                      name="county_of_death_occurrence_id" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\RVRS_Staging.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\RVRS_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\RVRS_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\RVRS_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[ODBC Source Output]"
+              endId="Package\Data Flow Task\RVRS_Staging.Inputs[OLE DB Destination Input]"
+              name="ODBC Source Output"
+              startId="Package\Data Flow Task\Deathtbl19691984.Outputs[ODBC Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{7A4B2872-42DE-4F52-B1E1-F74EF362D2A2}"
+      DTS:EventID="147343092"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{6426EC34-3F19-4BC8-ADAD-FE0B977E6259}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables />
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Data Flow Task"
+          TopLeft="246,192" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="152.8,41.6"
+          Id="Package\Data Flow Task\RVRS_Staging"
+          TopLeft="551,253" />
+        <NodeLayout
+          Size="168.8,41.6"
+          Id="Package\Data Flow Task\Deathtbl19691984"
+          TopLeft="550.5,111.5" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[ODBC Source Output]"
+          TopLeft="631.25,153.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,99.5"
+              Start="0,0"
+              End="0,92">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Deathtbl19691984">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\RVRS_Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

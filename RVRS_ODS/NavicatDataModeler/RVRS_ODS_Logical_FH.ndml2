@@ -1,0 +1,1080 @@
+{
+  "paper": {
+    "name": "A4",
+    "leftMargin": 0.5,
+    "rightMargin": 0.5,
+    "topMargin": 0.5,
+    "bottomMargin": 0.5,
+    "isPortriat": true
+  },
+  "modelVersion": 2.01,
+  "defaultSchema": "default",
+  "server": {
+    "objectType": "Server_LOGICAL",
+    "name": "Default",
+    "schemas": [
+      {
+        "objectType": "Schema_LOGICAL",
+        "name": "default",
+        "tables": [
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Entity 1",
+            "comment": "",
+            "oldName": "",
+            "fields": [],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": []
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Dim_Physician",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "FirstName",
+                "type": "CHAR VARYING",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "FirstName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "LastName",
+                "type": "CHAR VARYING",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "LastName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "MIddleName",
+                "type": "CHAR VARYING",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "MIddleName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "LicenseNumber\r\n",
+                "type": "CHAR VARYING",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "LicenseNumber\r\n"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "DimSuffix",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "DimSuffix"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "PhoneNumber",
+                "type": "CHAR VARYING",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "PhoneNumber"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "FaxNumber",
+                "type": "CHAR VARYING",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "FaxNumber"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "NpiNumber",
+                "type": "CHAR VARYING",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "NpiNumber"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Dim_Physician_Dim_Physician_1",
+                "fields": [
+                  "LastName"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "_Rel_Physician",
+                "referencedFields": [],
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": []
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Fact_Person",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "PersonID",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "PersonID"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Decedent_Entity 2_1",
+                "fields": [],
+                "referencedSchema": "default",
+                "referencedTable": "_Rel_Funeral Service ",
+                "referencedFields": [],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ZeroOrManyRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Fact_Person_Entity 2_1",
+                "fields": [
+                  "PersonID"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "_Rel_Physician",
+                "referencedFields": [
+                  "PersonID"
+                ],
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Fact_Person__Rel_BA_1",
+                "fields": [
+                  "PersonID"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "_Rel_BA",
+                "referencedFields": [
+                  "PersonID"
+                ],
+                "sourceCardinality": "OneAndOnlyOneRelationship",
+                "targetCardinality": "ZeroOrOneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "PersonID"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "_Rel_Physician",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "PersonID",
+                "type": "INT",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "PersonID"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "DimPhysicianID",
+                "type": "INT",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "DimPhysicianID"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "DImPhysicianTypeID",
+                "type": "INT",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "DImPhysicianTypeID"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "PersonID"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "DimFDIR",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "FirstName",
+                "type": "CHARACTER VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "FirstName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "LastName",
+                "type": "CHARACTER VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "LastName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "MIddleName",
+                "type": "CHARACTER VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "MIddleName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "LicenseNumber\r\n",
+                "type": "CHARACTER VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "LicenseNumber\r\n"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "DimSuffix",
+                "type": "INTEGER",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "DimSuffix"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_FDIR_FH_1",
+                "fields": [],
+                "referencedSchema": "default",
+                "referencedTable": "DimFH",
+                "referencedFields": [],
+                "sourceCardinality": "ManyRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_FDIR_Entity 2_1",
+                "fields": [],
+                "referencedSchema": "default",
+                "referencedTable": "_Rel_Funeral Service ",
+                "referencedFields": [],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "OneOrManyRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": []
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "DimBA",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "FirstName",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "FirstName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "LastName",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "LastName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "MIddleName",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "MIddleName"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "DimBAID",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "DimBAID"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_DimBA__Rel_BA_1",
+                "fields": [
+                  "DimBAID"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "_Rel_BA",
+                "referencedFields": [
+                  "DimBAID"
+                ],
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": []
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "_Rel_BA",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "PersonID",
+                "type": "INT",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "PersonID"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "DimBAID",
+                "type": "INT",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "DimBAID"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "PersonID"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "_Rel_Funeral Service ",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "DimFDIRID",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "DimFDIRID"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "PersonID",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "PersonID"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "DimFHID",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "DimFHID"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "DimFH",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "Name",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "Name"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_DimFH__Rel_Funeral Service _1",
+                "fields": [
+                  "Name"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "_Rel_Funeral Service ",
+                "referencedFields": [
+                  "DimFHID"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": []
+          }
+        ]
+      }
+    ]
+  },
+  "diagrams": [
+    {
+      "name": "Diagram 1",
+      "paperWidth": 2,
+      "paperHeight": 1,
+      "tableFont": "Arial Unicode MS",
+      "tableFontSize": 14,
+      "isBalckWhite": false,
+      "showDBSchemaName": false,
+      "showViewRelations": true,
+      "notation": "default",
+      "showFieldComment": false,
+      "showTableComment": false,
+      "shapes": [
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Dim_Physician",
+          "x": 30,
+          "y": 360,
+          "width": 200,
+          "height": 130,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "DimFDIR",
+          "x": 770,
+          "y": 30,
+          "width": 200,
+          "height": 150,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "DimFH",
+          "x": 770,
+          "y": 220,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "DimBA",
+          "x": 1010,
+          "y": 360,
+          "width": 200,
+          "height": 130,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 1",
+          "x": 250,
+          "y": 520,
+          "width": 240,
+          "height": 200,
+          "text": "Seed: \r\n=====\r\nAttend\r\nCertifier\r\nPronouncer\r\nSupervisor\r\n/Consultant\r\nMedical Examiner\r\n\r\n\r\n\r\n\r\n\r\n",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Fact_Person",
+          "x": 520,
+          "y": 360,
+          "width": 200,
+          "height": 130,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "_Rel_Funeral Service ",
+          "x": 520,
+          "y": 220,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 255,
+            "g": 200,
+            "b": 255,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 2",
+          "x": 50,
+          "y": 190,
+          "width": 430,
+          "height": 130,
+          "text": "Seed: \r\n====\r\nResponsible/Primary where the service takes place\r\nTrade Service who handles the process on the behalf\r\nNo FH (E.g. Family Place), the clark is doing the process\r\n\r\n)\r\n",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 1 Copy 1",
+          "x": 770,
+          "y": 510,
+          "width": 220,
+          "height": 50,
+          "text": "Issue Burial Permit\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "_Rel_Physician",
+          "x": 280,
+          "y": 370,
+          "width": 200,
+          "height": 110,
+          "isBold": false,
+          "titleColor": {
+            "r": 255,
+            "g": 200,
+            "b": 255,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "_Rel_BA",
+          "x": 770,
+          "y": 370,
+          "width": 200,
+          "height": 110,
+          "isBold": false,
+          "titleColor": {
+            "r": 255,
+            "g": 200,
+            "b": 255,
+            "a": 1
+          }
+        }
+      ],
+      "layers": [],
+      "relations": [
+        {
+          "name": "fk_FDIR_FH_1",
+          "sourceTableName": "DimFDIR",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 860,
+              "y": 195
+            },
+            {
+              "x": 860,
+              "y": 205
+            }
+          ],
+          "label": {
+            "x": 868,
+            "y": 185,
+            "width": 95,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_FDIR_Entity 2_1",
+          "sourceTableName": "DimFDIR",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 755,
+              "y": 110
+            },
+            {
+              "x": 610,
+              "y": 110
+            },
+            {
+              "x": 610,
+              "y": 205
+            }
+          ],
+          "label": {
+            "x": 638,
+            "y": 72,
+            "width": 127,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Decedent_Entity 2_1",
+          "sourceTableName": "Fact_Person",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 610,
+              "y": 345
+            },
+            {
+              "x": 610,
+              "y": 335
+            }
+          ],
+          "label": {
+            "x": 618,
+            "y": 325,
+            "width": 161,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Dim_Physician_Dim_Physician_1",
+          "sourceTableName": "Dim_Physician",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 245,
+              "y": 420
+            },
+            {
+              "x": 265,
+              "y": 420
+            }
+          ],
+          "label": {
+            "x": 235,
+            "y": 382,
+            "width": 238,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Fact_Person_Entity 2_1",
+          "sourceTableName": "Fact_Person",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 505,
+              "y": 420
+            },
+            {
+              "x": 495,
+              "y": 420
+            }
+          ],
+          "label": {
+            "x": 341,
+            "y": 382,
+            "width": 174,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_DimBA__Rel_BA_1",
+          "sourceTableName": "DimBA",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 995,
+              "y": 420
+            },
+            {
+              "x": 985,
+              "y": 420
+            }
+          ],
+          "label": {
+            "x": 860,
+            "y": 382,
+            "width": 145,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Fact_Person__Rel_BA_1",
+          "sourceTableName": "Fact_Person",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 735,
+              "y": 420
+            },
+            {
+              "x": 755,
+              "y": 420
+            }
+          ],
+          "label": {
+            "x": 725,
+            "y": 382,
+            "width": 176,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_DimFH__Rel_Funeral Service _1",
+          "sourceTableName": "DimFH",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 755,
+              "y": 260
+            },
+            {
+              "x": 735,
+              "y": 260
+            }
+          ],
+          "label": {
+            "x": 771,
+            "y": 262,
+            "width": 230,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        }
+      ],
+      "viewRelations": []
+    }
+  ]
+}

@@ -1,0 +1,2014 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/24/2021 3:52:46 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DPH-CO-W0622WG"
+  DTS:CreatorName="EHS\frahman"
+  DTS:DTSID="{8D5A27E5-58B8-4BE0-8B5D-778AEB7B167A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{20551DED-26BD-4D70-A3C6-74FAD7A5224A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A647DA05-69C5-4F9B-83B9-EF13EF09CFF6}"
+      DTS:ObjectName="10.202.75.136.RVRS_Staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=10.202.75.136;Initial Catalog=RVRS_Staging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{28381E66-2A4D-4922-AFF7-402B0DBD11B3}"
+      DTS:ObjectName="10.202.75.247.RVRS_ODS">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=10.202.75.247;Initial Catalog=RVRS_ODS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Father"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D34503C6-3530-4787-AC96-7708976E2DCF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Father"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Father\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[FamilyMembers]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Father\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DEATH_REC_ID]"
+                      cachedDataType="numeric"
+                      cachedName="DEATH_REC_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DeathID]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FATHER_NME_UNK]"
+                      cachedDataType="i4"
+                      cachedName="FATHER_NME_UNK"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NameUnknown]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_NME_UNK]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FATHER_GNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="FATHER_GNAME"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_GNAME]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FATHER_MNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="FATHER_MNAME"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MiddleName]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_MNAME]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FATHER_LNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="FATHER_LNAME"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_LNAME]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FATHER_SUFF]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="FATHER_SUFF"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Suffix]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_SUFF]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FATHER_LNAME_PRIOR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="FATHER_LNAME_PRIOR"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastNamePrior]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_LNAME_PRIOR]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VT_COUNTRY_ID]"
+                      cachedDataType="numeric"
+                      cachedName="VT_COUNTRY_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CountryOfBirthID]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_COUNTRY_ID]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VT_STATE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="VT_STATE_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StateProvinceID]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_STATE_ID]" />
+                    <inputColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FamilyMemberTypeID]"
+                      cachedDataType="i4"
+                      cachedName="FamilyMemberTypeID"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberTypeID]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberID]"
+                      dataType="i4"
+                      name="FamilyMemberID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DeathID]"
+                      dataType="i4"
+                      name="DeathID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NameUnknown]"
+                      dataType="bool"
+                      name="NameUnknown" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MiddleName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="MiddleName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Suffix]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Suffix" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastNamePrior]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LastNamePrior" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CountryOfBirthID]"
+                      dataType="i4"
+                      name="CountryOfBirthID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StateProvinceID]"
+                      dataType="i4"
+                      name="StateProvinceID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      name="FamilyMemberTypeID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Father\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Father\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Father\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Father\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC [RVRS].[GetFamilyMemberFatherInfo];</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Father\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FamilyMemberTypeID]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]"
+                      name="FamilyMemberTypeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_REC_ID]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]"
+                      name="DEATH_REC_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_NME_UNK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_NME_UNK]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_NME_UNK]"
+                      name="FATHER_NME_UNK"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_GNAME]"
+                      length="128"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_GNAME]"
+                      name="FATHER_GNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_MNAME]"
+                      length="128"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_MNAME]"
+                      name="FATHER_MNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_LNAME]"
+                      length="128"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_LNAME]"
+                      name="FATHER_LNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_SUFF]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_SUFF]"
+                      length="24"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_SUFF]"
+                      name="FATHER_SUFF"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_LNAME_PRIOR]"
+                      length="128"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[FATHER_LNAME_PRIOR]"
+                      name="FATHER_LNAME_PRIOR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_COUNTRY_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VT_COUNTRY_ID]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_COUNTRY_ID]"
+                      name="VT_COUNTRY_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_STATE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VT_STATE_ID]"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_STATE_ID]"
+                      name="VT_STATE_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      name="FamilyMemberTypeID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      name="DEATH_REC_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_NME_UNK]"
+                      dataType="i4"
+                      name="FATHER_NME_UNK" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="FATHER_GNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="FATHER_MNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="FATHER_LNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_SUFF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="FATHER_SUFF" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FATHER_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="FATHER_LNAME_PRIOR" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VT_COUNTRY_ID]"
+                      dataType="numeric"
+                      name="VT_COUNTRY_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VT_STATE_ID]"
+                      dataType="numeric"
+                      name="VT_STATE_ID"
+                      precision="10" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FamilyMemberTypeID]"
+                      name="FamilyMemberTypeID" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DEATH_REC_ID]"
+                      name="DEATH_REC_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_NME_UNK]"
+                      dataType="i4"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_NME_UNK]"
+                      name="FATHER_NME_UNK" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_GNAME]"
+                      name="FATHER_GNAME" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_MNAME]"
+                      name="FATHER_MNAME" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_LNAME]"
+                      name="FATHER_LNAME" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_SUFF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_SUFF]"
+                      name="FATHER_SUFF" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FATHER_LNAME_PRIOR]"
+                      name="FATHER_LNAME_PRIOR" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VT_COUNTRY_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VT_COUNTRY_ID]"
+                      name="VT_COUNTRY_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VT_STATE_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VT_STATE_ID]"
+                      name="VT_STATE_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Father.Paths[OLE DB Source Output]"
+              endId="Package\Load Father\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Father\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Mother"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{103CF8C8-6FA0-4D48-9852-6F4C0A6D8182}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Mother"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Mother\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[FamilyMembers]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Mother\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DEATH_REC_ID]"
+                      cachedDataType="numeric"
+                      cachedName="DEATH_REC_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DeathID]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MOTHER_NME_UNK]"
+                      cachedDataType="i4"
+                      cachedName="MOTHER_NME_UNK"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NameUnknown]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_NME_UNK]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MOTHER_GNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="MOTHER_GNAME"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_GNAME]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MOTHER_MNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="MOTHER_MNAME"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MiddleName]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_MNAME]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MOTHER_LNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="MOTHER_LNAME"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_LNAME]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MOTHER_SUFF]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="MOTHER_SUFF"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Suffix]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_SUFF]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MOTHER_LNAME_PRIOR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="MOTHER_LNAME_PRIOR"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastNamePrior]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_LNAME_PRIOR]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VT_COUNTRY_ID]"
+                      cachedDataType="numeric"
+                      cachedName="VT_COUNTRY_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CountryOfBirthID]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_COUNTRY_ID]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VT_STATE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="VT_STATE_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StateProvinceID]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_STATE_ID]" />
+                    <inputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FamilyMemberTypeID]"
+                      cachedDataType="i4"
+                      cachedName="FamilyMemberTypeID"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberTypeID]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberID]"
+                      dataType="i4"
+                      name="FamilyMemberID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DeathID]"
+                      dataType="i4"
+                      name="DeathID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NameUnknown]"
+                      dataType="bool"
+                      name="NameUnknown" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MiddleName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="MiddleName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Suffix]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Suffix" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastNamePrior]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LastNamePrior" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CountryOfBirthID]"
+                      dataType="i4"
+                      name="CountryOfBirthID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StateProvinceID]"
+                      dataType="i4"
+                      name="StateProvinceID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      name="FamilyMemberTypeID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Mother\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Mother\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Mother\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Mother\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC [RVRS].[GetFamilyMemberMotherInfo];</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Mother\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FamilyMemberTypeID]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]"
+                      name="FamilyMemberTypeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_REC_ID]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]"
+                      name="DEATH_REC_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_NME_UNK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_NME_UNK]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_NME_UNK]"
+                      name="MOTHER_NME_UNK"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_GNAME]"
+                      length="128"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_GNAME]"
+                      name="MOTHER_GNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_MNAME]"
+                      length="128"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_MNAME]"
+                      name="MOTHER_MNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_LNAME]"
+                      length="128"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_LNAME]"
+                      name="MOTHER_LNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_SUFF]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_SUFF]"
+                      length="24"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_SUFF]"
+                      name="MOTHER_SUFF"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_LNAME_PRIOR]"
+                      length="128"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[MOTHER_LNAME_PRIOR]"
+                      name="MOTHER_LNAME_PRIOR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_COUNTRY_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VT_COUNTRY_ID]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_COUNTRY_ID]"
+                      name="VT_COUNTRY_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_STATE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VT_STATE_ID]"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].Columns[VT_STATE_ID]"
+                      name="VT_STATE_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      name="FamilyMemberTypeID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      name="DEATH_REC_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_NME_UNK]"
+                      dataType="i4"
+                      name="MOTHER_NME_UNK" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="MOTHER_GNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="MOTHER_MNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="MOTHER_LNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_SUFF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="MOTHER_SUFF" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MOTHER_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="MOTHER_LNAME_PRIOR" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VT_COUNTRY_ID]"
+                      dataType="numeric"
+                      name="VT_COUNTRY_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VT_STATE_ID]"
+                      dataType="numeric"
+                      name="VT_STATE_ID"
+                      precision="10" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FamilyMemberTypeID]"
+                      name="FamilyMemberTypeID" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DEATH_REC_ID]"
+                      name="DEATH_REC_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_NME_UNK]"
+                      dataType="i4"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_NME_UNK]"
+                      name="MOTHER_NME_UNK" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_GNAME]"
+                      name="MOTHER_GNAME" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_MNAME]"
+                      name="MOTHER_MNAME" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_LNAME]"
+                      name="MOTHER_LNAME" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_SUFF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_SUFF]"
+                      name="MOTHER_SUFF" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MOTHER_LNAME_PRIOR]"
+                      name="MOTHER_LNAME_PRIOR" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VT_COUNTRY_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VT_COUNTRY_ID]"
+                      name="VT_COUNTRY_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VT_STATE_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VT_STATE_ID]"
+                      name="VT_STATE_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Mother.Paths[OLE DB Source Output]"
+              endId="Package\Load Mother\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Mother\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Spouse"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A132D318-0FF5-4451-A357-CECB548E69C3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Spouse"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Spouse\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[FamilyMembers]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Spouse\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DEATH_REC_ID]"
+                      cachedDataType="numeric"
+                      cachedName="DEATH_REC_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DeathID]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]" />
+                    <inputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SPOUSE_NAME_UNK]"
+                      cachedDataType="i4"
+                      cachedName="SPOUSE_NAME_UNK"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NameUnknown]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_NAME_UNK]" />
+                    <inputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SPOUSE_GNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="SPOUSE_GNAME"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_GNAME]" />
+                    <inputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SPOUSE_MNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="SPOUSE_MNAME"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MiddleName]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_MNAME]" />
+                    <inputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SPOUSE_LNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="SPOUSE_LNAME"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_LNAME]" />
+                    <inputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SPOUSE_SUFFIX]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="SPOUSE_SUFFIX"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Suffix]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_SUFFIX]" />
+                    <inputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SPOUSE_LNAME_PRIOR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="SPOUSE_LNAME_PRIOR"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastNamePrior]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_LNAME_PRIOR]" />
+                    <inputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FamilyMemberTypeID]"
+                      cachedDataType="i4"
+                      cachedName="FamilyMemberTypeID"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberTypeID]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberID]"
+                      dataType="i4"
+                      name="FamilyMemberID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DeathID]"
+                      dataType="i4"
+                      name="DeathID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NameUnknown]"
+                      dataType="bool"
+                      name="NameUnknown" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MiddleName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="MiddleName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Suffix]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Suffix" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastNamePrior]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LastNamePrior" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CountryOfBirthID]"
+                      dataType="i4"
+                      name="CountryOfBirthID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StateProvinceID]"
+                      dataType="i4"
+                      name="StateProvinceID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      name="FamilyMemberTypeID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Spouse\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Spouse\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Spouse\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Spouse\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC [RVRS].[GetFamilyMemberSpouseInfo];</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Spouse\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FamilyMemberTypeID]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[FamilyMemberTypeID]"
+                      name="FamilyMemberTypeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_REC_ID]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[DEATH_REC_ID]"
+                      name="DEATH_REC_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_NAME_UNK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_NAME_UNK]"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_NAME_UNK]"
+                      name="SPOUSE_NAME_UNK"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_GNAME]"
+                      length="128"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_GNAME]"
+                      name="SPOUSE_GNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_MNAME]"
+                      length="128"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_MNAME]"
+                      name="SPOUSE_MNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_LNAME]"
+                      length="128"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_LNAME]"
+                      name="SPOUSE_LNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_SUFFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_SUFFIX]"
+                      length="24"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_SUFFIX]"
+                      name="SPOUSE_SUFFIX"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_LNAME_PRIOR]"
+                      length="128"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].Columns[SPOUSE_LNAME_PRIOR]"
+                      name="SPOUSE_LNAME_PRIOR"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      name="FamilyMemberTypeID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      name="DEATH_REC_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_NAME_UNK]"
+                      dataType="i4"
+                      name="SPOUSE_NAME_UNK" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="SPOUSE_GNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="SPOUSE_MNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="SPOUSE_LNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_SUFFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="SPOUSE_SUFFIX" />
+                    <externalMetadataColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SPOUSE_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="SPOUSE_LNAME_PRIOR" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FamilyMemberTypeID]"
+                      dataType="i4"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FamilyMemberTypeID]"
+                      name="FamilyMemberTypeID" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DEATH_REC_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DEATH_REC_ID]"
+                      name="DEATH_REC_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_NAME_UNK]"
+                      dataType="i4"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_NAME_UNK]"
+                      name="SPOUSE_NAME_UNK" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_GNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_GNAME]"
+                      name="SPOUSE_GNAME" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_MNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_MNAME]"
+                      name="SPOUSE_MNAME" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_LNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_LNAME]"
+                      name="SPOUSE_LNAME" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_SUFFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_SUFFIX]"
+                      name="SPOUSE_SUFFIX" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_LNAME_PRIOR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SPOUSE_LNAME_PRIOR]"
+                      name="SPOUSE_LNAME_PRIOR" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Spouse.Paths[OLE DB Source Output]"
+              endId="Package\Load Spouse\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Spouse\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table FamilyMembers"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D4D21B96-E44F-4724-895C-76B7D78E81C7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table FamilyMembers"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{28381E66-2A4D-4922-AFF7-402B0DBD11B3}"
+          SQLTask:SqlStatementSource="Truncate Table [RVRS].[FamilyMembers];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{B6C352D4-9A75-41FF-9524-4646B64B271D}"
+      DTS:From="Package\Truncate Table FamilyMembers"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Mother" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B3DB14DA-79F5-4538-BE98-8B5463FB59C5}"
+      DTS:From="Package\Load Mother"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load Father" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{D01B7E90-79DE-40F1-AA8A-6006D5C9F3A8}"
+      DTS:From="Package\Load Father"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Load Spouse" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="134.666666666667,41.7777777777778"
+          Id="Package\Load Father"
+          TopLeft="93.3333296245999,239.827594093704" />
+        <NodeLayout
+          Size="137.777777777778,41.7777777777778"
+          Id="Package\Load Mother"
+          TopLeft="98.7499960760277,134.482763043198" />
+        <NodeLayout
+          Size="138.666666666667,41.7777777777778"
+          Id="Package\Load Spouse"
+          TopLeft="343.333319690493,237.58621470965" />
+        <NodeLayout
+          Size="225.777777777778,41.7777777777778"
+          Id="Package\Truncate Table FamilyMembers"
+          TopLeft="54.5833311643866,37.2068977752849" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="167.555552509096,78.9846755530627">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55.4980874901356"
+              Start="0,0"
+              End="0,47.9980874901356">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.9980874901356" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="164.152773961425,176.260540820976">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.5670532727279"
+              Start="0,0"
+              End="0,56.0670532727279">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.0670532727279" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="227.999996291267,259.595793290566">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="115.333323399226,0"
+              Start="0,0"
+              End="107.833323399226,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="107.833323399226,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Father">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.777777777778,41.7777777777778"
+          Id="Package\Load Father\OLE DB Source"
+          TopLeft="255,82" />
+        <NodeLayout
+          Size="170.666666666667,41.7777777777778"
+          Id="Package\Load Father\OLE DB Destination"
+          TopLeft="253,266" />
+        <EdgeLayout
+          Id="Package\Load Father.Paths[OLE DB Source Output]"
+          TopLeft="329.888888888889,123.777777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="8.4444444444444,142.222222222222"
+              Start="0,0"
+              End="8.4444444444444,134.722222222222">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.1111111111111" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,67.1111111111111"
+                    Point2="0,71.1111111111111"
+                    Point3="4,71.1111111111111" />
+                  <mssgle:LineSegment
+                    End="4.4444444444444,71.1111111111111" />
+                  <mssgle:CubicBezierSegment
+                    Point1="4.4444444444444,71.1111111111111"
+                    Point2="8.4444444444444,71.1111111111111"
+                    Point3="8.4444444444444,75.1111111111111" />
+                  <mssgle:LineSegment
+                    End="8.4444444444444,134.722222222222" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Father\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Father\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Mother">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.777777777778,41.7777777777778"
+          Id="Package\Load Mother\OLE DB Source"
+          TopLeft="58.333331015375,38.5517254057169" />
+        <NodeLayout
+          Size="170.666666666667,41.7777777777778"
+          Id="Package\Load Mother\OLE DB Destination"
+          TopLeft="56.6666644149357,148.379315224329" />
+        <EdgeLayout
+          Id="Package\Load Mother.Paths[OLE DB Source Output]"
+          TopLeft="133.222219904264,80.3295031834947">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="8.77777784400516,68.0498120408343"
+              Start="0,0"
+              End="8.77777784400516,60.5498120408343">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.0249060204171" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.0249060204171"
+                    Point2="0,34.0249060204171"
+                    Point3="4,34.0249060204171" />
+                  <mssgle:LineSegment
+                    End="4.77777784400516,34.0249060204171" />
+                  <mssgle:CubicBezierSegment
+                    Point1="4.77777784400516,34.0249060204171"
+                    Point2="8.77777784400516,34.0249060204171"
+                    Point3="8.77777784400516,38.0249060204171" />
+                  <mssgle:LineSegment
+                    End="8.77777784400516,60.5498120408343" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Mother\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Mother\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Spouse">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.777777777778,41.7777777777778"
+          Id="Package\Load Spouse\OLE DB Source"
+          TopLeft="253,104" />
+        <NodeLayout
+          Size="170.666666666667,41.7777777777778"
+          Id="Package\Load Spouse\OLE DB Destination"
+          TopLeft="244.307692307692,229.769230769231" />
+        <EdgeLayout
+          Id="Package\Load Spouse.Paths[OLE DB Source Output]"
+          TopLeft="328.764957264957,145.777777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,83.991452991453"
+              Start="0,0"
+              End="0,76.491452991453">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,76.491452991453" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Spouse\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Spouse\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

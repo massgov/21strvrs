@@ -1,0 +1,1122 @@
+{
+  "paper": {
+    "name": "A4",
+    "leftMargin": 0.5,
+    "rightMargin": 0.5,
+    "topMargin": 0.5,
+    "bottomMargin": 0.5,
+    "isPortriat": true
+  },
+  "modelVersion": 2.01,
+  "defaultSchema": "default",
+  "server": {
+    "objectType": "Server_CONCEPTUAL",
+    "name": "Default",
+    "schemas": [
+      {
+        "objectType": "Schema_CONCEPTUAL",
+        "name": "default",
+        "tables": [
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "VIP_VRV_Death_Tbl",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "LegacyPlus_Death_tbl_19691984",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "LegacyPlus_Death_tbl_19851992",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "LegacyPlus_Death_tbl_19931998",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "LegacyPlus_Death_tbl_19992014",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "VIP_VT_Codes  (Multiple Tables)",
+            "oldName": "",
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_VIP_VT_Codes  (Multiple Tables)_VIP_VRV_Death_Tbl_1",
+                "referencedSchema": "default",
+                "referencedTable": "VIP_VRV_Death_Tbl",
+                "sourceCardinality": "ManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "oldName": ""
+              }
+            ]
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "LegacyPlus_Concept_CD",
+            "oldName": "",
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_LegacyPlus_Concept_CD_LegacyPlus_Death_tbl_19931998_1",
+                "referencedSchema": "default",
+                "referencedTable": "LegacyPlus_Death_tbl_19931998",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_LegacyPlus_Concept_CD_LegacyPlus_Death_tbl_19691984_1",
+                "referencedSchema": "default",
+                "referencedTable": "LegacyPlus_Death_tbl_19691984",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_LegacyPlus_Concept_CD_LegacyPlus_Death_tbl_19851992_1",
+                "referencedSchema": "default",
+                "referencedTable": "LegacyPlus_Death_tbl_19851992",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_LegacyPlus_Concept_CD_LegacyPlus_Death_tbl_19992014_1",
+                "referencedSchema": "default",
+                "referencedTable": "LegacyPlus_Death_tbl_19992014",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "oldName": ""
+              }
+            ]
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "LegacyPlus_Value_Set_CD",
+            "oldName": "",
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_LegacyPlus_Value_Set_CD_LegacyPlus_Concept_CD_1",
+                "referencedSchema": "default",
+                "referencedTable": "LegacyPlus_Concept_CD",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "oldName": ""
+              }
+            ]
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "ODS_Death_Orginal",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "ODS_VIP_Death_Orginal",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Death_Orginal_Lookup",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "ODS_Death_Orginal_LK",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "ODS_LegacyPlus_Death_Orginal",
+            "oldName": "",
+            "foreignKeys": []
+          }
+        ]
+      }
+    ]
+  },
+  "diagrams": [
+    {
+      "name": "Diagram 1",
+      "paperWidth": 1,
+      "paperHeight": 1,
+      "tableFont": "Arial Unicode MS",
+      "tableFontSize": 14,
+      "isBalckWhite": false,
+      "showDBSchemaName": false,
+      "showViewRelations": true,
+      "notation": "crowsfoot",
+      "showFieldComment": false,
+      "showTableComment": false,
+      "shapes": [
+        {
+          "type": "rectangle",
+          "name": "Rectangle 1",
+          "x": 780,
+          "y": 160,
+          "width": 290,
+          "height": 170,
+          "opacity": 1.0,
+          "isBold": false,
+          "color": {
+            "r": 190,
+            "g": 220,
+            "b": 255,
+            "a": 1
+          },
+          "shapeStyle": "version1",
+          "label": {
+            "x": 810,
+            "y": 290,
+            "width": 87,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "database",
+          "name": "VIP",
+          "x": 50,
+          "y": 240,
+          "width": 100,
+          "height": 100,
+          "opacity": 1.0,
+          "isBold": false,
+          "shapeStyle": "version1",
+          "label": {
+            "x": 70,
+            "y": 340,
+            "width": 50,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "database",
+          "name": "LegacyPlus",
+          "x": 50,
+          "y": 390,
+          "width": 100,
+          "height": 100,
+          "opacity": 1.0,
+          "isBold": false,
+          "shapeStyle": "version1",
+          "label": {
+            "x": 60,
+            "y": 490,
+            "width": 81,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "database",
+          "name": "Access",
+          "x": 50,
+          "y": 540,
+          "width": 100,
+          "height": 100,
+          "opacity": 1.0,
+          "isBold": false,
+          "shapeStyle": "version1",
+          "label": {
+            "x": 60,
+            "y": 640,
+            "width": 52,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "label",
+          "name": "VIP",
+          "x": 80,
+          "y": 210,
+          "width": 50,
+          "height": 30,
+          "text": "VIP",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "LegacyPlus",
+          "x": 50,
+          "y": 360,
+          "width": 81,
+          "height": 30,
+          "text": "LegacyPlus",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "Access",
+          "x": 70,
+          "y": 510,
+          "width": 52,
+          "height": 30,
+          "text": "Access",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "VIP_VRV_Death_Tbl",
+          "x": 490,
+          "y": 190,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "LegacyPlus_Death_tbl_19691984",
+          "x": 490,
+          "y": 310,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "LegacyPlus_Death_tbl_19851992",
+          "x": 490,
+          "y": 470,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "arrow",
+          "name": "VIP_Death",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 210,
+              "y": 250
+            },
+            {
+              "x": 250,
+              "y": 250
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "LegacyPlus_Death",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 210,
+              "y": 450
+            },
+            {
+              "x": 250,
+              "y": 450
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "LegacyPlus_Death_tbl_19931998",
+          "x": 490,
+          "y": 390,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "LegacyPlus_Death_tbl_19992014",
+          "x": 490,
+          "y": 550,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "database",
+          "name": "RVRS_Staging",
+          "x": 420,
+          "y": 50,
+          "width": 100,
+          "height": 100,
+          "opacity": 1.0,
+          "isBold": false,
+          "shapeStyle": "version1",
+          "label": {
+            "x": 430,
+            "y": 150,
+            "width": 101,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "label",
+          "name": "RVRS_Staging",
+          "x": 410,
+          "y": 20,
+          "width": 101,
+          "height": 30,
+          "text": "RVRS_Staging",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "VIP_VT_Codes  (Multiple Tables)",
+          "x": 290,
+          "y": 200,
+          "width": 150,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "arrow",
+          "name": "Staging_ODS",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 720,
+              "y": 390
+            },
+            {
+              "x": 750,
+              "y": 390
+            }
+          ]
+        },
+        {
+          "type": "database",
+          "name": "RVRS_ODS",
+          "x": 910,
+          "y": 60,
+          "width": 100,
+          "height": 100,
+          "opacity": 1.0,
+          "isBold": false,
+          "shapeStyle": "version1",
+          "label": {
+            "x": 920,
+            "y": 160,
+            "width": 79,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "arrow",
+          "name": "Access Copy 1",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 210,
+              "y": 600
+            },
+            {
+              "x": 260,
+              "y": 600
+            }
+          ]
+        },
+        {
+          "type": "label",
+          "name": "RVRS_Staging Copy 1",
+          "x": 910,
+          "y": 30,
+          "width": 79,
+          "height": 30,
+          "text": "RVRS_ODS",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "LegacyPlus_Concept_CD",
+          "x": 290,
+          "y": 410,
+          "width": 160,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "LegacyPlus_Value_Set_CD",
+          "x": 290,
+          "y": 590,
+          "width": 160,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "ODS_Death_Orginal",
+          "x": 800,
+          "y": 200,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "label",
+          "name": "Label 1",
+          "x": 790,
+          "y": 170,
+          "width": 320,
+          "height": 50,
+          "text": "Option 1) One Big Table that merges all data",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "rectangle",
+          "name": "Rectangle 1 Copy 1",
+          "x": 780,
+          "y": 360,
+          "width": 290,
+          "height": 260,
+          "opacity": 1.0,
+          "isBold": false,
+          "color": {
+            "r": 190,
+            "g": 220,
+            "b": 255,
+            "a": 1
+          },
+          "shapeStyle": "version1",
+          "label": {
+            "x": 810,
+            "y": 490,
+            "width": 137,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "ODS_VIP_Death_Orginal",
+          "x": 800,
+          "y": 400,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "label",
+          "name": "Label 1 Copy 1",
+          "x": 790,
+          "y": 370,
+          "width": 366,
+          "height": 30,
+          "text": "Option 2)  Independent Table for VIP and LegacyPlus ",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "ODS_LegacyPlus_Death_Orginal",
+          "x": 800,
+          "y": 510,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "rectangle",
+          "name": "Rectangle 1 Copy 1 Copy 1",
+          "x": 790,
+          "y": 650,
+          "width": 290,
+          "height": 260,
+          "opacity": 1.0,
+          "isBold": false,
+          "color": {
+            "r": 190,
+            "g": 220,
+            "b": 255,
+            "a": 1
+          },
+          "shapeStyle": "version1",
+          "label": {
+            "x": 820,
+            "y": 780,
+            "width": 187,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "ODS_Death_Orginal_LK",
+          "x": 810,
+          "y": 690,
+          "width": 210,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "label",
+          "name": "Label 1 Copy 1 Copy 1",
+          "x": 800,
+          "y": 660,
+          "width": 358,
+          "height": 30,
+          "text": "Option 3) One Big Table that merges all with lookup",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Death_Orginal_Lookup",
+          "x": 810,
+          "y": 800,
+          "width": 190,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        }
+      ],
+      "layers": [
+        {
+          "name": "Source",
+          "x": 10,
+          "y": 190,
+          "width": 200,
+          "height": 470,
+          "layerColor": {
+            "r": 100,
+            "g": 234,
+            "b": 136,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "fontColor": {
+            "r": 51,
+            "g": 51,
+            "b": 51,
+            "a": 1
+          }
+        },
+        {
+          "name": "RVRS_Staging",
+          "x": 260,
+          "y": 10,
+          "width": 470,
+          "height": 730,
+          "layerColor": {
+            "r": 100,
+            "g": 234,
+            "b": 136,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "fontColor": {
+            "r": 51,
+            "g": 51,
+            "b": 51,
+            "a": 1
+          }
+        },
+        {
+          "name": "RVRS_ODS",
+          "x": 760,
+          "y": 20,
+          "width": 420,
+          "height": 920,
+          "layerColor": {
+            "r": 100,
+            "g": 234,
+            "b": 136,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "fontColor": {
+            "r": 51,
+            "g": 51,
+            "b": 51,
+            "a": 1
+          }
+        }
+      ],
+      "relations": [
+        {
+          "name": "fk_VIP_VT_Codes  (Multiple Tables)_VIP_VRV_Death_Tbl_1",
+          "sourceTableName": "VIP_VT_Codes  (Multiple Tables)",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 455,
+              "y": 240
+            },
+            {
+              "x": 620,
+              "y": 240
+            },
+            {
+              "x": 290,
+              "y": 240
+            },
+            {
+              "x": 475,
+              "y": 240
+            }
+          ],
+          "label": {
+            "x": 365,
+            "y": 202,
+            "width": 385,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_LegacyPlus_Concept_CD_LegacyPlus_Death_tbl_19931998_1",
+          "sourceTableName": "LegacyPlus_Concept_CD",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 465,
+              "y": 430
+            },
+            {
+              "x": 590,
+              "y": 430
+            },
+            {
+              "x": 320,
+              "y": 430
+            },
+            {
+              "x": 475,
+              "y": 430
+            }
+          ],
+          "label": {
+            "x": 329,
+            "y": 392,
+            "width": 421,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_LegacyPlus_Concept_CD_LegacyPlus_Death_tbl_19691984_1",
+          "sourceTableName": "LegacyPlus_Concept_CD",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 350,
+              "y": 395
+            },
+            {
+              "x": 350,
+              "y": 340
+            },
+            {
+              "x": 475,
+              "y": 340
+            }
+          ],
+          "label": {
+            "x": 329,
+            "y": 365,
+            "width": 421,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_LegacyPlus_Concept_CD_LegacyPlus_Death_tbl_19851992_1",
+          "sourceTableName": "LegacyPlus_Concept_CD",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 465,
+              "y": 490
+            },
+            {
+              "x": 380,
+              "y": 490
+            },
+            {
+              "x": 475,
+              "y": 490
+            }
+          ],
+          "label": {
+            "x": 329,
+            "y": 452,
+            "width": 421,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_LegacyPlus_Concept_CD_LegacyPlus_Death_tbl_19992014_1",
+          "sourceTableName": "LegacyPlus_Concept_CD",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 430,
+              "y": 525
+            },
+            {
+              "x": 430,
+              "y": 590
+            },
+            {
+              "x": 475,
+              "y": 590
+            }
+          ],
+          "label": {
+            "x": 329,
+            "y": 475,
+            "width": 421,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_LegacyPlus_Value_Set_CD_LegacyPlus_Concept_CD_1",
+          "sourceTableName": "LegacyPlus_Value_Set_CD",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 370,
+              "y": 575
+            },
+            {
+              "x": 370,
+              "y": 550
+            },
+            {
+              "x": 370,
+              "y": 550
+            },
+            {
+              "x": 370,
+              "y": 525
+            }
+          ],
+          "label": {
+            "x": 373,
+            "y": 555,
+            "width": 377,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        }
+      ],
+      "viewRelations": []
+    }
+  ]
+}

@@ -1,0 +1,1569 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/9/2021 11:11:31 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DPH-MXL00429DQ"
+  DTS:CreatorName="EHS\RNagaraj"
+  DTS:DTSID="{31596F47-1AAD-47C1-BE59-EB649C8F158B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Extract_VIP_HLTH_CARE_FAC_CD"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{8050AE39-54A6-480E-9D9C-82DA4DE2FCF5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D37F1466-5C67-4989-ADEB-36E0699CFAA9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\HLTH_CARE_FAC Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="HLTH_CARE_FAC Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select *  FROM [DWP1RAC]..[MA_VRVWEB_VT].[VT_HLTH_CARE_FAC]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[VT_HLTH_CARE_FAC_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[VT_HLTH_CARE_FAC_ID]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[VT_HLTH_CARE_FAC_ID]"
+                      name="VT_HLTH_CARE_FAC_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[VOID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[VOID]"
+                      name="VOID"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      name="BUBBLE_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_NAME]"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_NAME]"
+                      name="HCF_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ID_NUM]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_ID_NUM]"
+                      length="12"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ID_NUM]"
+                      name="HCF_ID_NUM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_COUNTY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_COUNTY]"
+                      length="28"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_COUNTY]"
+                      name="HCF_COUNTY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_CITY]"
+                      length="28"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CITY]"
+                      name="HCF_CITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ZIP_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_ZIP_CODE]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ZIP_CODE]"
+                      name="HCF_ZIP_CODE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ADDRESS]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_ADDRESS]"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ADDRESS]"
+                      name="HCF_ADDRESS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_LOCATION]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_LOCATION]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_LOCATION]"
+                      name="HCF_LOCATION"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[ST_FIPS]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[ST_FIPS]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[ST_FIPS]"
+                      name="ST_FIPS"
+                      precision="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CO_FIPS_HOSP_CODE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[CO_FIPS_HOSP_CODE]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CO_FIPS_HOSP_CODE]"
+                      name="CO_FIPS_HOSP_CODE"
+                      precision="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CONTACT]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_CONTACT]"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CONTACT]"
+                      name="HCF_CONTACT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_PHONE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_PHONE]"
+                      length="13"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_PHONE]"
+                      name="HCF_PHONE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[EXT]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[EXT]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[EXT]"
+                      name="EXT"
+                      precision="4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STATE]"
+                      length="32"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STATE]"
+                      name="HCF_STATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[DESCRIPTION]"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DESCRIPTION]"
+                      name="DESCRIPTION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_COUNTRY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_COUNTRY]"
+                      length="64"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_COUNTRY]"
+                      name="HCF_COUNTRY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CITY_FIPS_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[CITY_FIPS_CODE]"
+                      length="5"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CITY_FIPS_CODE]"
+                      name="CITY_FIPS_CODE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STATE_ALPHA_FIPS]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STATE_ALPHA_FIPS]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STATE_ALPHA_FIPS]"
+                      name="HCF_STATE_ALPHA_FIPS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BLANK]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[BLANK]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BLANK]"
+                      name="BLANK"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BIRTH_FACILITY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[BIRTH_FACILITY]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BIRTH_FACILITY]"
+                      name="BIRTH_FACILITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DEATH_HOSPITAL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_HOSPITAL]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DEATH_HOSPITAL]"
+                      name="DEATH_HOSPITAL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DEATH_OTHER]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_OTHER]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DEATH_OTHER]"
+                      name="DEATH_OTHER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ADDRESS2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_ADDRESS2]"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ADDRESS2]"
+                      name="HCF_ADDRESS2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_BPLACE_CODE_TO_NCHS]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_BPLACE_CODE_TO_NCHS]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_BPLACE_CODE_TO_NCHS]"
+                      name="HCF_BPLACE_CODE_TO_NCHS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_NUM]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STREET_NUM]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_NUM]"
+                      name="HCF_STREET_NUM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_PO_BOX]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_PO_BOX]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_PO_BOX]"
+                      name="HCF_PO_BOX"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_PREFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STREET_PREFIX]"
+                      length="64"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_PREFIX]"
+                      name="HCF_STREET_PREFIX"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_SUFFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STREET_SUFFIX]"
+                      length="64"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_SUFFIX]"
+                      name="HCF_STREET_SUFFIX"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_DESIG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STREET_DESIG]"
+                      length="64"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_DESIG]"
+                      name="HCF_STREET_DESIG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CLERK_LOC_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_CLERK_LOC_ID]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CLERK_LOC_ID]"
+                      name="HCF_CLERK_LOC_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CERT_HCF_LIST]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[CERT_HCF_LIST]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CERT_HCF_LIST]"
+                      name="CERT_HCF_LIST"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_BA_LOC_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_BA_LOC_ID]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_BA_LOC_ID]"
+                      name="HCF_BA_LOC_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[VT_HLTH_CARE_FAC_ID]"
+                      dataType="numeric"
+                      name="VT_HLTH_CARE_FAC_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      dataType="numeric"
+                      name="VOID"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="HCF_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_ID_NUM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="HCF_ID_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_COUNTY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      name="HCF_COUNTY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      name="HCF_CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_ZIP_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="HCF_ZIP_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_ADDRESS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="HCF_ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_LOCATION]"
+                      dataType="numeric"
+                      name="HCF_LOCATION"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[ST_FIPS]"
+                      dataType="numeric"
+                      name="ST_FIPS"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[CO_FIPS_HOSP_CODE]"
+                      dataType="numeric"
+                      name="CO_FIPS_HOSP_CODE"
+                      precision="7" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_CONTACT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="HCF_CONTACT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_PHONE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="HCF_PHONE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[EXT]"
+                      dataType="numeric"
+                      name="EXT"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="HCF_STATE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="DESCRIPTION" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_COUNTRY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="HCF_COUNTRY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[CITY_FIPS_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="CITY_FIPS_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STATE_ALPHA_FIPS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="HCF_STATE_ALPHA_FIPS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[BLANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="BLANK" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[BIRTH_FACILITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="BIRTH_FACILITY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_HOSPITAL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DEATH_HOSPITAL" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[DEATH_OTHER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DEATH_OTHER" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_ADDRESS2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="HCF_ADDRESS2" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_BPLACE_CODE_TO_NCHS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="HCF_BPLACE_CODE_TO_NCHS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STREET_NUM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="HCF_STREET_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_PO_BOX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="HCF_PO_BOX" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STREET_PREFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="HCF_STREET_PREFIX" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STREET_SUFFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="HCF_STREET_SUFFIX" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_STREET_DESIG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="HCF_STREET_DESIG" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_CLERK_LOC_ID]"
+                      dataType="numeric"
+                      name="HCF_CLERK_LOC_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[CERT_HCF_LIST]"
+                      dataType="numeric"
+                      name="CERT_HCF_LIST"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].ExternalColumns[HCF_BA_LOC_ID]"
+                      dataType="numeric"
+                      name="HCF_BA_LOC_ID"
+                      precision="10" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[VT_HLTH_CARE_FAC_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[VT_HLTH_CARE_FAC_ID]"
+                      name="VT_HLTH_CARE_FAC_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      name="VOID"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_NAME]"
+                      name="HCF_NAME" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_ID_NUM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_ID_NUM]"
+                      name="HCF_ID_NUM" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_COUNTY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_COUNTY]"
+                      name="HCF_COUNTY" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_CITY]"
+                      name="HCF_CITY" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_ZIP_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_ZIP_CODE]"
+                      name="HCF_ZIP_CODE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_ADDRESS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_ADDRESS]"
+                      name="HCF_ADDRESS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_LOCATION]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_LOCATION]"
+                      name="HCF_LOCATION"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[ST_FIPS]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[ST_FIPS]"
+                      name="ST_FIPS"
+                      precision="3" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[CO_FIPS_HOSP_CODE]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[CO_FIPS_HOSP_CODE]"
+                      name="CO_FIPS_HOSP_CODE"
+                      precision="7" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_CONTACT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_CONTACT]"
+                      name="HCF_CONTACT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_PHONE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_PHONE]"
+                      name="HCF_PHONE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[EXT]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[EXT]"
+                      name="EXT"
+                      precision="4" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STATE]"
+                      name="HCF_STATE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[DESCRIPTION]"
+                      name="DESCRIPTION" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_COUNTRY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_COUNTRY]"
+                      name="HCF_COUNTRY" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[CITY_FIPS_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[CITY_FIPS_CODE]"
+                      name="CITY_FIPS_CODE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STATE_ALPHA_FIPS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STATE_ALPHA_FIPS]"
+                      name="HCF_STATE_ALPHA_FIPS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[BLANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[BLANK]"
+                      name="BLANK" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[BIRTH_FACILITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[BIRTH_FACILITY]"
+                      name="BIRTH_FACILITY" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[DEATH_HOSPITAL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[DEATH_HOSPITAL]"
+                      name="DEATH_HOSPITAL" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[DEATH_OTHER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[DEATH_OTHER]"
+                      name="DEATH_OTHER" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_ADDRESS2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_ADDRESS2]"
+                      name="HCF_ADDRESS2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_BPLACE_CODE_TO_NCHS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_BPLACE_CODE_TO_NCHS]"
+                      name="HCF_BPLACE_CODE_TO_NCHS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STREET_NUM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STREET_NUM]"
+                      name="HCF_STREET_NUM" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_PO_BOX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_PO_BOX]"
+                      name="HCF_PO_BOX" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STREET_PREFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STREET_PREFIX]"
+                      name="HCF_STREET_PREFIX" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STREET_SUFFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STREET_SUFFIX]"
+                      name="HCF_STREET_SUFFIX" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STREET_DESIG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_STREET_DESIG]"
+                      name="HCF_STREET_DESIG" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_CLERK_LOC_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_CLERK_LOC_ID]"
+                      name="HCF_CLERK_LOC_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[CERT_HCF_LIST]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[CERT_HCF_LIST]"
+                      name="CERT_HCF_LIST"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_BA_LOC_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[HCF_BA_LOC_ID]"
+                      name="HCF_BA_LOC_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Hlth_Care_Fac_CD"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Hlth_Care_Fac_CD"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[VIP_VT_Hlth_Care_Fac_CD]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[VT_HLTH_CARE_FAC_ID]"
+                      cachedDataType="numeric"
+                      cachedName="VT_HLTH_CARE_FAC_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_HLTH_CARE_FAC_ID]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[VT_HLTH_CARE_FAC_ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[VOID]"
+                      cachedDataType="numeric"
+                      cachedName="VOID"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[VOID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="BUBBLE_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="HCF_NAME"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_NAME]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_NAME]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_ID_NUM]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="12"
+                      cachedName="HCF_ID_NUM"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_ID_NUM]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ID_NUM]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_COUNTY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="28"
+                      cachedName="HCF_COUNTY"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_COUNTY]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_COUNTY]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_CITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="28"
+                      cachedName="HCF_CITY"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_CITY]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CITY]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_ZIP_CODE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="HCF_ZIP_CODE"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_ZIP_CODE]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ZIP_CODE]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_ADDRESS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="HCF_ADDRESS"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_ADDRESS]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ADDRESS]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_LOCATION]"
+                      cachedDataType="numeric"
+                      cachedName="HCF_LOCATION"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_LOCATION]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_LOCATION]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[ST_FIPS]"
+                      cachedDataType="numeric"
+                      cachedName="ST_FIPS"
+                      cachedPrecision="3"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[ST_FIPS]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[ST_FIPS]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[CO_FIPS_HOSP_CODE]"
+                      cachedDataType="numeric"
+                      cachedName="CO_FIPS_HOSP_CODE"
+                      cachedPrecision="7"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[CO_FIPS_HOSP_CODE]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CO_FIPS_HOSP_CODE]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_CONTACT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="HCF_CONTACT"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_CONTACT]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CONTACT]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_PHONE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="13"
+                      cachedName="HCF_PHONE"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_PHONE]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_PHONE]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[EXT]"
+                      cachedDataType="numeric"
+                      cachedName="EXT"
+                      cachedPrecision="4"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[EXT]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[EXT]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_STATE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="32"
+                      cachedName="HCF_STATE"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STATE]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STATE]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[DESCRIPTION]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="DESCRIPTION"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[DESCRIPTION]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DESCRIPTION]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_COUNTRY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="HCF_COUNTRY"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_COUNTRY]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_COUNTRY]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[CITY_FIPS_CODE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="CITY_FIPS_CODE"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[CITY_FIPS_CODE]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CITY_FIPS_CODE]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_STATE_ALPHA_FIPS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="HCF_STATE_ALPHA_FIPS"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STATE_ALPHA_FIPS]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STATE_ALPHA_FIPS]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[BLANK]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="BLANK"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[BLANK]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BLANK]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[BIRTH_FACILITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="BIRTH_FACILITY"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[BIRTH_FACILITY]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[BIRTH_FACILITY]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[DEATH_HOSPITAL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="DEATH_HOSPITAL"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[DEATH_HOSPITAL]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DEATH_HOSPITAL]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[DEATH_OTHER]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="DEATH_OTHER"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[DEATH_OTHER]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[DEATH_OTHER]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_ADDRESS2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="128"
+                      cachedName="HCF_ADDRESS2"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_ADDRESS2]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_ADDRESS2]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_BPLACE_CODE_TO_NCHS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="HCF_BPLACE_CODE_TO_NCHS"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_BPLACE_CODE_TO_NCHS]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_BPLACE_CODE_TO_NCHS]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_STREET_NUM]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="HCF_STREET_NUM"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STREET_NUM]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_NUM]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_PO_BOX]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="HCF_PO_BOX"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_PO_BOX]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_PO_BOX]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_STREET_PREFIX]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="HCF_STREET_PREFIX"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STREET_PREFIX]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_PREFIX]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_STREET_SUFFIX]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="HCF_STREET_SUFFIX"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STREET_SUFFIX]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_SUFFIX]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_STREET_DESIG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="HCF_STREET_DESIG"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STREET_DESIG]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_STREET_DESIG]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_CLERK_LOC_ID]"
+                      cachedDataType="numeric"
+                      cachedName="HCF_CLERK_LOC_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_CLERK_LOC_ID]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_CLERK_LOC_ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[CERT_HCF_LIST]"
+                      cachedDataType="numeric"
+                      cachedName="CERT_HCF_LIST"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[CERT_HCF_LIST]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[CERT_HCF_LIST]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].Columns[HCF_BA_LOC_ID]"
+                      cachedDataType="numeric"
+                      cachedName="HCF_BA_LOC_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_BA_LOC_ID]"
+                      lineageId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output].Columns[HCF_BA_LOC_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_HLTH_CARE_FAC_ID]"
+                      dataType="numeric"
+                      name="VT_HLTH_CARE_FAC_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      dataType="numeric"
+                      name="VOID"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="HCF_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_ID_NUM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="HCF_ID_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_COUNTY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      name="HCF_COUNTY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      name="HCF_CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_ZIP_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="HCF_ZIP_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_ADDRESS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="HCF_ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_LOCATION]"
+                      dataType="numeric"
+                      name="HCF_LOCATION"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[ST_FIPS]"
+                      dataType="numeric"
+                      name="ST_FIPS"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[CO_FIPS_HOSP_CODE]"
+                      dataType="numeric"
+                      name="CO_FIPS_HOSP_CODE"
+                      precision="7" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_CONTACT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="HCF_CONTACT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_PHONE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="HCF_PHONE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[EXT]"
+                      dataType="numeric"
+                      name="EXT"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="HCF_STATE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="DESCRIPTION" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_COUNTRY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="HCF_COUNTRY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[CITY_FIPS_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="CITY_FIPS_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STATE_ALPHA_FIPS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="HCF_STATE_ALPHA_FIPS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[BLANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="BLANK" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[BIRTH_FACILITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="BIRTH_FACILITY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[DEATH_HOSPITAL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DEATH_HOSPITAL" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[DEATH_OTHER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DEATH_OTHER" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_ADDRESS2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="128"
+                      name="HCF_ADDRESS2" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_BPLACE_CODE_TO_NCHS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="HCF_BPLACE_CODE_TO_NCHS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STREET_NUM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="HCF_STREET_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_PO_BOX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="HCF_PO_BOX" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STREET_PREFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="HCF_STREET_PREFIX" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STREET_SUFFIX]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="HCF_STREET_SUFFIX" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_STREET_DESIG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="HCF_STREET_DESIG" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_CLERK_LOC_ID]"
+                      dataType="numeric"
+                      name="HCF_CLERK_LOC_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[CERT_HCF_LIST]"
+                      dataType="numeric"
+                      name="CERT_HCF_LIST"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input].ExternalColumns[HCF_BA_LOC_ID]"
+                      dataType="numeric"
+                      name="HCF_BA_LOC_ID"
+                      precision="10" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Hlth_Care_Fac_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Hlth_Care_Fac_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Hlth_Care_Fac_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[OLE DB Source Output]"
+              endId="Package\Data Flow Task\Hlth_Care_Fac_CD.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task\HLTH_CARE_FAC Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Data Flow Task"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="202.4,41.6"
+          Id="Package\Data Flow Task\HLTH_CARE_FAC Source"
+          TopLeft="585,128" />
+        <NodeLayout
+          Size="168.8,41.6"
+          Id="Package\Data Flow Task\Hlth_Care_Fac_CD"
+          TopLeft="574,213" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
+          TopLeft="686.2,169.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-27.8000000000001,43.4"
+              Start="0,0"
+              End="-27.8000000000001,35.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.7"
+                    Point2="0,21.7"
+                    Point3="-4,21.7" />
+                  <mssgle:LineSegment
+                    End="-23.8000000000001,21.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-23.8000000000001,21.7"
+                    Point2="-27.8000000000001,21.7"
+                    Point3="-27.8000000000001,25.7" />
+                  <mssgle:LineSegment
+                    End="-27.8000000000001,35.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\HLTH_CARE_FAC Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Hlth_Care_Fac_CD">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

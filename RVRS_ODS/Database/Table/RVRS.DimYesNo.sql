@@ -1,0 +1,30 @@
+--drop table [RVRS].[DimYesNo]
+--sp_help  '[RVRS].[DimYesNo]'
+--select * from [RVRS].[DimYesNo]
+--
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.Objects 
+					WHERE object_id = OBJECT_ID('[RVRS].[DimYesNo]') )
+	BEGIN 
+		CREATE TABLE [RVRS].[DimYesNo](
+			[DimYesNoId] INT NOT NULL IDENTITY (1,1),	
+			[BkYesNoId] INT NOT NULL,
+		    [YesNoDesc] VARCHAR(128) NOT NULL,
+			[Abbr] VARCHAR(16) NULL,			
+			[StartDate] DateTime NULL,
+			[EndDate] DateTime NULL,
+			[SrcVoid] TINYINT NOT NULL, 
+		CONSTRAINT [pk_DimYesNoId] PRIMARY KEY CLUSTERED 
+		(
+			[DimYesNoId] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY]
+	END 
+GO
+

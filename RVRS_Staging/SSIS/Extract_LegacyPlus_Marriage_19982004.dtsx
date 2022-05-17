@@ -1,0 +1,1782 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/21/2021 1:37:29 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DPH-CO-W0622WG"
+  DTS:CreatorName="EHS\frahman"
+  DTS:DTSID="{7849D6F9-2F42-497A-8641-EDD87A3CFF36}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Extract_LegacyPlus_Marriage_19982004"
+  DTS:PackageType="5"
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{6739C1FE-6ABC-4997-9010-C05041054FA5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Marriage 19982004"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{8459E04F-BC7A-408B-8BDE-4B82F00806C5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Marriage 19982004"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Marriage 19982004\ODBC Source 1"
+              componentClassID="Microsoft.SSISODBCSrc"
+              description="ODBC Source"
+              name="ODBC Source 1"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">"public"."marriage_tbl_19982004"</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  expressionType="Notify"
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Marriage 19982004\ODBC Source 1.Connections[ODBCConnection]"
+                  connectionManagerID="{D745DCBF-643C-4620-9553-E651CDA40C50}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_Postgres32_unicode]"
+                  description="The ODBC runtime connection used to access the database."
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output]"
+                  errorRowDisposition="FailComponent"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="FailComponent">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[cert_number]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[cert_number]"
+                      length="6"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[cert_number]"
+                      name="cert_number" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[marriage_date]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[marriage_date]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[marriage_date]"
+                      name="marriage_date" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_last_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_last_name]"
+                      length="12"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_last_name]"
+                      name="groom_last_name" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_first_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_first_name]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_first_name]"
+                      name="groom_first_name" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_age]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_age]"
+                      length="75"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_age]"
+                      name="groom_age" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_nmbr_of_this_marriage]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_nmbr_of_this_marriage]"
+                      length="1"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_nmbr_of_this_marriage]"
+                      name="groom_nmbr_of_this_marriage" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_last_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_last_name]"
+                      length="12"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_last_name]"
+                      name="brides_last_name" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_first_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_first_name]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_first_name]"
+                      name="brides_first_name" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_age]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_age]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_age]"
+                      name="brides_age" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_number_of_marriages]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_number_of_marriages]"
+                      length="1"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_number_of_marriages]"
+                      name="bride_number_of_marriages" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[hsa_occurrence_town]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[hsa_occurrence_town]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[hsa_occurrence_town]"
+                      name="hsa_occurrence_town" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[hsa_town_making_return]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[hsa_town_making_return]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[hsa_town_making_return]"
+                      name="hsa_town_making_return" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[grooms_dt_of_bth]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[grooms_dt_of_bth]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[grooms_dt_of_bth]"
+                      name="grooms_dt_of_bth" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_dt_of_bth]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_dt_of_bth]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_dt_of_bth]"
+                      name="brides_dt_of_bth" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_state_of_residence]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_state_of_residence]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_state_of_residence]"
+                      name="groom_state_of_residence" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_state_of_residence]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_state_of_residence]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_state_of_residence]"
+                      name="bride_state_of_residence" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[name_of_twn_where_mrg_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[name_of_twn_where_mrg_occ]"
+                      length="15"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[name_of_twn_where_mrg_occ]"
+                      name="name_of_twn_where_mrg_occ" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[nme_of_twn_where_lic_issued]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[nme_of_twn_where_lic_issued]"
+                      length="15"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[nme_of_twn_where_lic_issued]"
+                      name="nme_of_twn_where_lic_issued" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_residence_city_town]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_residence_city_town]"
+                      length="18"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_residence_city_town]"
+                      name="groom_residence_city_town" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_residence_city_town]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_residence_city_town]"
+                      length="18"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_residence_city_town]"
+                      name="bride_residence_city_town" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[position_172]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[position_172]"
+                      length="75"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[position_172]"
+                      name="position_172" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[block_175180]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[block_175180]"
+                      length="6"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[block_175180]"
+                      name="block_175180" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[marriage_registration_nmb]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[marriage_registration_nmb]"
+                      length="6"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[marriage_registration_nmb]"
+                      name="marriage_registration_nmb" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[year_mar]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[year_mar]"
+                      length="4"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[year_mar]"
+                      name="year_mar" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[title]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[title]"
+                      length="200"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[title]"
+                      name="title" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[subtitle]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[subtitle]"
+                      length="200"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[subtitle]"
+                      name="subtitle" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[has_possible_matches]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[has_possible_matches]"
+                      length="5"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[has_possible_matches]"
+                      name="has_possible_matches" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[created_by_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[created_by_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[created_by_id]"
+                      name="created_by_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[created_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[created_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[created_date]"
+                      name="created_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_calculated_srv_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_calculated_srv_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_calculated_srv_date]"
+                      name="last_calculated_srv_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_modified_by_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_modified_by_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_modified_by_id]"
+                      name="last_modified_by_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_modified_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_modified_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_modified_date]"
+                      name="last_modified_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[entity_version]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[entity_version]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[entity_version]"
+                      name="entity_version" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[occurance_town_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[occurance_town_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[occurance_town_id]"
+                      name="occurance_town_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[massachusetts_resident_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[massachusetts_resident_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[massachusetts_resident_id]"
+                      name="massachusetts_resident_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[status_groom_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[status_groom_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[status_groom_id]"
+                      name="status_groom_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_residence_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_residence_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_residence_id]"
+                      name="brides_residence_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[status_bride_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[status_bride_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[status_bride_id]"
+                      name="status_bride_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[county_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[county_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[county_id]"
+                      name="county_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      name="cty_twn_mkg_rtrn_wh_mrg_lic_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[county_twn_mkng_ret_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[county_twn_mkng_ret_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[county_twn_mkng_ret_id]"
+                      name="county_twn_mkng_ret_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_state_of_residence_cde_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_state_of_residence_cde_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_state_of_residence_cde_id]"
+                      name="groom_state_of_residence_cde_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_state_of_residence_cde_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_state_of_residence_cde_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_state_of_residence_cde_id]"
+                      name="bride_state_of_residence_cde_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[federal_flag_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[federal_flag_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[federal_flag_id]"
+                      name="federal_flag_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[type_of_officiant_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[type_of_officiant_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[type_of_officiant_id]"
+                      name="type_of_officiant_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[dedupe_status_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[dedupe_status_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[dedupe_status_id]"
+                      name="dedupe_status_id" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[id]"
+                      dataType="guid"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[cert_number]"
+                      dataType="wstr"
+                      length="6"
+                      name="cert_number" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[marriage_date]"
+                      dataType="wstr"
+                      length="8"
+                      name="marriage_date" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_last_name]"
+                      dataType="wstr"
+                      length="12"
+                      name="groom_last_name" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_first_name]"
+                      dataType="wstr"
+                      length="8"
+                      name="groom_first_name" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_age]"
+                      dataType="wstr"
+                      length="75"
+                      name="groom_age" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_nmbr_of_this_marriage]"
+                      dataType="wstr"
+                      length="1"
+                      name="groom_nmbr_of_this_marriage" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_last_name]"
+                      dataType="wstr"
+                      length="12"
+                      name="brides_last_name" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_first_name]"
+                      dataType="wstr"
+                      length="8"
+                      name="brides_first_name" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_age]"
+                      dataType="wstr"
+                      length="2"
+                      name="brides_age" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_number_of_marriages]"
+                      dataType="wstr"
+                      length="1"
+                      name="bride_number_of_marriages" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[hsa_occurrence_town]"
+                      dataType="wstr"
+                      length="2"
+                      name="hsa_occurrence_town" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[hsa_town_making_return]"
+                      dataType="wstr"
+                      length="2"
+                      name="hsa_town_making_return" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[grooms_dt_of_bth]"
+                      dataType="wstr"
+                      length="8"
+                      name="grooms_dt_of_bth" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_dt_of_bth]"
+                      dataType="wstr"
+                      length="8"
+                      name="brides_dt_of_bth" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_state_of_residence]"
+                      dataType="wstr"
+                      length="2"
+                      name="groom_state_of_residence" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_state_of_residence]"
+                      dataType="wstr"
+                      length="2"
+                      name="bride_state_of_residence" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[name_of_twn_where_mrg_occ]"
+                      dataType="wstr"
+                      length="15"
+                      name="name_of_twn_where_mrg_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[nme_of_twn_where_lic_issued]"
+                      dataType="wstr"
+                      length="15"
+                      name="nme_of_twn_where_lic_issued" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_residence_city_town]"
+                      dataType="wstr"
+                      length="18"
+                      name="groom_residence_city_town" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_residence_city_town]"
+                      dataType="wstr"
+                      length="18"
+                      name="bride_residence_city_town" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[position_172]"
+                      dataType="wstr"
+                      length="75"
+                      name="position_172" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[block_175180]"
+                      dataType="wstr"
+                      length="6"
+                      name="block_175180" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[marriage_registration_nmb]"
+                      dataType="wstr"
+                      length="6"
+                      name="marriage_registration_nmb" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[year_mar]"
+                      dataType="wstr"
+                      length="4"
+                      name="year_mar" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[title]"
+                      dataType="wstr"
+                      length="200"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[subtitle]"
+                      dataType="wstr"
+                      length="200"
+                      name="subtitle" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[has_possible_matches]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="has_possible_matches" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[created_by_id]"
+                      dataType="guid"
+                      name="created_by_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[created_date]"
+                      dataType="dbTimeStamp2"
+                      name="created_date"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_calculated_srv_date]"
+                      dataType="dbTimeStamp2"
+                      name="last_calculated_srv_date"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_modified_by_id]"
+                      dataType="guid"
+                      name="last_modified_by_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_modified_date]"
+                      dataType="dbTimeStamp2"
+                      name="last_modified_date"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[entity_version]"
+                      dataType="i4"
+                      name="entity_version" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[occurance_town_id]"
+                      dataType="guid"
+                      name="occurance_town_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[massachusetts_resident_id]"
+                      dataType="guid"
+                      name="massachusetts_resident_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[status_groom_id]"
+                      dataType="guid"
+                      name="status_groom_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_residence_id]"
+                      dataType="guid"
+                      name="brides_residence_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[status_bride_id]"
+                      dataType="guid"
+                      name="status_bride_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[county_id]"
+                      dataType="guid"
+                      name="county_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      dataType="guid"
+                      name="cty_twn_mkg_rtrn_wh_mrg_lic_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[county_twn_mkng_ret_id]"
+                      dataType="guid"
+                      name="county_twn_mkng_ret_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_state_of_residence_cde_id]"
+                      dataType="guid"
+                      name="groom_state_of_residence_cde_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_state_of_residence_cde_id]"
+                      dataType="guid"
+                      name="bride_state_of_residence_cde_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[federal_flag_id]"
+                      dataType="guid"
+                      name="federal_flag_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[type_of_officiant_id]"
+                      dataType="guid"
+                      name="type_of_officiant_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[dedupe_status_id]"
+                      dataType="guid"
+                      name="dedupe_status_id" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[cert_number]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[cert_number]"
+                      length="6"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[cert_number]"
+                      name="cert_number" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[marriage_date]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[marriage_date]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[marriage_date]"
+                      name="marriage_date" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_last_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_last_name]"
+                      length="12"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_last_name]"
+                      name="groom_last_name" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_first_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_first_name]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_first_name]"
+                      name="groom_first_name" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_age]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_age]"
+                      length="75"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_age]"
+                      name="groom_age" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_nmbr_of_this_marriage]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_nmbr_of_this_marriage]"
+                      length="1"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_nmbr_of_this_marriage]"
+                      name="groom_nmbr_of_this_marriage" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_last_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_last_name]"
+                      length="12"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_last_name]"
+                      name="brides_last_name" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_first_name]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_first_name]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_first_name]"
+                      name="brides_first_name" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_age]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_age]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_age]"
+                      name="brides_age" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[bride_number_of_marriages]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_number_of_marriages]"
+                      length="1"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[bride_number_of_marriages]"
+                      name="bride_number_of_marriages" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[hsa_occurrence_town]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[hsa_occurrence_town]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[hsa_occurrence_town]"
+                      name="hsa_occurrence_town" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[hsa_town_making_return]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[hsa_town_making_return]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[hsa_town_making_return]"
+                      name="hsa_town_making_return" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[grooms_dt_of_bth]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[grooms_dt_of_bth]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[grooms_dt_of_bth]"
+                      name="grooms_dt_of_bth" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_dt_of_bth]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_dt_of_bth]"
+                      length="8"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_dt_of_bth]"
+                      name="brides_dt_of_bth" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_state_of_residence]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_state_of_residence]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_state_of_residence]"
+                      name="groom_state_of_residence" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[bride_state_of_residence]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_state_of_residence]"
+                      length="2"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[bride_state_of_residence]"
+                      name="bride_state_of_residence" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[name_of_twn_where_mrg_occ]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[name_of_twn_where_mrg_occ]"
+                      length="15"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[name_of_twn_where_mrg_occ]"
+                      name="name_of_twn_where_mrg_occ" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[nme_of_twn_where_lic_issued]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[nme_of_twn_where_lic_issued]"
+                      length="15"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[nme_of_twn_where_lic_issued]"
+                      name="nme_of_twn_where_lic_issued" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_residence_city_town]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_residence_city_town]"
+                      length="18"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_residence_city_town]"
+                      name="groom_residence_city_town" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[bride_residence_city_town]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_residence_city_town]"
+                      length="18"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[bride_residence_city_town]"
+                      name="bride_residence_city_town" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[position_172]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[position_172]"
+                      length="75"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[position_172]"
+                      name="position_172" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[block_175180]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[block_175180]"
+                      length="6"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[block_175180]"
+                      name="block_175180" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[marriage_registration_nmb]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[marriage_registration_nmb]"
+                      length="6"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[marriage_registration_nmb]"
+                      name="marriage_registration_nmb" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[year_mar]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[year_mar]"
+                      length="4"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[year_mar]"
+                      name="year_mar" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[title]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[title]"
+                      length="200"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[title]"
+                      name="title" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[subtitle]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[subtitle]"
+                      length="200"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[subtitle]"
+                      name="subtitle" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[has_possible_matches]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[has_possible_matches]"
+                      length="5"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[has_possible_matches]"
+                      name="has_possible_matches" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[created_by_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[created_by_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[created_by_id]"
+                      name="created_by_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[created_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[created_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[created_date]"
+                      name="created_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[last_calculated_srv_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_calculated_srv_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[last_calculated_srv_date]"
+                      name="last_calculated_srv_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[last_modified_by_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_modified_by_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[last_modified_by_id]"
+                      name="last_modified_by_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[last_modified_date]"
+                      dataType="dbTimeStamp2"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[last_modified_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[last_modified_date]"
+                      name="last_modified_date"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[entity_version]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[entity_version]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[entity_version]"
+                      name="entity_version" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[occurance_town_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[occurance_town_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[occurance_town_id]"
+                      name="occurance_town_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[massachusetts_resident_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[massachusetts_resident_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[massachusetts_resident_id]"
+                      name="massachusetts_resident_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[status_groom_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[status_groom_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[status_groom_id]"
+                      name="status_groom_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_residence_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[brides_residence_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[brides_residence_id]"
+                      name="brides_residence_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[status_bride_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[status_bride_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[status_bride_id]"
+                      name="status_bride_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[county_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[county_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[county_id]"
+                      name="county_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      name="cty_twn_mkg_rtrn_wh_mrg_lic_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[county_twn_mkng_ret_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[county_twn_mkng_ret_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[county_twn_mkng_ret_id]"
+                      name="county_twn_mkng_ret_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_state_of_residence_cde_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[groom_state_of_residence_cde_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[groom_state_of_residence_cde_id]"
+                      name="groom_state_of_residence_cde_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[bride_state_of_residence_cde_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[bride_state_of_residence_cde_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[bride_state_of_residence_cde_id]"
+                      name="bride_state_of_residence_cde_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[federal_flag_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[federal_flag_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[federal_flag_id]"
+                      name="federal_flag_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[type_of_officiant_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[type_of_officiant_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[type_of_officiant_id]"
+                      name="type_of_officiant_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[dedupe_status_id]"
+                      dataType="guid"
+                      externalMetadataColumnId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].ExternalColumns[dedupe_status_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[dedupe_status_id]"
+                      name="dedupe_status_id" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Marriage 19982004\OLE DB Destination 1"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination 1"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[LegacyPlus_Marriage_tbl_19982004]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Marriage 19982004\OLE DB Destination 1.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="guid"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[cert_number]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="cert_number"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[cert_number]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[cert_number]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[marriage_date]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="marriage_date"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[marriage_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[marriage_date]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[groom_last_name]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="groom_last_name"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_last_name]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_last_name]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[groom_first_name]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="groom_first_name"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_first_name]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_first_name]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[groom_age]"
+                      cachedDataType="wstr"
+                      cachedLength="75"
+                      cachedName="groom_age"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_age]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_age]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[groom_nmbr_of_this_marriage]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="groom_nmbr_of_this_marriage"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_nmbr_of_this_marriage]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_nmbr_of_this_marriage]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[brides_last_name]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="brides_last_name"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_last_name]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_last_name]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[brides_first_name]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="brides_first_name"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_first_name]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_first_name]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[brides_age]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="brides_age"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_age]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_age]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[bride_number_of_marriages]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="bride_number_of_marriages"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[bride_number_of_marriages]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_number_of_marriages]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[hsa_occurrence_town]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="hsa_occurrence_town"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[hsa_occurrence_town]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[hsa_occurrence_town]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[hsa_town_making_return]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="hsa_town_making_return"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[hsa_town_making_return]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[hsa_town_making_return]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[grooms_dt_of_bth]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="grooms_dt_of_bth"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[grooms_dt_of_bth]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[grooms_dt_of_bth]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[brides_dt_of_bth]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="brides_dt_of_bth"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_dt_of_bth]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_dt_of_bth]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[groom_state_of_residence]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="groom_state_of_residence"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_state_of_residence]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_state_of_residence]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[bride_state_of_residence]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="bride_state_of_residence"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[bride_state_of_residence]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_state_of_residence]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[name_of_twn_where_mrg_occ]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="name_of_twn_where_mrg_occ"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[name_of_twn_where_mrg_occ]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[name_of_twn_where_mrg_occ]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[nme_of_twn_where_lic_issued]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="nme_of_twn_where_lic_issued"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[nme_of_twn_where_lic_issued]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[nme_of_twn_where_lic_issued]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[groom_residence_city_town]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="groom_residence_city_town"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_residence_city_town]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_residence_city_town]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[bride_residence_city_town]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="bride_residence_city_town"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[bride_residence_city_town]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_residence_city_town]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[position_172]"
+                      cachedDataType="wstr"
+                      cachedLength="75"
+                      cachedName="position_172"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[position_172]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[position_172]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[block_175180]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="block_175180"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[block_175180]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[block_175180]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[marriage_registration_nmb]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="marriage_registration_nmb"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[marriage_registration_nmb]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[marriage_registration_nmb]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[year_mar]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="year_mar"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[year_mar]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[year_mar]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[title]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="title"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[title]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[subtitle]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="subtitle"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[subtitle]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[subtitle]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[has_possible_matches]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="has_possible_matches"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[has_possible_matches]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[has_possible_matches]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[created_by_id]"
+                      cachedDataType="guid"
+                      cachedName="created_by_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[created_by_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[created_by_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[created_date]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="created_date"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[created_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[created_date]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[last_calculated_srv_date]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="last_calculated_srv_date"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[last_calculated_srv_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_calculated_srv_date]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[last_modified_by_id]"
+                      cachedDataType="guid"
+                      cachedName="last_modified_by_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[last_modified_by_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_modified_by_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[last_modified_date]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="last_modified_date"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[last_modified_date]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[last_modified_date]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[entity_version]"
+                      cachedDataType="i4"
+                      cachedName="entity_version"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[entity_version]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[entity_version]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[occurance_town_id]"
+                      cachedDataType="guid"
+                      cachedName="occurance_town_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[occurance_town_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[occurance_town_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[massachusetts_resident_id]"
+                      cachedDataType="guid"
+                      cachedName="massachusetts_resident_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[massachusetts_resident_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[massachusetts_resident_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[status_groom_id]"
+                      cachedDataType="guid"
+                      cachedName="status_groom_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[status_groom_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[status_groom_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[brides_residence_id]"
+                      cachedDataType="guid"
+                      cachedName="brides_residence_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_residence_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[brides_residence_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[status_bride_id]"
+                      cachedDataType="guid"
+                      cachedName="status_bride_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[status_bride_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[status_bride_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[county_id]"
+                      cachedDataType="guid"
+                      cachedName="county_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[county_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[county_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      cachedDataType="guid"
+                      cachedName="cty_twn_mkg_rtrn_wh_mrg_lic_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[cty_twn_mkg_rtrn_wh_mrg_lic_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[county_twn_mkng_ret_id]"
+                      cachedDataType="guid"
+                      cachedName="county_twn_mkng_ret_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[county_twn_mkng_ret_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[county_twn_mkng_ret_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[groom_state_of_residence_cde_id]"
+                      cachedDataType="guid"
+                      cachedName="groom_state_of_residence_cde_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_state_of_residence_cde_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[groom_state_of_residence_cde_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[bride_state_of_residence_cde_id]"
+                      cachedDataType="guid"
+                      cachedName="bride_state_of_residence_cde_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[bride_state_of_residence_cde_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[bride_state_of_residence_cde_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[federal_flag_id]"
+                      cachedDataType="guid"
+                      cachedName="federal_flag_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[federal_flag_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[federal_flag_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[type_of_officiant_id]"
+                      cachedDataType="guid"
+                      cachedName="type_of_officiant_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[type_of_officiant_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[type_of_officiant_id]" />
+                    <inputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[dedupe_status_id]"
+                      cachedDataType="guid"
+                      cachedName="dedupe_status_id"
+                      externalMetadataColumnId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[dedupe_status_id]"
+                      lineageId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output].Columns[dedupe_status_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="guid"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[cert_number]"
+                      dataType="wstr"
+                      length="6"
+                      name="cert_number" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[marriage_date]"
+                      dataType="wstr"
+                      length="8"
+                      name="marriage_date" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_last_name]"
+                      dataType="wstr"
+                      length="12"
+                      name="groom_last_name" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_first_name]"
+                      dataType="wstr"
+                      length="8"
+                      name="groom_first_name" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_age]"
+                      dataType="wstr"
+                      length="75"
+                      name="groom_age" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_nmbr_of_this_marriage]"
+                      dataType="wstr"
+                      length="1"
+                      name="groom_nmbr_of_this_marriage" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_last_name]"
+                      dataType="wstr"
+                      length="12"
+                      name="brides_last_name" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_first_name]"
+                      dataType="wstr"
+                      length="8"
+                      name="brides_first_name" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_age]"
+                      dataType="wstr"
+                      length="2"
+                      name="brides_age" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[bride_number_of_marriages]"
+                      dataType="wstr"
+                      length="1"
+                      name="bride_number_of_marriages" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[hsa_occurrence_town]"
+                      dataType="wstr"
+                      length="2"
+                      name="hsa_occurrence_town" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[hsa_town_making_return]"
+                      dataType="wstr"
+                      length="2"
+                      name="hsa_town_making_return" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[grooms_dt_of_bth]"
+                      dataType="wstr"
+                      length="8"
+                      name="grooms_dt_of_bth" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_dt_of_bth]"
+                      dataType="wstr"
+                      length="8"
+                      name="brides_dt_of_bth" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_state_of_residence]"
+                      dataType="wstr"
+                      length="2"
+                      name="groom_state_of_residence" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[bride_state_of_residence]"
+                      dataType="wstr"
+                      length="2"
+                      name="bride_state_of_residence" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[name_of_twn_where_mrg_occ]"
+                      dataType="wstr"
+                      length="15"
+                      name="name_of_twn_where_mrg_occ" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[nme_of_twn_where_lic_issued]"
+                      dataType="wstr"
+                      length="15"
+                      name="nme_of_twn_where_lic_issued" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_residence_city_town]"
+                      dataType="wstr"
+                      length="18"
+                      name="groom_residence_city_town" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[bride_residence_city_town]"
+                      dataType="wstr"
+                      length="18"
+                      name="bride_residence_city_town" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[position_172]"
+                      dataType="wstr"
+                      length="75"
+                      name="position_172" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[block_175180]"
+                      dataType="wstr"
+                      length="6"
+                      name="block_175180" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[marriage_registration_nmb]"
+                      dataType="wstr"
+                      length="6"
+                      name="marriage_registration_nmb" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[year_mar]"
+                      dataType="wstr"
+                      length="4"
+                      name="year_mar" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      dataType="wstr"
+                      length="200"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[subtitle]"
+                      dataType="wstr"
+                      length="200"
+                      name="subtitle" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[has_possible_matches]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="has_possible_matches" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[created_by_id]"
+                      dataType="guid"
+                      name="created_by_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[created_date]"
+                      dataType="wstr"
+                      length="26"
+                      name="created_date" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[last_calculated_srv_date]"
+                      dataType="wstr"
+                      length="26"
+                      name="last_calculated_srv_date" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[last_modified_by_id]"
+                      dataType="guid"
+                      name="last_modified_by_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[last_modified_date]"
+                      dataType="wstr"
+                      length="26"
+                      name="last_modified_date" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[entity_version]"
+                      dataType="i4"
+                      name="entity_version" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[occurance_town_id]"
+                      dataType="guid"
+                      name="occurance_town_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[massachusetts_resident_id]"
+                      dataType="guid"
+                      name="massachusetts_resident_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[status_groom_id]"
+                      dataType="guid"
+                      name="status_groom_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[brides_residence_id]"
+                      dataType="guid"
+                      name="brides_residence_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[status_bride_id]"
+                      dataType="guid"
+                      name="status_bride_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[county_id]"
+                      dataType="guid"
+                      name="county_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[cty_twn_mkg_rtrn_wh_mrg_lic_id]"
+                      dataType="guid"
+                      name="cty_twn_mkg_rtrn_wh_mrg_lic_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[county_twn_mkng_ret_id]"
+                      dataType="guid"
+                      name="county_twn_mkng_ret_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[groom_state_of_residence_cde_id]"
+                      dataType="guid"
+                      name="groom_state_of_residence_cde_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[bride_state_of_residence_cde_id]"
+                      dataType="guid"
+                      name="bride_state_of_residence_cde_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[federal_flag_id]"
+                      dataType="guid"
+                      name="federal_flag_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[type_of_officiant_id]"
+                      dataType="guid"
+                      name="type_of_officiant_id" />
+                    <externalMetadataColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[dedupe_status_id]"
+                      dataType="guid"
+                      name="dedupe_status_id" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Marriage 19982004\OLE DB Destination 1.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Marriage 19982004\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Marriage 19982004\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Marriage 19982004\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Marriage 19982004.Paths[ODBC Source Output]"
+              endId="Package\Marriage 19982004\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+              name="ODBC Source Output"
+              startId="Package\Marriage 19982004\ODBC Source 1.Outputs[ODBC Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2C6C99D1-2676-4F5C-BE04-D23E65408D74}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE  [RVRS_Staging].[RVRS].[LegacyPlus_Marriage_tbl_19982004];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{8C0A9A9A-C675-414D-887D-A299A78C88DF}"
+      DTS:From="Package\Truncate Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Marriage 19982004" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168.8,41.6"
+          Id="Package\Marriage 19982004"
+          TopLeft="99.5833293762473,153.758625746057" />
+        <NodeLayout
+          Size="148,41.6"
+          Id="Package\Truncate Table"
+          TopLeft="101.666662626796,53.7931052172794" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="175.666662626796,95.3931052172794">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="8.31666674945131,58.3655205287776"
+              Start="0,0"
+              End="8.31666674945131,50.8655205287776">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.1827602643888" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.1827602643888"
+                    Point2="0,29.1827602643888"
+                    Point3="4,29.1827602643888" />
+                  <mssgle:LineSegment
+                    End="4.31666674945131,29.1827602643888" />
+                  <mssgle:CubicBezierSegment
+                    Point1="4.31666674945131,29.1827602643888"
+                    Point2="8.31666674945131,29.1827602643888"
+                    Point3="8.31666674945131,33.1827602643888" />
+                  <mssgle:LineSegment
+                    End="8.31666674945131,50.8655205287776" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Marriage 19982004">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Marriage 19982004\OLE DB Destination 1"
+          TopLeft="89.1666631235017,177.517247217022" />
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Marriage 19982004\ODBC Source 1"
+          TopLeft="103.333329227236,36.7586218984742" />
+        <EdgeLayout
+          Id="Package\Marriage 19982004.Paths[ODBC Source Output]"
+          TopLeft="178.805551730924,78.536399676252">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,98.98084754077"
+              Start="0,0"
+              End="0,91.48084754077">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,91.48084754077" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Marriage 19982004\ODBC Source 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Marriage 19982004\OLE DB Destination 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
