@@ -1,3 +1,4 @@
+
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('RVRS.Load_VIP_DeathPr') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathPr]
 GO
@@ -32,6 +33,7 @@ BEGIN
 		,@Err_Message VARCHAR(100)
 		,@LastLoadedDate DATE
 		,@ExecutionStatus VARCHAR(100)='Completed'
+		,@Note VARCHAR(500)
 
 	INSERT INTO RVRS.Execution
 	(
@@ -51,11 +53,11 @@ BEGIN
 		,NULL AS LastLoadDate
 		,GETDATE() AS StartTime
 		,NULL AS EndTime
-		,NULL AS TotalProcessedRecords
-		,NULL AS TotalLoadedRecord
-		,NULL AS TotalErrorRecord
-		,NULL AS TotalPendingReviewRecord
-		,NULL AS TotalWarningRecord
+		,0 AS TotalProcessedRecords
+		,0 AS TotalLoadedRecord
+		,0 AS TotalErrorRecord
+		,0 AS TotalPendingReviewRecord
+		,0 AS TotalWarningRecord
 
 	SET @ExecutionId = (SELECT IDENT_CURRENT('RVRS.Execution'))
 
@@ -96,11 +98,12 @@ BEGIN
 			,DOD
 			,TOD_ME
 			,VRV_REC_DATE_CREATED 
+			,VRV_DATE_CHANGED
 			,SFN_NUM_OOS INTO #Tmp_HoldFilteredData
 		FROM [RVRS].[VIP_VRV_Death_Tbl] D WITH(NOLOCK)
-		WHERE VRV_REC_DATE_CREATED IS NOT NULL
-			AND CAST(VRV_REC_DATE_CREATED AS DATE) > @LastLoadedDate
-			AND CAST(VRV_REC_DATE_CREATED AS DATE) != CAST(GETDATE() AS DATE)
+		WHERE VRV_DATE_CHANGED IS NOT NULL
+			AND CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
+			AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(GETDATE() AS DATE)
 			AND D.VRV_RECORD_TYPE_ID = '040'
 			AND RECORD_REGIS_DATE IS NOT NULL
 
@@ -122,9 +125,9 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			SET @MaxDateinData = (SELECT MAX(VRV_REC_DATE_CREATED) FROM #Tmp_HoldFilteredData)
+			SET @MaxDateinData = (SELECT MAX(VRV_DATE_CHANGED) FROM #Tmp_HoldFilteredData)
 
-			IF EXISTS(SELECT SrId FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] WHERE CAST(SrCreatedDate AS DATE)<=@MaxDateinData)
+			IF EXISTS(SELECT SrId FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] WHERE CAST(SrUpdatedDate AS DATE)<=@MaxDateinData)
 			BEGIN
 				SET @LastLoadedDate = @MaxDateinData
 
@@ -133,40 +136,28 @@ BEGIN
 				/*TO CHECK RECORDS IF THEY HAVE NOT UNIQUE SFN_NUM AND INTERNAL_CASE_NUM*/
 
 				SELECT * INTO #Tmp_HD_SFN_Check
-				FROM (SELECT DEATH_REC_ID,INTERNAL_CASE_NUMBER  
-				,Rank() OVER(PARTITION BY SFN_NUM,yr ORDER BY ID) AS Rank_Num_SFN, SFN_NUM, ID,Rank() OVER
-				(PARTITION BY INTERNAL_CASE_NUMBER ORDER BY ID) AS Rank_Num_CaseNumber
-				FROM (
-                                                                  
-				SELECT DEATH_REC_ID, SFN_NUM,Isnull(VRV_BASELINE_RECORD_ID,DEATH_REC_ID) AS ID,INTERNAL_CASE_NUMBER 
-				,Substring(INTERNAL_CASE_NUMBER, 0,5) AS Yr
-				 FROM rvrs.VIP_VRV_Death_Tbl where  RECORD_REGIS_DATE is not null) s ) s
-				 where (Rank_Num_SFN > 1 or Rank_Num_CaseNumber>1) 
-				AND DEATH_REC_ID NOT IN (SELECT SRID FROM RVRS.DEATH_LOG  where loadnote like '%SFN%Duplicate%')
-		
-
-				/*SELECT DISTINCT ISNULL(VRV_BASELINE_RECORD_ID,DEATH_REC_ID) AS VRV_BASELINE_RECORD_ID
-					,SFN_NUM
-					,INTERNAL_CASE_NUMBER
-					,LEFT(INTERNAL_CASE_NUMBER,4) AS Yr INTO #Tmp_HD_SFN_Check_T
-				FROM [RVRS].[VIP_VRV_Death_Tbl] D WITH(NOLOCK)
-				WHERE SFN_NUM IS NOT NULL
-				AND D.VRV_RECORD_TYPE_ID = '040'
-				AND RECORD_REGIS_DATE IS NOT NULL
-
-				SELECT D.DEATH_REC_ID INTO #Tmp_HD_SFN_Check												
-				FROM
+				FROM 
 				(
-					SELECT INTERNAL_CASE_NUMBER  
-						,ROW_NUMBER() OVER(PARTITION BY SFN_NUM,INTERNAL_CASE_NUMBER,Yr ORDER BY VRV_BASELINE_RECORD_ID) AS Row_Num
-					FROM #Tmp_HD_SFN_Check_T
-				)A
-				JOIN [RVRS].[VIP_VRV_Death_Tbl] D WITH(NOLOCK) ON D.INTERNAL_CASE_NUMBER=A.INTERNAL_CASE_NUMBER 
-				WHERE A.Row_Num>1
-				AND D.VRV_RECORD_TYPE_ID = '040'
-				AND RECORD_REGIS_DATE IS NOT NULL
-				*/
-
+					SELECT DEATH_REC_ID
+						,INTERNAL_CASE_NUMBER  
+						,Rank() OVER(PARTITION BY SFN_NUM,yr ORDER BY ID) AS Rank_Num_SFN
+						,SFN_NUM
+						,ID
+						,Rank() OVER (PARTITION BY INTERNAL_CASE_NUMBER ORDER BY ID) AS Rank_Num_CaseNumber
+					FROM 
+					(                                    
+						SELECT DEATH_REC_ID
+							,SFN_NUM
+							,Isnull(VRV_BASELINE_RECORD_ID,DEATH_REC_ID) AS ID
+							,INTERNAL_CASE_NUMBER 
+							,Substring(INTERNAL_CASE_NUMBER, 0,5) AS Yr
+						 FROM RVRS.VIP_VRV_Death_Tbl D
+						 where  EXISTS (SELECT 1 FROM #Tmp_HoldFilteredData DF WHERE D.INTERNAL_CASE_NUMBER = DF.INTERNAL_CASE_NUMBER)
+					) s 
+				) s
+				where (Rank_Num_SFN > 1 or Rank_Num_CaseNumber>1) 
+					AND DEATH_REC_ID NOT IN (SELECT SRID FROM RVRS.DEATH_LOG  where loadnote like '%SFN%Duplicate%')
+		
 				--PRINT '5'
 	
 				SELECT P.PersonId AS PersonId
@@ -201,7 +192,7 @@ BEGIN
 					 AS LoadNote
 
 					 /*2. ADD COMPARISON DOD AND DOD_4_FD CAN BE PASSED AS WARNING*/															--GOING TO DEATH WITH WARNING
-					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 AND ISDATE(D.DOD) = 1 AND D.DOD_4_FD<>D.DOD 
+					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 AND ISDATE(D.DOD) = 1 AND D.DOD_4_FD<>D.DOD
 						THEN 'DOD_4_FD,DOD|Warning:Date of Death Mismatch in Tab 1 and Tab 6'
 						ELSE '' END AS LoadNote_1
 
@@ -245,8 +236,6 @@ BEGIN
 
 
 					/*10. VERIFYING INTERNAL_CASE_NUMBER HAS RIGHT CALCULATION*/																--GOING TO DEATH_LOG
-					--,CASE WHEN (D.INTERNAL_CASE_NUMBER IS NOT NULL 
-					--	AND D.INTERNAL_CASE_NUMBER <> CAST(YEAR(CAST(D.DOD_4_FD AS DATE)) AS VARCHAR(5)) + CAST(CAST(D.VRV_RECORD_TYPE_ID AS INT) AS VARCHAR(5)) + D.SFN_NUM)
 					,CASE WHEN (ISNULL(D.INTERNAL_CASE_NUMBER,-1) <> ISNULL((CAST(YEAR(CAST(D.DOD_4_FD AS DATE)) AS VARCHAR(5)) + CAST(CAST(D.VRV_RECORD_TYPE_ID AS INT) AS VARCHAR(5)) + D.SFN_NUM),-1))
 						  THEN 'INTERNAL_CASE_NUMBER|Error:INTERNAL_CASE_NUMBER wrongly calculated'
 						  ELSE '' END
@@ -267,17 +256,12 @@ BEGIN
 				
 
 					/*13. CHECKING IF TIME OF DEATH ON TAB 1 MATHCES WITH TAB 6*/																--GOING TO DEATH WITH WARNING			
-					,CASE WHEN ISNULL(D.TOD,'')!=ISNULL(D.TOD_ME,'')
+					,CASE WHEN D.TOD IS NOT NULL AND D.TOD_ME IS NOT NULL AND D.TOD!=D.TOD_ME
 						THEN 'TOD|Warning:Death Hour and Minute Mismatch in Tab 1 and Tab 6' ELSE '' END AS LoadNote_12
 
 					/*14. VERIFYING VALID DATE RANGE FOR SFN_YEAR*/																				--GOING TO DEATH_LOG
 					,CASE WHEN D.SFN_YEAR<2014 OR D.SFN_YEAR>YEAR(CAST(GETDATE() AS DATE)) 
 						THEN 'SFN_YEAR|Error:SFN_YEAR not in valid range' ELSE '' END AS LoadNote_13
-				
-					--15. Excluding the Records that are not in Person table																	--GOING TO DEATH_LOG
-					,CASE WHEN P.PersonId IS NULL THEN 'PersonID|Warning:This records does not exists in person table'
-						  ELSE '' END AS LoadNote_14
-
 	
 					--16. VRV_RECORD_TYPE_ID VS SFN_TYPE_ID					
 					,CASE WHEN (D.SFN_TYPE_ID=40 AND D.VRV_RECORD_TYPE_ID=49 OR D.SFN_TYPE_ID=49 AND D.VRV_RECORD_TYPE_ID=40) --6 RECORDS WHERE SFN_TYPE AND RECORD_TYPE DO NOT MATCH
@@ -309,7 +293,7 @@ BEGIN
 					,CreatedDate
 					,SrId
 					,CASE WHEN LoadNote<>'' OR LoadNote_2<>'' OR LoadNote_3<>'' OR LoadNote_4<>''OR LoadNote_5<>'' OR LoadNote_6<>'' OR LoadNote_7<>'' 
-					  OR LoadNote_9<>''  OR LoadNote_10<>''  OR LoadNote_11<>'' OR LoadNote_13<>'' OR LoadNote_14<>''
+					  OR LoadNote_9<>''  OR LoadNote_10<>''  OR LoadNote_11<>'' OR LoadNote_13<>'' 
 					  THEN 1 ELSE 0 END AS Death_Log_Flag
 					,LoadNote  +
 						(CASE WHEN LoadNote <> '' THEN ' || ' ELSE '' END) +
@@ -339,9 +323,7 @@ BEGIN
 						(CASE WHEN LoadNote_12 <> '' THEN ' || ' ELSE '' END) +
 						LoadNote_13 +
 						(CASE WHEN LoadNote_13 <> '' THEN ' || ' ELSE '' END) +
-						LoadNote_14 +
-						(CASE WHEN LoadNote_14 <> '' THEN ' || ' ELSE '' END) +
-						LoadNote_15 
+						LoadNote_15 AS Death_Log_LoadNote
 					,LoadNote_1 +
 						(CASE WHEN LoadNote_1 <> '' THEN ' || ' ELSE '' END) +
 						LoadNote_8 +
@@ -357,36 +339,39 @@ BEGIN
 		/**************************************************************Other Validations STARTS*************************************************************/
 			/*UPDATING LOAD NOTE FOR THE RECORDS WHERE WE HAVE SOME ISSUES WITH CHILD RECORD HOWEVER THE PARENT LOAD IS FINE*/
 
+			--Scenario 1
 			UPDATE P
-			SET P.LoadNote=CASE WHEN P.LoadNote!='' THEN P.LoadNote+' || ' ELSE '' END+'DEATH|MissingChild:ChildMissing Death'
+			SET P.LoadNote= 'DEATH|MissingChild:ChildMissing Death' + CASE WHEN P.LoadNote!='' THEN ' || ' + P.LoadNote ELSE '' END
 			FROM #Tmp_HoldData_Final HF
 			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P ON P.PersonId=HF.PersonId
 			WHERE HF.Death_Log_Flag=1
 				AND HF.PersonId IS NOT NULL
 
-						/**/
+			--Scenarion 2 & 3
 			UPDATE #Tmp_HoldData_Final
 			SET Death_Log_Flag=1
-				,Death_Log_LoadNote=CASE WHEN Death_Log_LoadNote!='' THEN Death_Log_LoadNote+' || ' ELSE '' END+
-					'Person|ParentMissing:Validation Errors'
-			WHERE PersonId IS NULL
+				,Death_Log_LoadNote=CASE WHEN Death_Log_LoadNote!='' THEN 'Person|ParentMissing:Validation Errors' + ' || ' + Death_Log_LoadNote ELSE '' END
+				WHERE PersonId IS NULL
 				AND SrId IN (SELECT SRID FROM RVRS.Person_Log)
 
-			DELETE FROM #Tmp_HoldData_Final WHERE PersonId IS NULL AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-			AND Death_Log_Flag=0
+			--Scenario 4
+				IF EXISTS(SELECT Death_Log_Flag FROM #Tmp_HoldData_Final WHERE PersonId IS NULL 
+								AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
+								AND Death_Log_Flag=0)
+				BEGIN
+					SET @ExecutionStatus='Failed'
+					set @Note = 'Parent table has not been processed yet'
+				END
+				
 
+			--Scenario 5			
 			UPDATE #Tmp_HoldData_Final
-			SET Death_Log_Flag=1
-				,Death_Log_LoadNote=CASE WHEN Death_Log_LoadNote!='' THEN 'Person|MissingParent:Not Processed'+' || '+Death_Log_LoadNote
+				SET Death_Log_LoadNote=CASE WHEN Death_Log_LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+Death_Log_LoadNote
 					ELSE 'Person|ParentMissing:Not Processed' END
 			WHERE PersonId IS NULL
 				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-				
-
-			IF EXISTS(SELECT Death_Log_Flag FROM #Tmp_HoldData_Final WHERE PersonId IS NULL AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log))
-				SET @ExecutionStatus='Failed'
-
-
+				  AND  Death_Log_Flag=1
+	
 		/***************************************************************Other Validations ENDS**************************************************************/
 				--PRINT '7'
 
@@ -427,6 +412,7 @@ BEGIN
 					,LoadNote
 				FROM #Tmp_HoldData_Final
 				WHERE Death_log_Flag=0
+				AND PersonId IS NOT NULL
 
 				SET @TotalLoadedRecord = @@ROWCOUNT
 
@@ -471,6 +457,7 @@ BEGIN
 					,Death_Log_LoadNote
 				FROM #Tmp_HoldData_Final
 				WHERE Death_log_Flag=1
+				AND Death_Log_LoadNote != ''
 
 				SET @TotalErrorRecord = @@ROWCOUNT
 
@@ -488,6 +475,7 @@ BEGIN
 					,TotalErrorRecord=@TotalErrorRecord
 					,TotalPendingReviewRecord=@TotalPendingReviewRecord
 					,TotalWarningRecord=@TotalWarningRecord
+					,NOTE= @Note 
 				WHERE ExecutionId=@ExecutionId
 			END
 			ELSE
