@@ -1,5 +1,6 @@
 --drop table [RVRS].[DimFamilyTypeInternal]
 --sp_help '[RVRS].[DimFamilyTypeInternal]'
+--- select * from [RVRS].[DimFamilyTypeInternal]
 SET ANSI_NULLS ON
 GO
 
@@ -11,7 +12,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	BEGIN 
 		CREATE TABLE [RVRS].[DimFamilyTypeInternal](
 			[DimFamilyTypeInternalId] INT NOT NULL IDENTITY (1,1) ,		
-		    [FamilyTypeDesc] VARCHAR(128) NOT NULL,	
+		    [FamilyTypeInternalDesc] VARCHAR(128) NOT NULL,	
 			[Code] CHAR(2) NOT NULL,	
 			[Void] TINYINT NOT NULL, 
 		CONSTRAINT [pk_DimFamilyTypeInternalId] PRIMARY KEY CLUSTERED 

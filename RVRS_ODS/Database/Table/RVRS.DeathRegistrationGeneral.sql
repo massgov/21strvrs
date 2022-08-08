@@ -19,8 +19,8 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[RegistrationDate]  DATETIME NOT NULL, -- RECORD_REGIS_DATE
 			[AmendmentDate]  DATETIME NULL, -- DATE_OF_AMENDMENT
 			[DimRecordAccessId] INT NOT NULL CONSTRAINT [df_DeathRegistrationGeneralDimRecordAccessId] DEFAULT (0), -- IND_ACCESS_STATUS
-			[RegistererGroupId]  VARCHAR(2) NOT NULL, -- IND_RECORD_OWNER
-			[RegistererUserId]  INT NOT NULL, -- RECORD_REGISTRAR_ID
+			[GrpRegistered]  VARCHAR(2) NOT NULL, -- IND_RECORD_OWNER
+			[ScrRegistererUserId]  INT NOT NULL, -- RECORD_REGISTRAR_ID
 			[FlRegistered] DECIMAL (1,0) NOT NULL, -- VRV_REGISTERED_FLAG
 			[FlUpdatePending] DECIMAL (1,0)  NULL, -- FL_UPDATE_PENDING
 			[FlAmendmentInProcess] DECIMAL (1,0)  NULL, -- AMEND_IN_PROCESS
