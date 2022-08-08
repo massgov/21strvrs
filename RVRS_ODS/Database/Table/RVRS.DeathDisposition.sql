@@ -16,7 +16,8 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[PersonId] BIGINT NOT NULL,  --  RVRS Column 
 			[DimDispMethodId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispMethodId] DEFAULT (0), --DISP
 			[DimDispMethodOtherId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispMethodOtherId] DEFAULT (0), --DISPL
-			[DispDate] DATE NULL, --DISP_DATE
+			[DispDate] DATETIME NULL, --DISP_DATE
+			[PermitStatus] VARCHAR(516) NULL,
 			[DimDispPlaceId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispPlaceId] DEFAULT (0), --DISP_NME
 			[CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathDispositionCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store created date
 		   	[LoadNote] VARCHAR(MAX)

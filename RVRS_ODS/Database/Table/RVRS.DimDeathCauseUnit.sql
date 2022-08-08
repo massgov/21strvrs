@@ -14,7 +14,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	BEGIN 
 		CREATE TABLE [RVRS].[DimDeathCauseUnit](
 			[DimDeathCauseUnitId] INT NOT NULL IDENTITY (1,1),	
-			[BkCityId] INT NOT NULL,
+			[BkDeathCauseUnitId] INT NOT NULL,
 			[DeathCauseUnitDesc] VARCHAR(128) NOT NULL,  			
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
