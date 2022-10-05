@@ -15,7 +15,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[DeathDispositionId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column 
 			[PersonId] BIGINT NOT NULL,  --  RVRS Column 
 			[DimDispMethodId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispMethodId] DEFAULT (0), --DISP
-			[DimDispMethodOtherId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispMethodOtherId] DEFAULT (0), --DISPL
+			[OtherDispMethod] VARCHAR(128), --DISPL
 			[DispDate] DATETIME NULL, --DISP_DATE
 			[PermitStatus] VARCHAR(516) NULL,
 			[DimDispPlaceId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispPlaceId] DEFAULT (0), --DISP_NME
