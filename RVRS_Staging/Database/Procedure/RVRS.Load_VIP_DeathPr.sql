@@ -158,29 +158,6 @@ BEGIN
 				where (Rank_Num_SFN > 1 or Rank_Num_CaseNumber>1) 
 					AND DEATH_REC_ID NOT IN (SELECT SRID FROM RVRS.DEATH_LOG  where loadnote like '%SFN%Duplicate%')
 		
-
-				/*SELECT DISTINCT ISNULL(VRV_BASELINE_RECORD_ID,DEATH_REC_ID) AS VRV_BASELINE_RECORD_ID
-					,SFN_NUM
-					,INTERNAL_CASE_NUMBER
-					,LEFT(INTERNAL_CASE_NUMBER,4) AS Yr INTO #Tmp_HD_SFN_Check_T
-				FROM [RVRS].[VIP_VRV_Death_Tbl] D WITH(NOLOCK)
-				WHERE SFN_NUM IS NOT NULL
-				AND D.VRV_RECORD_TYPE_ID = '040'
-				AND RECORD_REGIS_DATE IS NOT NULL
-
-				SELECT D.DEATH_REC_ID INTO #Tmp_HD_SFN_Check												
-				FROM
-				(
-					SELECT INTERNAL_CASE_NUMBER  
-						,ROW_NUMBER() OVER(PARTITION BY SFN_NUM,INTERNAL_CASE_NUMBER,Yr ORDER BY VRV_BASELINE_RECORD_ID) AS Row_Num
-					FROM #Tmp_HD_SFN_Check_T
-				)A
-				JOIN [RVRS].[VIP_VRV_Death_Tbl] D WITH(NOLOCK) ON D.INTERNAL_CASE_NUMBER=A.INTERNAL_CASE_NUMBER 
-				WHERE A.Row_Num>1
-				AND D.VRV_RECORD_TYPE_ID = '040'
-				AND RECORD_REGIS_DATE IS NOT NULL
-				*/
-
 				--PRINT '5'
 	
 				SELECT P.PersonId AS PersonId
@@ -215,7 +192,7 @@ BEGIN
 					 AS LoadNote
 
 					 /*2. ADD COMPARISON DOD AND DOD_4_FD CAN BE PASSED AS WARNING*/															--GOING TO DEATH WITH WARNING
-					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 AND ISDATE(D.DOD) = 1 AND D.DOD_4_FD<>D.DOD 
+					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 AND ISDATE(D.DOD) = 1 AND D.DOD_4_FD<>D.DOD
 						THEN 'DOD_4_FD,DOD|Warning:Date of Death Mismatch in Tab 1 and Tab 6'
 						ELSE '' END AS LoadNote_1
 
@@ -259,8 +236,6 @@ BEGIN
 
 
 					/*10. VERIFYING INTERNAL_CASE_NUMBER HAS RIGHT CALCULATION*/																--GOING TO DEATH_LOG
-					--,CASE WHEN (D.INTERNAL_CASE_NUMBER IS NOT NULL 
-					--	AND D.INTERNAL_CASE_NUMBER <> CAST(YEAR(CAST(D.DOD_4_FD AS DATE)) AS VARCHAR(5)) + CAST(CAST(D.VRV_RECORD_TYPE_ID AS INT) AS VARCHAR(5)) + D.SFN_NUM)
 					,CASE WHEN (ISNULL(D.INTERNAL_CASE_NUMBER,-1) <> ISNULL((CAST(YEAR(CAST(D.DOD_4_FD AS DATE)) AS VARCHAR(5)) + CAST(CAST(D.VRV_RECORD_TYPE_ID AS INT) AS VARCHAR(5)) + D.SFN_NUM),-1))
 						  THEN 'INTERNAL_CASE_NUMBER|Error:INTERNAL_CASE_NUMBER wrongly calculated'
 						  ELSE '' END
@@ -281,17 +256,12 @@ BEGIN
 				
 
 					/*13. CHECKING IF TIME OF DEATH ON TAB 1 MATHCES WITH TAB 6*/																--GOING TO DEATH WITH WARNING			
-					,CASE WHEN ISNULL(D.TOD,'')!=ISNULL(D.TOD_ME,'')
+					,CASE WHEN D.TOD IS NOT NULL AND D.TOD_ME IS NOT NULL AND D.TOD!=D.TOD_ME
 						THEN 'TOD|Warning:Death Hour and Minute Mismatch in Tab 1 and Tab 6' ELSE '' END AS LoadNote_12
 
 					/*14. VERIFYING VALID DATE RANGE FOR SFN_YEAR*/																				--GOING TO DEATH_LOG
 					,CASE WHEN D.SFN_YEAR<2014 OR D.SFN_YEAR>YEAR(CAST(GETDATE() AS DATE)) 
 						THEN 'SFN_YEAR|Error:SFN_YEAR not in valid range' ELSE '' END AS LoadNote_13
-				
-					----15. Excluding the Records that are not in Person table																	--GOING TO DEATH_LOG
-					--,CASE WHEN P.PersonId IS NULL THEN 'PersonID|Warning:This records does not exists in person table'
-					--	  ELSE '' END AS LoadNote_14
-
 	
 					--16. VRV_RECORD_TYPE_ID VS SFN_TYPE_ID					
 					,CASE WHEN (D.SFN_TYPE_ID=40 AND D.VRV_RECORD_TYPE_ID=49 OR D.SFN_TYPE_ID=49 AND D.VRV_RECORD_TYPE_ID=40) --6 RECORDS WHERE SFN_TYPE AND RECORD_TYPE DO NOT MATCH
@@ -396,15 +366,11 @@ BEGIN
 
 			--Scenario 5			
 			UPDATE #Tmp_HoldData_Final
-				SET Death_Log_Flag=1
-				   ,Death_Log_LoadNote=CASE WHEN Death_Log_LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+Death_Log_LoadNote
+				SET Death_Log_LoadNote=CASE WHEN Death_Log_LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+Death_Log_LoadNote
 					ELSE 'Person|ParentMissing:Not Processed' END
 			WHERE PersonId IS NULL
 				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-				
-
-
-
+				  AND  Death_Log_Flag=1
 
 		/***************************************************************Other Validations ENDS**************************************************************/
 				--PRINT '7'
@@ -491,6 +457,7 @@ BEGIN
 					,Death_Log_LoadNote
 				FROM #Tmp_HoldData_Final
 				WHERE Death_log_Flag=1
+				AND Death_Log_LoadNote != ''
 
 				SET @TotalErrorRecord = @@ROWCOUNT
 
