@@ -1,4 +1,4 @@
---For Code Review 10-05-2022
+
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('RVRS.Load_VIP_DeathCauseAcmeOtherAttrPr') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathCauseAcmeOtherAttrPr]
 GO
