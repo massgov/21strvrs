@@ -18,6 +18,12 @@ REVISION HISTORY
 DATE			NAME						DESCRIPTION
 25 MAY 2022		SAILENDRA SINGH				RVRS-162 : LOAD DECEDENT CAUSE OF DEATH DATA FROM STAGING TO ODS
 
+
+TRUNCATION:
+TRUNCATE TABLE RVRS.DeathCauseAcme
+TRUNCATE TABLE RVRS.DeathCauseAcme_log
+DELETE FROM RVRS.EXECUTION WHERE Entity = 'DeathCauseAcme'
+
 EXEC RVRS.Load_VIP_DeathCauseAcmePr
 */
 
@@ -31,6 +37,7 @@ BEGIN
 		,@CurentTime AS DATETIME=GETDATE()
 		,@LastLoadDate DATE
 		,@TotalProcessedRecords INT
+		,@TotalParentMissingRecords INT = 0
 		,@MaxDateinData DATE
 		,@TotalLoadedRecord INT
 		,@TotalErrorRecord INT=0
@@ -95,7 +102,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND VRV_REGISTERED_FLAG =1
 		AND FL_CURRENT =1
 		AND FL_VOIDED=0
@@ -117,7 +123,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -139,7 +144,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -161,7 +165,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -183,7 +186,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -205,7 +207,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -227,7 +228,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -249,7 +249,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -271,7 +270,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -293,7 +291,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -315,7 +312,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -337,7 +333,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -359,7 +354,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -381,7 +375,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -403,7 +396,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -425,7 +417,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -447,7 +438,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -469,7 +459,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -491,7 +480,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -513,7 +501,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -613,14 +600,24 @@ SET @TotalProcessedRecords = @@ROWCOUNT
 			--scenario 2 & 3
 			UPDATE #Tmp_HoldData_Final
 			SET LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Validation Warning' + ' || ' + LoadNote ELSE '' END
+			,DeathCauseAcme_Log_Flag = 1
 				WHERE PersonId IS NULL
 				AND SrId IN (SELECT SRID FROM RVRS.Person_Log)
 
 
 			--scenario 4
-			IF EXISTS(SELECT SrUpdatedDate FROM #Tmp_HoldData_Final WHERE PersonId IS NULL 
-			   AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-			   AND LoadNote='')
+			
+			UPDATE #Tmp_HoldData_Final								
+			SET DeathCauseAcme_Log_Flag = 1
+		   ,DeathCauseAcme_Log_LoadNote=CASE WHEN DeathCauseAcme_Log_LoadNote!='' 
+				THEN 'Person|ParentMissing:Not Processed' + ' || ' + DeathCauseAcme_Log_LoadNote ELSE 'Person|ParentMissing:Not Processed' END
+			WHERE PersonId IS NULL 
+			AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
+			AND DeathCauseAcme_Log_Flag = 0
+
+			SET @TotalParentMissingRecords=@@rowcount
+
+			IF @TotalParentMissingRecords>0 
 				BEGIN
 					SET @ExecutionStatus='Failed'
 					set @Note = 'Parent table has not been processed yet'
@@ -629,10 +626,10 @@ SET @TotalProcessedRecords = @@ROWCOUNT
 			--scenario 5
 			UPDATE #Tmp_HoldData_Final
 				SET LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+ LoadNote
-					ELSE 'Person|ParentMissing:Not Processed' END
+					ELSE 'Person|ParentMissing:Not Processed' END		   
 			WHERE PersonId IS NULL
 				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-				  --AND  LoadNote!=''
+				  AND DeathCauseAcme_Log_Flag = 1
 
 		/***************************************************************Other Validations ENDS**************************************************************/
 
@@ -658,8 +655,7 @@ SET @TotalProcessedRecords = @@ROWCOUNT
 				,CreatedDate	
 				,LoadNote
 			FROM #Tmp_HoldData_Final
-			WHERE PersonId IS NOT NULL
-			AND DeathCauseAcme_Log_Flag = 0
+			WHERE DeathCauseAcme_Log_Flag = 0
 
 SET @TotalLoadedRecord = @@ROWCOUNT
 
@@ -686,7 +682,6 @@ SET @TotalLoadedRecord = @@ROWCOUNT
 				,DeathCauseAcme_Log_LoadNote
 			FROM #Tmp_HoldData_Final
 			WHERE DeathCauseAcme_Log_Flag=1
-			OR PersonId IS NULL
 
 			SET @TotalErrorRecord = @@ROWCOUNT
 
@@ -739,4 +734,5 @@ SET @TotalLoadedRecord = @@ROWCOUNT
 		SET @Err_Message = ERROR_MESSAGE()
 		RAISERROR (@Err_Message,11,1)
 	END CATCH
-END
+ENDEND
+

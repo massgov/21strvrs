@@ -1,3 +1,4 @@
+use rvrs_staging
 --For Final Code Review
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('RVRS.Load_VIP_DeathCauseAcmeOtherAttrPr') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathCauseAcmeOtherAttrPr]
@@ -33,6 +34,7 @@ BEGIN
 		,@CurentTime AS DATETIME=GETDATE()
 		,@LastLoadDate DATE
 		,@TotalProcessedRecords INT
+		,@TotalParentMissingRecords INT = 0
 		,@MaxDateinData DATE
 		,@TotalLoadedRecord INT
 		,@TotalErrorRecord INT=0
@@ -117,7 +119,6 @@ BEGIN
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 			  AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(GETDATE() AS DATE)
 			  AND D.VRV_RECORD_TYPE_ID = '040'
-			  AND D.RECORD_REGIS_DATE IS NOT NULL
 			  AND VRV_REGISTERED_FLAG =1
 			  AND FL_CURRENT =1
 			  AND FL_VOIDED=0
@@ -183,7 +184,7 @@ PRINT @TotalProcessedRecords
 						OR HD.CAUSE_CATEGORY12  IS NOT NULL OR HD.CAUSE_CATEGORY13  IS NOT NULL OR HD.CAUSE_CATEGORY14  IS NOT NULL OR HD.CAUSE_CATEGORY15  IS NOT NULL 
 						OR HD.CAUSE_CATEGORY16 IS NOT NULL OR HD.CAUSE_CATEGORY17  IS NOT NULL OR HD.CAUSE_CATEGORY18  IS NOT NULL OR HD.CAUSE_CATEGORY19  IS NOT NULL 
 						OR HD.CAUSE_CATEGORY20  IS NOT NULL)
-					THEN ''
+					THEN 'TRX_CAUSE_ACME,CAUSE_CATEGORY|Warning: TRX_CAUSE_ACME AND CAUSE_CATEGORY value mismatch'
 					WHEN UnderlyingCause IS NULL AND HD.CAUSE_CATEGORY1 IS NULL AND HD.CAUSE_CATEGORY2  IS NULL AND HD.CAUSE_CATEGORY3  IS NULL AND HD.CAUSE_CATEGORY4 IS NULL 
 					AND HD.CAUSE_CATEGORY5 IS NULL AND HD.CAUSE_CATEGORY6 IS NULL AND HD.CAUSE_CATEGORY7 IS NULL AND HD.CAUSE_CATEGORY8 IS NULL AND HD.CAUSE_CATEGORY9  IS NULL 
 					AND HD.CAUSE_CATEGORY10  IS NULL AND HD.CAUSE_CATEGORY11 IS NULL AND HD.CAUSE_CATEGORY12 IS  NULL AND HD.CAUSE_CATEGORY13  IS  NULL AND HD.CAUSE_CATEGORY14 IS NULL 
@@ -218,6 +219,10 @@ PRINT @TotalProcessedRecords
 				,RecordAxisCode
 				,SrUpdatedDate
 				,CreatedDate
+				,0 AS DeathCauseAcmeOtherAttr_Log_Flag
+				,LoadNote +
+					(CASE WHEN LoadNote <> '' THEN ' || ' ELSE '' END) +
+					LoadNote_1  AS DeathCauseAcmeOtherAttr_Log_LoadNote
 				,LoadNote +
 					(CASE WHEN LoadNote <> '' THEN ' || ' ELSE '' END) +
 					LoadNote_1 
@@ -240,14 +245,23 @@ PRINT @TotalProcessedRecords
 			--scenario 2 & 3
 			UPDATE #Tmp_HoldData_Final
 			SET LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Validation Warning' + ' || ' + LoadNote ELSE '' END
+		   ,DeathCauseAcmeOtherAttr_Log_Flag = 1	
 				WHERE PersonId IS NULL
 				AND SrId IN (SELECT SRID FROM RVRS.Person_Log)
 
 
 			--scenario 4
-			IF EXISTS(SELECT SrUpdatedDate FROM #Tmp_HoldData_Final WHERE PersonId IS NULL 
-			   AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-			   AND LoadNote='')
+			UPDATE #Tmp_HoldData_Final								
+			SET DeathCauseAcmeOtherAttr_Log_Flag = 1
+		   ,DeathCauseAcmeOtherAttr_Log_LoadNote=CASE WHEN DeathCauseAcmeOtherAttr_Log_LoadNote!='' 
+				THEN 'Person|ParentMissing:Not Processed' + ' || ' + DeathCauseAcmeOtherAttr_Log_LoadNote ELSE 'Person|ParentMissing:Not Processed' END
+			WHERE PersonId IS NULL 
+			AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
+			AND DeathCauseAcmeOtherAttr_Log_Flag = 0
+
+			SET @TotalParentMissingRecords=@@rowcount
+
+			IF @TotalParentMissingRecords>0 
 				BEGIN
 					SET @ExecutionStatus='Failed'
 					set @Note = 'Parent table has not been processed yet'
@@ -259,7 +273,7 @@ PRINT @TotalProcessedRecords
 					ELSE 'Person|ParentMissing:Not Processed' END
 			WHERE PersonId IS NULL
 				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-				  AND  LoadNote!=''
+				  AND  DeathCauseAcmeOtherAttr_Log_Flag = 1
 
 		/***************************************************************Other Validations ENDS**************************************************************/
 
@@ -281,17 +295,17 @@ PRINT @TotalProcessedRecords
 			)
 			SELECT PersonId
 				  ,DimFlTransaxConversionId
-				  ,ISNULL(CauseManual,'')
+				  ,CauseManual
 				  ,InjuryPlace
 				  ,DimSystemRejectId
 				  ,DimIntentionalRejectId
 				  ,ActivityAtTimeOfDeath
-				  ,ISNULL(UnderlyingCause,'')
+				  ,UnderlyingCause
 				  ,RecordAxisCode
 				  ,CreatedDate 
 				  ,LoadNote
 			FROM #Tmp_HoldData_Final
-			WHERE PersonId IS NOT NULL
+			WHERE DeathCauseAcmeOtherAttr_Log_Flag = 0
 
 	SET @TotalLoadedRecord = @@ROWCOUNT
 	
@@ -314,17 +328,17 @@ PRINT @TotalProcessedRecords
 			SELECT PersonId
 				  ,SrId
 				  ,DimFlTransaxConversionId
-				  ,ISNULL(CauseManual,'')
+				  ,CauseManual
 				  ,InjuryPlace
 				  ,DimSystemRejectId
 				  ,DimIntentionalRejectId
 				  ,ActivityAtTimeOfDeath
-				  ,ISNULL(UnderlyingCause,'')
+				  ,UnderlyingCause
 				  ,RecordAxisCode
 				  ,CreatedDate 
-				  ,LoadNote
+				  ,DeathCauseAcmeOtherAttr_Log_LoadNote
 			FROM #Tmp_HoldData_Final
-			WHERE PersonId IS NULL
+			WHERE DeathCauseAcmeOtherAttr_Log_Flag =1
 			  
 
 
