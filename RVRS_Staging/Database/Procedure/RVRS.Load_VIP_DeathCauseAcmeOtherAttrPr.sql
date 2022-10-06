@@ -1,5 +1,4 @@
-use rvrs_staging
---For Final Code Review
+--Updated after Code Review
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('RVRS.Load_VIP_DeathCauseAcmeOtherAttrPr') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathCauseAcmeOtherAttrPr]
 GO
