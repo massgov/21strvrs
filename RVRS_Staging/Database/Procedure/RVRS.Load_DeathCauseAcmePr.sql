@@ -734,5 +734,5 @@ SET @TotalLoadedRecord = @@ROWCOUNT
 		SET @Err_Message = ERROR_MESSAGE()
 		RAISERROR (@Err_Message,11,1)
 	END CATCH
-ENDEND
+END
 
