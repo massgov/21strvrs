@@ -1,3 +1,4 @@
+--For Code Review
  USE [RVRS_testdb]
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_VeteranPr]') AND [type]='P')
