@@ -1,3 +1,4 @@
+--Updated after Code Review 10/06/2022
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('RVRS.Load_VIP_DeathCauseAcmePr') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathCauseAcmePr]
@@ -17,6 +18,12 @@ REVISION HISTORY
 DATE			NAME						DESCRIPTION
 25 MAY 2022		SAILENDRA SINGH				RVRS-162 : LOAD DECEDENT CAUSE OF DEATH DATA FROM STAGING TO ODS
 
+
+TRUNCATION:
+TRUNCATE TABLE RVRS.DeathCauseAcme
+TRUNCATE TABLE RVRS.DeathCauseAcme_log
+DELETE FROM RVRS.EXECUTION WHERE Entity = 'DeathCauseAcme'
+
 EXEC RVRS.Load_VIP_DeathCauseAcmePr
 */
 
@@ -30,6 +37,7 @@ BEGIN
 		,@CurentTime AS DATETIME=GETDATE()
 		,@LastLoadDate DATE
 		,@TotalProcessedRecords INT
+		,@TotalParentMissingRecords INT = 0
 		,@MaxDateinData DATE
 		,@TotalLoadedRecord INT
 		,@TotalErrorRecord INT=0
@@ -80,7 +88,7 @@ SELECT 'DeathCauseAcme' AS Entity
 			SET @LastLoadedDate='01/01/1900'
 
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 			    ,P.PersonId
 			    ,1 AS [Order]	
 				,LINE1 AS Line	
@@ -94,7 +102,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND VRV_REGISTERED_FLAG =1
 		AND FL_CURRENT =1
 		AND FL_VOIDED=0
@@ -102,7 +109,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,2 AS [Order]	
 				,LINE2 AS Line	
@@ -116,7 +123,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -124,7 +130,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,3 AS [Order]	
 				,LINE3 AS Line	
@@ -138,7 +144,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -146,7 +151,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,4 AS [Order]	
 				,LINE4 AS Line	
@@ -160,7 +165,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -168,7 +172,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,5 AS [Order]	
 				,LINE5 AS Line	
@@ -182,7 +186,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -190,7 +193,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,6 AS [Order]	
 				,LINE6 AS Line	
@@ -204,7 +207,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -212,7 +214,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,7 AS [Order]	
 				,LINE7 AS Line	
@@ -226,7 +228,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -234,7 +235,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,8 AS [Order]	
 				,LINE8 AS Line	
@@ -248,7 +249,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -256,7 +256,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,9 AS [Order]	
 				,LINE9 AS Line	
@@ -270,7 +270,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -278,7 +277,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,10 AS [Order]	
 				,LINE10 AS Line	
@@ -292,7 +291,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -300,7 +298,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,11 AS [Order]	
 				,LINE11 AS Line	
@@ -314,7 +312,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -322,7 +319,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,12 AS [Order]	
 				,LINE12 AS Line	
@@ -336,7 +333,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -344,7 +340,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,13 AS [Order]	
 				,LINE13 AS Line	
@@ -358,7 +354,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -366,7 +361,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,14 AS [Order]	
 				,LINE14 AS Line	
@@ -380,7 +375,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -388,7 +382,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,15 AS [Order]	
 				,LINE15 AS Line	
@@ -402,7 +396,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -410,7 +403,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,16 AS [Order]	
 				,LINE16 AS Line	
@@ -424,7 +417,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -432,7 +424,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,17 AS [Order]	
 				,LINE17 AS Line	
@@ -446,7 +438,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -454,7 +445,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,18 AS [Order]	
 				,LINE18 AS Line	
@@ -468,7 +459,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -476,7 +466,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,19 AS [Order]	
 				,LINE19 AS Line	
@@ -490,7 +480,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -498,7 +487,7 @@ SELECT 'DeathCauseAcme' AS Entity
 
 		UNION ALL
 
-		SELECT TOP 100 DEATH_REC_ID AS SrID
+		SELECT  DEATH_REC_ID AS SrID
 				,P.PersonId
 				,20 AS [Order]	
 				,LINE20 AS Line	
@@ -512,7 +501,6 @@ SELECT 'DeathCauseAcme' AS Entity
 		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 		AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
 		AND D.VRV_RECORD_TYPE_ID = '040'
-		AND D.RECORD_REGIS_DATE IS NOT NULL
 		AND D.VRV_REGISTERED_FLAG =1
 		AND D.FL_CURRENT =1
 		AND D.FL_VOIDED=0
@@ -560,15 +548,15 @@ SET @TotalProcessedRecords = @@ROWCOUNT
 					,SrUpdatedDate
 					,CreatedDate
 					,CASE WHEN (CauseCategory IS NULL AND Line IS NOT NULL) OR (CauseCategory IS NOT NULL AND Line IS NULL)
-						  THEN 'CAUSE_CATEGORY,LINE|Error:Cause of Death Category and Line mismatch'
+						  THEN 'CauseCategory,LINE|Error:Cause of Death Category and Line mismatch'
 						  ELSE '' END AS LoadNote
 					,CASE WHEN (CauseCategory IS NULL AND [Sequence] IS NOT NULL) OR (CauseCategory IS NOT NULL AND [Sequence] IS NULL) 
-						  THEN 'CAUSE_CATEGORY,SEQ|Error:Cause of Death Category and Sequence mismatch'
+						  THEN 'CauseCategory,SEQ|Error:Cause of Death Category and Sequence mismatch'
 						  ELSE '' END AS LoadNote_1						 
 					,CASE WHEN CauseCategory IS NULL AND InjuryNature IS NOT NULL 
-						  THEN 'CAUSE_CATEGORY,NATURE_OF_INJURY_FLAG|Error:Cause of Death Category and Injury Nature mismatch'
+						  THEN 'CauseCategory,InjuryNature|Error:Cause of Death Category and Injury Nature mismatch'
 						  ELSE '' END AS LoadNote_2
-					,CASE WHEN LEFT(CauseCategory,1) LIKE '[^a-zA-Z]' THEN 'CAUSE_CATEGORY|Warning: Cause of Death Category does not start with alphabet'
+					,CASE WHEN LEFT(CauseCategory,1) LIKE '[^a-zA-Z]' THEN 'CauseCategory|Warning: Cause of Death Category does not start with alphabet'
 						  ELSE '' END AS LoadNote_3
 				INTO #Tmp_HoldData_Filter
 				FROM #Tmp_HoldData
@@ -601,25 +589,28 @@ SET @TotalProcessedRecords = @@ROWCOUNT
 		/**************************************************************Other Validations STARTS*************************************************************/
 			/*UPDATING LOAD NOTE FOR THE RECORDS WHERE WE HAVE SOME ISSUES WITH CHILD RECORD HOWEVER THE PARENT LOAD IS FINE*/
 
-			--scenario 1
-			--UPDATE P
-			--SET P.LoadNote= 'DeathCauseAcme|MissingChild:ChildMissing DeathCauseAcme' + CASE WHEN P.LoadNote!='' THEN ' || ' + P.LoadNote ELSE '' END 
-			--FROM #Tmp_HoldData_Final HF
-			--JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P ON P.PersonId=HF.PersonId
-			--WHERE HF.DeathCauseAcme_Log_Flag=1
-			--	AND HF.PersonId IS NOT NULL
 
 			--scenario 2 & 3
 			UPDATE #Tmp_HoldData_Final
 			SET LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Validation Warning' + ' || ' + LoadNote ELSE '' END
+			,DeathCauseAcme_Log_Flag = 1
 				WHERE PersonId IS NULL
 				AND SrId IN (SELECT SRID FROM RVRS.Person_Log)
 
 
 			--scenario 4
-			IF EXISTS(SELECT SrUpdatedDate FROM #Tmp_HoldData_Final WHERE PersonId IS NULL 
-			   AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-			   AND LoadNote='')
+			
+			UPDATE #Tmp_HoldData_Final								
+			SET DeathCauseAcme_Log_Flag = 1
+		   ,DeathCauseAcme_Log_LoadNote=CASE WHEN DeathCauseAcme_Log_LoadNote!='' 
+				THEN 'Person|ParentMissing:Not Processed' + ' || ' + DeathCauseAcme_Log_LoadNote ELSE 'Person|ParentMissing:Not Processed' END
+			WHERE PersonId IS NULL 
+			AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
+			AND DeathCauseAcme_Log_Flag = 0
+
+			SET @TotalParentMissingRecords=@@rowcount
+
+			IF @TotalParentMissingRecords>0 
 				BEGIN
 					SET @ExecutionStatus='Failed'
 					set @Note = 'Parent table has not been processed yet'
@@ -628,10 +619,10 @@ SET @TotalProcessedRecords = @@ROWCOUNT
 			--scenario 5
 			UPDATE #Tmp_HoldData_Final
 				SET LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+ LoadNote
-					ELSE 'Person|ParentMissing:Not Processed' END
+					ELSE 'Person|ParentMissing:Not Processed' END		   
 			WHERE PersonId IS NULL
 				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-				  --AND  LoadNote!=''
+				  AND DeathCauseAcme_Log_Flag = 1
 
 		/***************************************************************Other Validations ENDS**************************************************************/
 
@@ -657,8 +648,7 @@ SET @TotalProcessedRecords = @@ROWCOUNT
 				,CreatedDate	
 				,LoadNote
 			FROM #Tmp_HoldData_Final
-			WHERE PersonId IS NOT NULL
-			AND DeathCauseAcme_Log_Flag = 0
+			WHERE DeathCauseAcme_Log_Flag = 0
 
 SET @TotalLoadedRecord = @@ROWCOUNT
 
@@ -685,7 +675,6 @@ SET @TotalLoadedRecord = @@ROWCOUNT
 				,DeathCauseAcme_Log_LoadNote
 			FROM #Tmp_HoldData_Final
 			WHERE DeathCauseAcme_Log_Flag=1
-			OR PersonId IS NULL
 
 			SET @TotalErrorRecord = @@ROWCOUNT
 
@@ -739,3 +728,4 @@ SET @TotalLoadedRecord = @@ROWCOUNT
 		RAISERROR (@Err_Message,11,1)
 	END CATCH
 END
+
