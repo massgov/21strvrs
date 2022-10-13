@@ -23,6 +23,7 @@ TRUNCATION
 DELETE FROM RVRS.EXECUTION WHERE Entity = 'DeathCause'
 TRUNCATE TABLE RVRS.DEATHCAUSE_LOG
 TRUNCATE TABLE RVRS.DEATHCAUSE
+DELETE FROM RVRS.DEATHORIGINAL WHERE Entity = 'DeathCause'
 */
 
 BEGIN
@@ -266,9 +267,7 @@ BEGIN
 					THEN '|| CertDesig,Cause|Error:CauseStatus is ''Pending'' but Certifier is NOT ME' ELSE '' END AS LoadNote_1
 			  ,CASE WHEN Cause IS NULL AND (IntervalOrginal IS NOT NULL OR UnitOriginal IS NOT NULL) 
 					THEN '|| Cause,IntervalOrginal,UnitOriginal|Error: Cause of death is blank but the interval or unit have value' ELSE '' END AS LoadNote_2
-			  ,CASE WHEN LEFT(CAUSE,1) LIKE '[^a-zA-Z]'	
-					THEN '|| Cause|Warning: Cause of death does not start with alphabet' ELSE '' END AS LoadNote_3
-		INTO #Tmp_HoldData_Filter
+			  		INTO #Tmp_HoldData_Filter
 		FROM #Tmp_HoldData HD
 		LEFT JOIN [RVRS].[DeathCauseInterval_Data_Conversion] DC on HD.IntervalOrginal = DC.Interval
 
@@ -301,9 +300,7 @@ BEGIN
 					(CASE WHEN LoadNote <> '' THEN ' || ' ELSE '' END) +
 				LoadNote_1 + 
 					(CASE WHEN LoadNote_1 <> '' THEN ' || ' ELSE '' END) +
-				LoadNote_2 + 
-					(CASE WHEN LoadNote_2 <> '' THEN ' || ' ELSE '' END) +
-				LoadNote_3
+				LoadNote_2
 			AS LoadNote
 			,0 AS CAUSE_DC_FLAG
 			INTO #Tmp_HoldData_Final
