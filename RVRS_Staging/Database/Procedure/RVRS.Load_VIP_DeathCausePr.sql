@@ -1,4 +1,4 @@
-USE RVRS_STAGING
+
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('RVRS.Load_VIP_DeathCausePr') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathCausePr]
 GO
@@ -13,11 +13,16 @@ CREATED	: 25 AUG 2022
 PURPOSE	: TO LOAD DATA INTO FACT DeathCause TABLE
 
 REVISION HISTORY
----------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 DATE		NAME						DESCRIPTION
 06 JUN 2022	SAILENDRA					RVRS 162- : LOAD DECEDENT CAUSE OF DEATH DATA FROM STAGING TO ODS
 
 EXEC RVRS.Load_VIP_DeathCausePr
+
+TRUNCATION
+DELETE FROM RVRS.EXECUTION WHERE Entity = 'DeathCause'
+TRUNCATE TABLE RVRS.DEATHCAUSE_LOG
+TRUNCATE TABLE RVRS.DEATHCAUSE
 */
 
 BEGIN
@@ -81,9 +86,9 @@ BEGIN
 			SET @LastLoadedDate='01/01/1900'
 
 		
-	    SELECT D.DEATH_REC_ID AS SrId
+	    SELECT TOP 1000 D.DEATH_REC_ID AS SrId
 			  ,P.PersonId	
-			  ,1 AS CauseOrder
+			  ,'A' AS CauseOrder
 			  ,D.CERT_DESIG as CertDesig
 			  ,D.CODIA AS Cause	
 			  ,D.INTIA AS IntervalOrginal	
@@ -91,14 +96,15 @@ BEGIN
 			  ,NULL AS DimUnitOrginalId	
 			  ,NULL AS DimUnit1ConvId	
 			  ,NULL AS DimUnit2ConvId
-			  ,D.CONDII AS OtherCause
 			  ,@CurentTime AS CreatedDate 
 			  ,VRV_REC_DATE_CREATED AS SrCreatedDate
 			  ,VRV_DATE_CHANGED AS SrUpdatedDate
 			  into #Tmp_HoldData 
 		FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 		LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P ON P.SrId=D.DEATH_REC_ID
-		WHERE D.VRV_RECORD_TYPE_ID = '040'
+		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
+			  AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
+			  AND D.VRV_RECORD_TYPE_ID = '040'
 			  AND D.VRV_REGISTERED_FLAG =1
 			  AND D.FL_CURRENT =1
 		      AND D.FL_VOIDED=0
@@ -106,9 +112,9 @@ BEGIN
 
 		UNION ALL
 
-		SELECT D.DEATH_REC_ID AS SrId
+		SELECT TOP 1000 D.DEATH_REC_ID AS SrId
 			  ,P.PersonId		  
-			  ,2 AS CauseOrder	
+			  ,'B' AS CauseOrder	
 			  ,D.CERT_DESIG as CertDesig
 			  ,D.CODIB AS Cause	
 			  ,D.INTIB AS IntervalOrginal	
@@ -116,13 +122,14 @@ BEGIN
 			  ,NULL AS DimUnitOrginalId	
 			  ,NULL AS DimUnit1ConvId	
 			  ,NULL AS DimUnit2ConvId
-			  ,D.CONDII AS OtherCause
 			  ,@CurentTime AS CreatedDate 
 			  ,VRV_REC_DATE_CREATED AS SrCreatedDate
 			  ,VRV_DATE_CHANGED AS SrUpdatedDate
 		FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 		LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P ON P.SrId=D.DEATH_REC_ID
-		WHERE D.VRV_RECORD_TYPE_ID = '040'
+		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
+			  AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
+			  AND D.VRV_RECORD_TYPE_ID = '040'
 			  AND D.VRV_REGISTERED_FLAG =1
 			  AND D.FL_CURRENT =1
 		      AND D.FL_VOIDED=0
@@ -130,9 +137,9 @@ BEGIN
 
 		UNION ALL
 
-		SELECT D.DEATH_REC_ID AS SrId
+		SELECT TOP 1000 D.DEATH_REC_ID AS SrId
 			  ,P.PersonId	
-			  ,3 AS CauseOrder	
+			  ,'C' AS CauseOrder	
 			  ,D.CERT_DESIG as CertDesig
 			  ,D.CODIC AS Cause	
 			  ,D.INTIC AS IntervalOrginal	
@@ -140,13 +147,14 @@ BEGIN
 			  ,NULL AS DimUnitOrginalId	
 			  ,NULL AS DimUnit1ConvId	
 			  ,NULL AS DimUnit2ConvId
-			  ,D.CONDII AS OtherCause
 			  ,@CurentTime AS CreatedDate 
 			  ,VRV_REC_DATE_CREATED AS SrCreatedDate
 			  ,VRV_DATE_CHANGED AS SrUpdatedDate
 		FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 		LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P ON P.SrId=D.DEATH_REC_ID
-		WHERE  D.VRV_RECORD_TYPE_ID = '040'
+		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
+			  AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
+			  AND D.VRV_RECORD_TYPE_ID = '040'
 			  AND D.VRV_REGISTERED_FLAG =1
 			  AND D.FL_CURRENT =1
 		      AND D.FL_VOIDED=0
@@ -154,9 +162,9 @@ BEGIN
 
 		UNION ALL
 
-		SELECT D.DEATH_REC_ID AS SrId
+		SELECT TOP 1000 D.DEATH_REC_ID AS SrId
 			  ,P.PersonId	
-			  ,4 AS CauseOrder	
+			  ,'D' AS CauseOrder	
 			  ,D.CERT_DESIG as CertDesig
 			  ,D.CODID AS Cause	
 			  ,D.INTID AS IntervalOrginal	
@@ -164,17 +172,43 @@ BEGIN
 			  ,NULL AS DimUnitOrginalId 	
 			  ,NULL AS  DimUnit1ConvId	
 			  ,NULL AS DimUnit2ConvId
-			  ,D.CONDII AS OtherCause
 			  ,@CurentTime AS CreatedDate 
 			  ,VRV_REC_DATE_CREATED AS SrCreatedDate
 			  ,VRV_DATE_CHANGED AS SrUpdatedDate
 		FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 		LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P ON P.SrId=D.DEATH_REC_ID
-		WHERE D.VRV_RECORD_TYPE_ID = '040'
+		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
+			  AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
+			  AND D.VRV_RECORD_TYPE_ID = '040'
 			  AND D.VRV_REGISTERED_FLAG =1
 			  AND D.FL_CURRENT =1
 		      AND D.FL_VOIDED=0
 			  AND (D.CODID IS NOT NULL OR D.INTID IS NOT NULL OR D.UNITD IS NOT NULL)
+
+		UNION ALL
+
+		SELECT TOP 1000 D.DEATH_REC_ID AS SrId
+			  ,P.PersonId	
+			  ,'OTHER' AS CauseOrder	
+			  ,D.CERT_DESIG as CertDesig
+			  ,D.CONDII AS Cause	
+			  ,NULL AS IntervalOrginal	
+			  ,'NULL' AS UnitOriginal
+			  ,NULL AS DimUnitOrginalId 	
+			  ,NULL AS  DimUnit1ConvId	
+			  ,NULL AS DimUnit2ConvId
+			  ,@CurentTime AS CreatedDate 
+			  ,VRV_REC_DATE_CREATED AS SrCreatedDate
+			  ,VRV_DATE_CHANGED AS SrUpdatedDate
+		FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P ON P.SrId=D.DEATH_REC_ID
+		WHERE CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
+			  AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)
+			  AND D.VRV_RECORD_TYPE_ID = '040'
+			  AND D.VRV_REGISTERED_FLAG =1
+			  AND D.FL_CURRENT =1
+		      AND D.FL_VOIDED=0
+			  AND CONDII IS NOT NULL
 
 		SET @TotalProcessedRecords = @@ROWCOUNT
 		ALTER TABLE #Tmp_HoldData ADD DeathCause_Log_LoadNote VARCHAR(2000)
@@ -219,31 +253,35 @@ BEGIN
 			  ,DC.IntervalType AS IntervalTypeConv	
 			  ,DC.Interval1 AS Interval1Conv	
 			  ,DC.Interval2 AS Interval2Conv
-			  ,CASE WHEN ISNULL(DC.Unit1,'NULL') = '' THEN 'NULL' ELSE DC.UNIT1 END AS Unit1Conv	--Writing a case statement here because replace function is not giving desirable output
-			  ,CASE WHEN ISNULL(DC.Unit2,'NULL') = '' THEN 'NULL' ELSE DC.UNIT2 END AS Unit2Conv 
+			  ,ISNULL(DC.Unit1,'NULL') AS Unit1Conv	
+			  ,ISNULL(DC.Unit2,'NULL') AS Unit2Conv 
 			  ,DimUnit1ConvId	
 			  ,DimUnit2ConvId
 			  ,CreatedDate	
-			  ,OtherCause	
 			  ,SrCreatedDate
 			  ,SrUpdatedDate
-			  ,CASE WHEN CertDesig = 'MEDICAL EXAMINER'  AND CAUSE = 'PENDING' AND CAUSEORDER !=1 AND OtherCause IS NOT NULL
+			  ,CASE WHEN CertDesig = 'MEDICAL EXAMINER'  AND CAUSE = 'PENDING' AND CAUSEORDER !='A' 
 					THEN '|| CertDesig,Cause|Error:Certifier is ME and CauseStatus is ''Pending'' but other Causes have value' ELSE '' END AS LoadNote
 			  ,CASE WHEN Cause = 'PENDING' and CertDesig != 'MEDICAL EXAMINER' 
 					THEN '|| CertDesig,Cause|Error:CauseStatus is ''Pending'' but Certifier is NOT ME' ELSE '' END AS LoadNote_1
 			  ,CASE WHEN Cause IS NULL AND (IntervalOrginal IS NOT NULL OR UnitOriginal IS NOT NULL) 
-					THEN '|| Cause,IntervalOrginal,UnitOriginal|Error:DeathCause is null but Death Interval or Death Unit have value' ELSE '' END AS LoadNote_2
+					THEN '|| Cause,IntervalOrginal,UnitOriginal|Error: Cause of death is blank but the interval or unit have value' ELSE '' END AS LoadNote_2
+			  ,CASE WHEN LEFT(CAUSE,1) LIKE '[^a-zA-Z]'	
+					THEN '|| Cause|Warning: Cause of death does not start with alphabet' ELSE '' END AS LoadNote_3
 		INTO #Tmp_HoldData_Filter
 		FROM #Tmp_HoldData HD
 		LEFT JOIN [RVRS].[DeathCauseInterval_Data_Conversion] DC on HD.IntervalOrginal = DC.Interval
 
 		SET @TotalProcessedRecords = @@ROWCOUNT
+		
+		PRINT '5'
 
 		SELECT SrId
 			  ,PersonId	
 			  ,CertDesig
 			  ,CauseOrder	
-			  ,Cause	
+			  ,Cause
+			  ,NULL AS CAUSE_DC
 			  ,IntervalOrginal	
 			  ,UnitOriginal
 			  ,DimUnitOrginalId	
@@ -255,7 +293,6 @@ BEGIN
 			  ,DimUnit1ConvId	
 			  ,DimUnit2ConvId
 			  ,CreatedDate	
-			  ,OtherCause	
 			  ,SrCreatedDate
 			  ,SrUpdatedDate
 			  ,CASE WHEN LoadNote<>'' OR LoadNote_1<>'' 
@@ -264,27 +301,71 @@ BEGIN
 					(CASE WHEN LoadNote <> '' THEN ' || ' ELSE '' END) +
 				LoadNote_1 + 
 					(CASE WHEN LoadNote_1 <> '' THEN ' || ' ELSE '' END) +
-				LoadNote_2
+				LoadNote_2 + 
+					(CASE WHEN LoadNote_2 <> '' THEN ' || ' ELSE '' END) +
+				LoadNote_3
 			AS LoadNote
+			,0 AS CAUSE_DC_FLAG
 			INTO #Tmp_HoldData_Final
-			FROM #Tmp_HoldData_Filter		
+			FROM #Tmp_HoldData_Filter	
+			
+		ALTER TABLE #Tmp_HoldData_Final ALTER COLUMN CAUSE_DC VARCHAR(240) --BY DEFAULT THIS COLUMN IS BEING DEFINED AS INT SO CHANGING IT TO VARCHAR
 
-		/*THIS CODE IS TO GET MATCH FROM DimSuffix TABLE AND UPDATE THE DimUnitId WITH CORRECT VALUE*/
+		PRINT '6'
+
+		/*THIS CODE IS TO GET MATCH FROM DimDeathCauseUnit TABLE AND UPDATE THE DimUnitId WITH CORRECT VALUE*/
 		UPDATE MT
 		SET MT.DimUnitOrginalId=DS.DimDeathCauseUnitId
 		FROM #Tmp_HoldData_Final MT
-		LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDeathCauseUnit] DS WITH(NOLOCK) ON DS.Abbr=MT.UnitOriginal
+		INNER JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDeathCauseUnit] DS WITH(NOLOCK) ON DS.Abbr=MT.UnitOriginal
 
 		UPDATE MT
 		SET MT.DimUnit1ConvId=DS.DimDeathCauseUnitId
 		FROM #Tmp_HoldData_Final MT
-		LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDeathCauseUnit] DS WITH(NOLOCK) ON DS.Abbr=MT.Unit1Conv
+		INNER JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDeathCauseUnit] DS WITH(NOLOCK) ON DS.Abbr=MT.Unit1Conv
 
 		UPDATE MT
 		SET MT.DimUnit2ConvId=DS.DimDeathCauseUnitId
 		FROM #Tmp_HoldData_Final MT
-		LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDeathCauseUnit] DS WITH(NOLOCK) ON DS.Abbr=MT.Unit2Conv
+		INNER JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDeathCauseUnit] DS WITH(NOLOCK) ON DS.Abbr=MT.Unit2Conv
 
+		PRINT '7'
+
+		/*UPDATING THE DeathCause_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE DimUnitId*/
+		UPDATE #Tmp_HoldData_Final
+		SET DeathCause_Log_Flag=1
+			,LoadNote=CASE WHEN LoadNote!='' THEN LoadNote +' || ' ELSE '' END +
+				'DimUnitOrginalId|Pending Review:Not a valid DimUnitOrginalId'
+		WHERE DimUnitOrginalId IS NULL
+
+		UPDATE #Tmp_HoldData_Final
+		SET DeathCause_Log_Flag=1
+			,LoadNote=CASE WHEN LoadNote!='' THEN LoadNote +' || ' ELSE '' END +
+				'DimUnitOrginalId|Pending Review:Not a valid DimUnit1ConvId'
+		WHERE DimUnit1ConvId IS NULL
+
+		UPDATE #Tmp_HoldData_Final
+		SET DeathCause_Log_Flag=1
+			,LoadNote=CASE WHEN LoadNote!='' THEN LoadNote +' || ' ELSE '' END +
+				'DimUnitOrginalId|Pending Review:Not a valid DimUnit2ConvId'
+		WHERE DimUnit2ConvId IS NULL
+
+
+		PRINT '8'
+		/****************************************************************Code For Cause Other Starts********************************************************/
+		/*MATCH OTHER CAUSE WITH RECORDS IN RVRS.Data_Conversion TABLE FOR STANDARIZATION*/
+		UPDATE PD
+		SET PD.CAUSE_DC=DC.Mapping_Current
+		,PD.CAUSE_DC_FLAG = 1
+		,PD.LoadNote=ISNULL(PD.LoadNote,'')+' || ' + 'Cause|Warning:Other Cause got value from data conversion'
+		 FROM #Tmp_HoldData_Final PD
+		JOIN RVRS.Data_Conversion DC WITH(NOLOCK) ON DC.Mapping_Previous=PD.CAUSE
+		AND DC.TableName='DeathCause_Other' 
+		WHERE PD.CauseOrder = 'OTHER'
+
+		SET @RecordCountDebug=@@ROWCOUNT
+
+		PRINT '9'
 		/**************************************************************Other Validations STARTS*************************************************************/
 			/*UPDATING LOAD NOTE FOR THE RECORDS WHERE WE HAVE SOME ISSUES WITH CHILD RECORD HOWEVER THE PARENT LOAD IS FINE.*/
 
@@ -320,6 +401,7 @@ BEGIN
 				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
 				  AND  LoadNote!=''
 
+		PRINT '10'
 		/***************************************************************Other Validations ENDS**************************************************************/
 
 		SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
@@ -336,12 +418,11 @@ BEGIN
 				,DimUnit1ConvId	
 				,DimUnit2ConvId	
 				,CreatedDate	
-				,OtherCause	
 				,LoadNote
 		)
 		SELECT PersonId	
 			   ,CauseOrder	
-			   ,Cause	
+			   ,ISNULL(Cause_DC,Cause)	
 			   ,IntervalOrginal	
 			   ,DimUnitOrginalId	
 			   ,IntervalTypeConv	
@@ -350,19 +431,20 @@ BEGIN
 			   ,DimUnit1ConvId	
 			   ,DimUnit2ConvId
 			   ,CreatedDate	
-			   ,OtherCause
 			   ,LoadNote
 		FROM #Tmp_HoldData_Final
 		WHERE DeathCause_Log_Flag = 0
 
 	SET @TotalLoadedRecord = @@ROWCOUNT
 
+
+	PRINT '11'
 		INSERT INTO [RVRS].[DeathCause_Log]
 		(
 				 SrId
 				,PersonId	
 				,CauseOrder	
-				,Cause	
+				,Cause
 				,IntervalOrginal	
 				,DimUnitOrginalId	
 				,IntervalTypeConv	
@@ -371,13 +453,12 @@ BEGIN
 				,DimUnit1ConvId	
 				,DimUnit2ConvId	
 				,CreatedDate	
-				,OtherCause	
 				,LoadNote
 		)
 		SELECT  SrId
 			   ,PersonId	
 			   ,CauseOrder	
-			   ,Cause	
+			   ,ISNULL(Cause_DC, Cause)	
 			   ,IntervalOrginal	
 			   ,DimUnitOrginalId	
 			   ,IntervalTypeConv	
@@ -386,7 +467,6 @@ BEGIN
 			   ,DimUnit1ConvId	
 			   ,DimUnit2ConvId
 			   ,CreatedDate	
-			   ,OtherCause
 			   ,LoadNote
 		FROM #Tmp_HoldData_Final
 		WHERE DeathCause_Log_Flag = 1
@@ -396,6 +476,31 @@ BEGIN
 		SET @TotalPendingReviewRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote LIKE '%|Pending Review%')
 		SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'	AND LoadNote LIKE '%|WARNING%')
 
+			PRINT '12'
+		
+		/*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR Death Cause Other*/
+		INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
+		(
+			 SrId
+			,Entity
+			,EntityColumnName
+			,EntityId
+			,ConvertedColumn
+			,OriginalValue
+			,ConvertedValue
+		)
+		SELECT MT.SrId AS SrId
+			,'DeathCause' AS Entity
+			,'DeathCauseId' AS EntityColumnName
+			,PA.DeathCauseId AS EntityId
+			,'Cause' AS ConvertedColumn
+			,MT.Cause AS OriginalValue
+			,MT.Cause_DC AS ConvertedValue
+		FROM #Tmp_HoldData_Final MT
+		JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathCause] PA ON PA.PersonId=MT.PersonId
+		WHERE MT.CAUSE_DC_FLAG=1
+
+			PRINT '13'
 			UPDATE [RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadedDate
