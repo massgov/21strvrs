@@ -1,4 +1,4 @@
-
+USE RVRS_STAGING
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('RVRS.Load_VIP_DeathCausePr') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathCausePr]
 GO
@@ -375,6 +375,13 @@ BEGIN
 				WHERE PersonId IS NULL
 				AND SrId IN (SELECT SRID FROM RVRS.Person_Log)
 
+			--scenario 5
+			UPDATE #Tmp_HoldData_Final
+				SET LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+ LoadNote
+					ELSE 'Person|ParentMissing:Not Processed' END
+			WHERE PersonId IS NULL
+				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
+				  AND  LoadNote!=''
 
 			--scenario 4
 			UPDATE #Tmp_HoldData_Final								
@@ -393,13 +400,6 @@ BEGIN
 					set @Note = 'Parent table has not been processed yet'
 				END
 
-			--scenario 5
-			UPDATE #Tmp_HoldData_Final
-				SET LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+ LoadNote
-					ELSE 'Person|ParentMissing:Not Processed' END
-			WHERE PersonId IS NULL
-				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-				  AND  LoadNote!=''
 
 		PRINT '10'
 		/***************************************************************Other Validations ENDS**************************************************************/
