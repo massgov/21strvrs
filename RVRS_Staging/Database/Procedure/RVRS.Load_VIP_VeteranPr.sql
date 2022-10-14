@@ -1,4 +1,3 @@
---For Code Review
  USE [RVRS_testdb]
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_VeteranPr]') AND [type]='P')
@@ -13,13 +12,13 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_VeteranPr]
 AUTHOR	:Sailendra Singh
-CREATED	:Oct  7 2022  
+CREATED	:Oct 14 2022  
 PURPOSE	:TO LOAD DATA INTO FACT Veteran TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Oct  7 2022 		Sailendra Singh						RVRS 153 : LOAD DECEDENT Veteran DATA FROM STAGING TO ODS
+Oct 14 2022 		Sailendra Singh						RVRS 153 : LOAD DECEDENT Veteran DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
@@ -45,13 +44,13 @@ BEGIN
 		,@CurentTime AS DATETIME=GETDATE()
 		,@LastLoadDate DATE
 		,@TotalProcessedRecords INT
-		,@TotalParentMissingRecords INT = 0
 		,@MAXDateinData DATE
 		,@TotalLoadedRecord INT
 		,@TotalErrorRecord INT=0
 		,@ExecutionStatus VARCHAR(100)='Completed'
 		,@Note VARCHAR(500)
 		,@RecordCountDebug INT  
+		,@TotalParentMissingRecords INT = 0
 		
 	
 /*
@@ -74,7 +73,7 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 
 
 IF OBJECT_ID('[RVRS_testdb].[RVRS].[Veteran_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[Veteran_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), RankOrgOutFit_DC Varchar(128),ServiceNumber_DC Varchar(128), [PersonId] BIGINT,[Order] TINYINT,[DimWarId] INT,[OtherWar] VARCHAR(128),[DimArmyBranchId] INT,[RankOrgOutFit] VARCHAR(128),[DateEntered] DATETIME,[DateDischarged] DATETIME,[ServiceNumber] VARCHAR(32), War varchar (128),ArmyBranch varchar (128),DOD varchar (128),DOB varchar (128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),Veteran_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+	CREATE TABLE [RVRS_testdb].[RVRS].[Veteran_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), RankOrgOutFit_DC Varchar(128),ServiceNumber_DC Varchar(128),OtherWar_DC Varchar(128), [PersonId] BIGINT,[Order] TINYINT,[DimWarId] INT,[OtherWar] VARCHAR(128),[DimArmyBranchId] INT,[RankOrgOutFit] VARCHAR(128),[DateEntered] VARCHAR(16),[DateDischarged] VARCHAR(16),[ServiceNumber] VARCHAR(32), War varchar (128),ArmyBranch varchar (128),DOD varchar (128),DOB varchar (128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),Veteran_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -131,7 +130,7 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 			
 
-		        SELECT TOP 100  D.DEATH_REC_ID AS SrId
+		        SELECT   D.DEATH_REC_ID AS SrId
 					  ,P.PersonId ,ISNULL(VET1_WAR,'NULL') War,VET1_WAR_OTHER OtherWar,ISNULL(VET1_BRANCH,'NULL') ArmyBranch,VET1_ORG RankOrgOutFit,VET1_DATE_ENTERED DateEntered,VET1_DATE_DISCHARGED DateDischarged,VETR1_SERVICE_NUM ServiceNumber,DOD_4_FD DOD,DOB DOB,1 [Order]
 					  ,@CurentTime AS CreatedDate 
 					  ,VRV_REC_DATE_CREATED AS SrCreatedDate
@@ -147,19 +146,15 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 					  AND D.VRV_RECORD_TYPE_ID = '040'
 					  AND D.VRV_REGISTERED_FLAG = 1 
 					  AND D.Fl_CURRENT = 1 
-					  AND D.FL_VOIDED  = 0
-					  AND (ISDATE(D.VET1_DATE_ENTERED) =1 AND ISDATE(D.VET1_DATE_DISCHARGED) = 1 
-							AND ISDATE(D.VET2_DATE_ENTERED) =1 AND ISDATE(D.VET2_DATE_DISCHARGED) = 1
-							AND ISDATE(D.VET3_DATE_ENTERED) =1 AND ISDATE(D.VET3_DATE_DISCHARGED) = 1
-							)
-
+					  AND D.FL_VOIDED  = 0 
 					  
+	       
                        AND VET1_WAR IS NOT NULL
     
 		          UNION ALL    
 				 
 
-		        SELECT TOP 100  D.DEATH_REC_ID AS SrId
+		        SELECT   D.DEATH_REC_ID AS SrId
 					  ,P.PersonId ,ISNULL(VET2_WAR,'NULL') ,VET2_WAR_OTHER ,ISNULL(VET2_BRANCH,'NULL') ,VET2_ORG ,VET2_DATE_ENTERED ,VET2_DATE_DISCHARGED ,VETR2_SERVICE_NUM ,DOD_4_FD ,DOB ,2 [Order]
 					  ,@CurentTime AS CreatedDate 
 					  ,VRV_REC_DATE_CREATED AS SrCreatedDate
@@ -173,19 +168,15 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 					  AND D.VRV_RECORD_TYPE_ID = '040'
 					  AND D.VRV_REGISTERED_FLAG = 1 
 					  AND D.Fl_CURRENT = 1 
-					  AND D.FL_VOIDED  = 0
-					  AND (ISDATE(D.VET1_DATE_ENTERED) =1 AND ISDATE(D.VET1_DATE_DISCHARGED) = 1 
-							AND ISDATE(D.VET2_DATE_ENTERED) =1 AND ISDATE(D.VET2_DATE_DISCHARGED) = 1
-							AND ISDATE(D.VET3_DATE_ENTERED) =1 AND ISDATE(D.VET3_DATE_DISCHARGED) = 1
-							)
-
+					  AND D.FL_VOIDED  = 0 
 					  
+	       
                        AND VET2_WAR IS NOT NULL
     
 		          UNION ALL    
 				 
 
-		        SELECT TOP 100  D.DEATH_REC_ID AS SrId
+		        SELECT   D.DEATH_REC_ID AS SrId
 					  ,P.PersonId ,ISNULL(VET3_WAR,'NULL') ,VET3_WAR_OTHER ,ISNULL(VET3_BRANCH,'NULL') ,VET3_ORG ,VET3_DATE_ENTERED ,VET3_DATE_DISCHARGED ,VETR3_SERVICE_NUM ,DOD_4_FD ,DOB ,3 [Order]
 					  ,@CurentTime AS CreatedDate 
 					  ,VRV_REC_DATE_CREATED AS SrCreatedDate
@@ -199,13 +190,9 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 					  AND D.VRV_RECORD_TYPE_ID = '040'
 					  AND D.VRV_REGISTERED_FLAG = 1 
 					  AND D.Fl_CURRENT = 1 
-					  AND D.FL_VOIDED  = 0
-					  AND (ISDATE(D.VET1_DATE_ENTERED) =1 AND ISDATE(D.VET1_DATE_DISCHARGED) = 1 
-							AND ISDATE(D.VET2_DATE_ENTERED) =1 AND ISDATE(D.VET2_DATE_DISCHARGED) = 1
-							AND ISDATE(D.VET3_DATE_ENTERED) =1 AND ISDATE(D.VET3_DATE_DISCHARGED) = 1
-							)
-
+					  AND D.FL_VOIDED  = 0 
 					  
+	       
                        AND VET3_WAR IS NOT NULL
  
 	
@@ -277,11 +264,13 @@ PRINT '6'  + CONVERT (VARCHAR(50),GETDATE(),109)
    
 		SELECT *
 			
-	        ,CASE WHEN  try_Cast (DateEntered AS DateTime)>=Try_Cast (DOD AS DateTime) THEN 'DateEntered,DOD|Error:Not a valid DateEntered' ELSE '' END AS LoadNote_1
-	        ,CASE WHEN  try_Cast (DateDischarged AS DateTime)>=Try_Cast (DOD AS DateTime) THEN 'DateDischarged,DOD|Error:Not a valid DateDischarged' ELSE '' END AS LoadNote_2
-	        ,CASE WHEN  try_Cast (DateEntered AS DateTime)>Try_Cast (DateDischarged AS DateTime) THEN 'DateEntered,DateDischarged|Error:Not a valid DateDischarged' ELSE '' END AS LoadNote_3
-	        ,CASE WHEN DATEDIFF(HOUR,try_Cast (DOB AS DateTime),Try_Cast (DateEntered AS DateTime))/8766<=15 THEN 'DateEntered,DOB|Warning:Not a valid DateEntered with respect to Date of Birth' ELSE '' END AS LoadNote_4
-	        ,CASE WHEN DATEDIFF(HOUR,try_Cast (DOB AS DateTime),Try_Cast (DateDischarged AS DateTime))/8766<=15 THEN 'DateDischarged,DOB|Warning:Not a valid DateDischarged with respect to Date of Birth' ELSE '' END AS LoadNote_5
+	        ,CASE WHEN DateEntered IS NOT NULL AND ISDATE(DateEntered) = 0 THEN 'DateEntered|Error:Not a valid Entered Date' ELSE '' END AS LoadNote_1
+	        ,CASE WHEN DATEDIFF(HOUR,try_Cast (DOB AS DateTime),Try_Cast (DateEntered AS DateTime))/8766<=15 THEN 'DateEntered,DOB|Warning:Not a valid Entered Date with respect to Date of Birth' ELSE '' END AS LoadNote_2
+	        ,CASE WHEN  try_Cast (DateEntered AS DateTime)>=Try_Cast (DOD AS DateTime) THEN 'DateEntered,DOD|Error:Not a valid Entered Date with respect to Date of Death' ELSE '' END AS LoadNote_3
+	        ,CASE WHEN  try_Cast (DateEntered AS DateTime)>Try_Cast (DateDischarged AS DateTime) THEN 'DateEntered,DateDischarged|Error:Not a valid Discharged Date with respect to Entered Date' ELSE '' END AS LoadNote_4
+	        ,CASE WHEN DateDischarged IS NOT NULL AND ISDATE(DateDischarged) = 0 THEN 'DateDischarged|Error:Not a valid Discharged Date' ELSE '' END AS LoadNote_5
+	        ,CASE WHEN  try_Cast (DateDischarged AS DateTime)<=Try_Cast (DOB AS DateTime) THEN 'DateDischarged,DOB|Error:Not a valid Discharged Date with respect to Date of Birth' ELSE '' END AS LoadNote_6
+	        ,CASE WHEN  try_Cast (DateDischarged AS DateTime)>=Try_Cast (DOD AS DateTime) THEN 'DateDischarged,DOD|Error:Not a valid Discharged Date with respect to Date of Death' ELSE '' END AS LoadNote_7
 					
 		INTO #Tmp_HoldData_Final				
 		FROM #Tmp_HoldData HD
@@ -298,9 +287,9 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 */
 	
  
-	ALTER TABLE #Tmp_HoldData_Final ADD  RankOrgOutFit_DC Varchar(128),ServiceNumber_DC Varchar(128), RankOrgOutFit_Flag BIT NOT NULL DEFAULT 0 ,ServiceNumber_Flag BIT NOT NULL DEFAULT 0 ,Veteran_Log_Flag BIT NOT NULL DEFAULT 0,LoadNote VARCHAR(MAX) 
+	ALTER TABLE #Tmp_HoldData_Final ADD  RankOrgOutFit_DC Varchar(128),ServiceNumber_DC Varchar(128),OtherWar_DC Varchar(128), RankOrgOutFit_Flag BIT NOT NULL DEFAULT 0 ,ServiceNumber_Flag BIT NOT NULL DEFAULT 0 ,OtherWar_Flag BIT NOT NULL DEFAULT 0 ,Veteran_Log_Flag BIT NOT NULL DEFAULT 0,LoadNote VARCHAR(MAX) 
 
-	UPDATE #Tmp_HoldData_Final SET LoadNote =  IIF( LoadNote_1 <> '',  '||' + LoadNote_1, '') +  IIF( LoadNote_2 <> '',  '||' + LoadNote_2, '') +  IIF( LoadNote_3 <> '',  '||' + LoadNote_3, '') +  IIF( LoadNote_4 <> '',  '||' + LoadNote_4, '') +  IIF( LoadNote_5 <> '',  '||' + LoadNote_5, '')
+	UPDATE #Tmp_HoldData_Final SET LoadNote =  IIF( LoadNote_1 <> '',  '||' + LoadNote_1, '') +  IIF( LoadNote_2 <> '',  '||' + LoadNote_2, '') +  IIF( LoadNote_3 <> '',  '||' + LoadNote_3, '') +  IIF( LoadNote_4 <> '',  '||' + LoadNote_4, '') +  IIF( LoadNote_5 <> '',  '||' + LoadNote_5, '') +  IIF( LoadNote_6 <> '',  '||' + LoadNote_6, '') +  IIF( LoadNote_7 <> '',  '||' + LoadNote_7, '')
 	
 	UPDATE #Tmp_HoldData_Final SET Veteran_Log_Flag = 0
 
@@ -316,17 +305,18 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 /*THIS CODE IS TO GET MATCH FROM DimWar TABLE AND UPDATE THE DimWarId WITH CORRECT VALUE*/
 
-					ALTER TABLE #Tmp_HoldData_Final ADD DimWarId INT
+			ALTER TABLE #Tmp_HoldData_Final ADD DimWarId INT
 		
-					UPDATE MT
-					SET MT.DimWarId =DS.DimWarId 
-					FROM #Tmp_HoldData_Final MT
-					JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimWar] DS WITH(NOLOCK) ON DS.WarDesc=MT.War
+			UPDATE MT
+			SET MT.DimWarId =DS.DimWarId 
+			FROM #Tmp_HoldData_Final MT
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimWar] DS WITH(NOLOCK) ON DS.WarDesc=MT.War
 
-					SET @RecordCountDebug=@@ROWCOUNT 
+			SET @RecordCountDebug=@@ROWCOUNT 
 
-					PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
-					
+			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
+			
+			
 
 	       /*UPDATING THE Veteran_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN [RVRS_Staging].[RVRS].[Data_Conversion] TABLE*/
 
@@ -339,19 +329,21 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
               PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 			
+			
 /*THIS CODE IS TO GET MATCH FROM DimArmyBranch TABLE AND UPDATE THE DimArmyBranchId WITH CORRECT VALUE*/
 
-					ALTER TABLE #Tmp_HoldData_Final ADD DimArmyBranchId INT
+			ALTER TABLE #Tmp_HoldData_Final ADD DimArmyBranchId INT
 		
-					UPDATE MT
-					SET MT.DimArmyBranchId =DS.DimArmyBranchId 
-					FROM #Tmp_HoldData_Final MT
-					JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimArmyBranch] DS WITH(NOLOCK) ON DS.ArmyBranchDesc=MT.ArmyBranch
+			UPDATE MT
+			SET MT.DimArmyBranchId =DS.DimArmyBranchId 
+			FROM #Tmp_HoldData_Final MT
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimArmyBranch] DS WITH(NOLOCK) ON DS.ArmyBranchDesc=MT.ArmyBranch
 
-					SET @RecordCountDebug=@@ROWCOUNT 
+			SET @RecordCountDebug=@@ROWCOUNT 
 
-					PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
-					
+			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
+			
+			
 
 	       /*UPDATING THE Veteran_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN [RVRS_Staging].[RVRS].[Data_Conversion] TABLE*/
 
@@ -364,11 +356,11 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
               PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 			
+			
 /*THIS CODE IS TO GET MATCH FROM [RVRS_Staging].[RVRS].[Data_Conversion] TABLE AND UPDATE THE RankOrgOutFit WITH CORRECT VALUE,
 						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN Veteran_RankOrgOutFit TABLE*/		
 			
-  
-			
+  			
 			UPDATE MT
 				SET 
 				RankOrgOutFit_DC= DC.Mapping_Current
@@ -388,8 +380,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 /*THIS CODE IS TO GET MATCH FROM [RVRS_Staging].[RVRS].[Data_Conversion] TABLE AND UPDATE THE ServiceNumber WITH CORRECT VALUE,
 						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN Veteran_ServiceNumber TABLE*/		
 			
-  
-			
+  			
 			UPDATE MT
 				SET 
 				ServiceNumber_DC= DC.Mapping_Current
@@ -406,12 +397,26 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 					
-/*
-----------------------------------------------------------------------------------------------------------------------------------------------
-8 - Move column-x data to column-y   
-----------------------------------------------------------------------------------------------------------------------------------------------
-*/
+/*THIS CODE IS TO GET MATCH FROM [RVRS_Staging].[RVRS].[Data_Conversion] TABLE AND UPDATE THE OtherWar WITH CORRECT VALUE,
+						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN Veteran_OtherWar TABLE*/		
+			
+  			
+			UPDATE MT
+				SET 
+				OtherWar_DC= DC.Mapping_Current
+				,MT.OtherWar_Flag=1
+				,MT.LoadNote='OtherWar|Warning:OtherWar got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
+			FROM #Tmp_HoldData_Final MT
+			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.OtherWar
+			WHERE  DC.TableName='Veteran_OtherWar'
+				
+			
+
+			SET @RecordCountDebug=@@ROWCOUNT 
+            PRINT '10' +   CONVERT (VARCHAR(50),GETDATE(),109) 
+			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
+					
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 9 - Parent Validations   
@@ -430,27 +435,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
                 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 
 	
---scenario 4
-				 UPDATE #Tmp_HoldData_Final								
-					SET Veteran_Log_Flag = 1
-				   ,LoadNote=CASE WHEN LoadNote!='' 
-						THEN 'Person|ParentMissing:Not Processed' + ' || ' + ' LoadNotes ' ELSE 'Person|ParentMissing:Not Processed' END
-					WHERE PersonId IS NULL 
-					AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log)
-					AND Veteran_Log_Flag = 0
-
-			SET @TotalParentMissingRecords=@@rowcount
-
-			IF @TotalParentMissingRecords>0 
-				BEGIN
-					SET @ExecutionStatus='Failed'
-					set @Note = 'Parent table has not been processed yet'
-				END
-				
-				
-                PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
-
-	
 --scenario 5
 				UPDATE #Tmp_HoldData_Final
 					SET LoadNote='Person|ParentMissing:Not Processed' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
@@ -463,10 +447,29 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
                 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 
 	
+--scenario 4
+                           UPDATE #Tmp_HoldData_Final                                               
+                                 SET Veteran_Log_Flag = 1
+                              ,LoadNote=CASE WHEN LoadNote!='' 
+                                        THEN 'Person|ParentMissing:Not Processed' + ' || ' +  LoadNote  ELSE 'Person|ParentMissing:Not Processed' END
+                                 WHERE PersonId IS NULL 
+                                 AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log)
+                                 AND Veteran_Log_Flag = 0
+
+                    SET @TotalParentMissingRecords=@@rowcount
+
+                    IF @TotalParentMissingRecords>0 
+                           BEGIN
+                                 SET @ExecutionStatus='Failed'
+                                 set @Note = 'Parent table has not been processed yet'
+                           END
+
+					SET @RecordCountDebug=@@ROWCOUNT
+                PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))  
  select * from #Tmp_HoldData_Final 
  SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimWar] DS WITH(NOLOCK) 
-					   SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimArmyBranch] DS WITH(NOLOCK) 
-					  
+			 SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimArmyBranch] DS WITH(NOLOCK) 
+			
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 10 - LOAD to Target    
@@ -483,11 +486,12 @@ SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 				,LoadNote
 			)
 			SELECT 
-			     [PersonId],[Order],[DimWarId],[OtherWar],[DimArmyBranchId],[RankOrgOutFit],[DateEntered],[DateDischarged],[ServiceNumber]
+			     [PersonId],[Order],[DimWarId], ISNULL([OtherWar_DC],[OtherWar]),[DimArmyBranchId], ISNULL([RankOrgOutFit_DC],[RankOrgOutFit]),[DateEntered],[DateDischarged], ISNULL([ServiceNumber_DC],[ServiceNumber])
 				,CreatedDate
 				,LoadNote
 			FROM #Tmp_HoldData_Final
 			WHERE Veteran_Log_Flag=0
+			AND PersonId IS NOT NULL
 
 			SET @TotalLoadedRecord = @@ROWCOUNT 		
 		
@@ -504,10 +508,9 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 	
 INSERT INTO [RVRS_testdb].[RVRS].[Veteran_Log]
 			(
-				 SrId, RankOrgOutFit_DC ,ServiceNumber_DC 
+				 SrId, RankOrgOutFit_DC ,ServiceNumber_DC ,OtherWar_DC 
 				 , [PersonId],[Order],[DimWarId],[OtherWar],[DimArmyBranchId],[RankOrgOutFit],[DateEntered],[DateDischarged],[ServiceNumber]	
 				 , War,ArmyBranch,DOD,DOB
-				
 				,SrCreatedDate
 				,SrUpdatedDate
 				,CreatedDate
@@ -515,10 +518,9 @@ INSERT INTO [RVRS_testdb].[RVRS].[Veteran_Log]
 				,LoadNote
 			)
 			SELECT 
-			    SrId , RankOrgOutFit_DC ,ServiceNumber_DC 
+			    SrId , RankOrgOutFit_DC ,ServiceNumber_DC ,OtherWar_DC 
 				, [PersonId],[Order],[DimWarId],[OtherWar],[DimArmyBranchId],[RankOrgOutFit],[DateEntered],[DateDischarged],[ServiceNumber]
 				, War,ArmyBranch,DOD,DOB
-				
 				,SrCreatedDate
 				,SrUpdatedDate
 				,CreatedDate
@@ -596,7 +598,35 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathOriginal]
+/*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR OtherWar*/
+
+			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			(
+				 SrId
+				,Entity
+				,EntityColumnName
+				,EntityId
+				,ConvertedColumn
+				,OriginalValue
+				,ConvertedValue
+			)
+			SELECT MT.SrId AS SrId
+				,'Veteran' AS Entity
+				,'VeteranId' AS EntityColumnName
+				,PA.VeteranId AS EntityId
+				,'OtherWar' AS ConvertedColumn
+				,MT.OtherWar AS OriginalValue
+				,MT.OtherWar_DC AS ConvertedValue
+			FROM #Tmp_HoldData_Final MT
+			JOIN [RVRS_testdb].[RVRS].[Veteran]  PA ON PA.PersonId=MT.PersonId  AND PA.[Order]=MT.[Order]	
+			WHERE MT.OtherWar_Flag=1
+
+			SET @RecordCountDebug=@@ROWCOUNT
+			
+PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
+
+	
+ select * from [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'Veteran'
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 13 - Update Execution  Status  
@@ -604,7 +634,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 */
 
 	
-     SET @TotalPendingReviewRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE Veteran_Log_Flag=1
+   SET @TotalPendingReviewRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE Veteran_Log_Flag=1
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
@@ -624,7 +654,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 
 		
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
- select * from [RVRS_testdb].[RVRS].[Execution] 
+ select * from [RVRS_testdb].[RVRS].[Execution] WHERE Entity= 'Veteran'
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
