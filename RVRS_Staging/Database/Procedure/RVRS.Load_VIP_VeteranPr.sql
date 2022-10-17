@@ -1,4 +1,3 @@
- USE [RVRS_testdb]
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_VeteranPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_VeteranPr]
@@ -12,21 +11,21 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_VeteranPr]
 AUTHOR	:Sailendra Singh
-CREATED	:Oct 14 2022  
+CREATED	:Oct 17 2022  
 PURPOSE	:TO LOAD DATA INTO FACT Veteran TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Oct 14 2022 		Sailendra Singh						RVRS 153 : LOAD DECEDENT Veteran DATA FROM STAGING TO ODS
+Oct 17 2022 		Sailendra Singh						RVRS 153 : LOAD DECEDENT Veteran DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
 *****************************************************************************************
-DELETE FROM [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'Veteran'
-TRUNCATE TABLE [RVRS_testdb].[RVRS].[Veteran]
-DROP TABLE [RVRS_testdb].[RVRS].[Veteran_Log]
-DELETE FROM [RVRS_testdb].[RVRS].[Execution] WHERE Entity = 'Veteran'
+DELETE FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal] WHERE Entity = 'Veteran'
+TRUNCATE TABLE [RVRS_PROD].[RVRS_ODS].[RVRS].[Veteran]
+DROP TABLE [RVRS].[Veteran_Log]
+DELETE FROM [RVRS].[Execution] WHERE Entity = 'Veteran'
 
 *****************************************************************************************
  After execute the procedure you can run procedure 
@@ -72,8 +71,8 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 */
 
 
-IF OBJECT_ID('[RVRS_testdb].[RVRS].[Veteran_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[Veteran_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), RankOrgOutFit_DC Varchar(128),ServiceNumber_DC Varchar(128),OtherWar_DC Varchar(128), [PersonId] BIGINT,[Order] TINYINT,[DimWarId] INT,[OtherWar] VARCHAR(128),[DimArmyBranchId] INT,[RankOrgOutFit] VARCHAR(128),[DateEntered] VARCHAR(16),[DateDischarged] VARCHAR(16),[ServiceNumber] VARCHAR(32), War varchar (128),ArmyBranch varchar (128),DOD varchar (128),DOB varchar (128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),Veteran_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+IF OBJECT_ID('[RVRS].[Veteran_Log]') IS NULL 
+	CREATE TABLE [RVRS].[Veteran_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), RankOrgOutFit_DC Varchar(128),ServiceNumber_DC Varchar(128),OtherWar_DC Varchar(128), [PersonId] BIGINT,[Order] TINYINT,[DimWarId] INT,[OtherWar] VARCHAR(128),[DimArmyBranchId] INT,[RankOrgOutFit] VARCHAR(128),[DateEntered] VARCHAR(16),[DateDischarged] VARCHAR(16),[ServiceNumber] VARCHAR(32), War varchar (128),ArmyBranch varchar (128),DOD varchar (128),DOB varchar (128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),Veteran_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -89,7 +88,7 @@ PRINT '1'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 	
 			
-INSERT INTO [RVRS_testdb].[RVRS].[Execution] 
+INSERT INTO [RVRS].[Execution] 
 		(
 			 Entity
 			,ExecutionStatus
@@ -123,7 +122,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[Execution]
 */
 
 	
-SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS_testdb].[RVRS].[Execution] WITH(NOLOCK) WHERE Entity='Veteran' AND ExecutionStatus='Completed')
+SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS].[Execution] WITH(NOLOCK) WHERE Entity='Veteran' AND ExecutionStatus='Completed')
 	        IF @LastLoadedDate IS NULL SET @LastLoadedDate = '01/01/1900'
 PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
@@ -200,7 +199,6 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		   PRINT  @TotalProcessedRecords
 			
- select * from #Tmp_HoldData 
 PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
@@ -208,7 +206,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			BEGIN 
                 PRINT '5'  + CONVERT (VARCHAR(50),GETDATE(),109)	
 						
-				UPDATE [RVRS_testdb].[RVRS].[Execution]
+				UPDATE [RVRS].[Execution]
 						SET ExecutionStatus='Completed'
 						,LastLoadDate=@LastLoadedDate						
 						,EndTime=@CurentTime
@@ -232,7 +230,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 IF (SElECT count(1) from #Tmp_HoldData where PersonId is not null ) = 0
 			BEGIN
-					UPDATE [RVRS_testdb].[RVRS].[Execution]
+					UPDATE [RVRS].[Execution]
 					SET ExecutionStatus=@ExecutionStatus
 						,LastLoadDate=@LastLoadedDate					
 						,EndTime=@CurentTime
@@ -466,10 +464,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 					SET @RecordCountDebug=@@ROWCOUNT
                 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))  
- select * from #Tmp_HoldData_Final 
- SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimWar] DS WITH(NOLOCK) 
-			 SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimArmyBranch] DS WITH(NOLOCK) 
-			
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 10 - LOAD to Target    
@@ -479,7 +473,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 
-			INSERT INTO [RVRS_testdb].[RVRS].[Veteran]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[Veteran]
 			(
 				 [PersonId],[Order],[DimWarId],[OtherWar],[DimArmyBranchId],[RankOrgOutFit],[DateEntered],[DateDischarged],[ServiceNumber]
 				,CreatedDate
@@ -498,7 +492,6 @@ SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[Veteran]
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 11 - LOAD to Log    
@@ -506,7 +499,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 */
 
 	
-INSERT INTO [RVRS_testdb].[RVRS].[Veteran_Log]
+INSERT INTO [RVRS].[Veteran_Log]
 			(
 				 SrId, RankOrgOutFit_DC ,ServiceNumber_DC ,OtherWar_DC 
 				 , [PersonId],[Order],[DimWarId],[OtherWar],[DimArmyBranchId],[RankOrgOutFit],[DateEntered],[DateDischarged],[ServiceNumber]	
@@ -534,7 +527,6 @@ INSERT INTO [RVRS_testdb].[RVRS].[Veteran_Log]
 PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[Veteran_Log] 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 12 - LOAD to DeathOriginal    
@@ -544,7 +536,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR RankOrgOutFit*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -562,7 +554,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 				,MT.RankOrgOutFit AS OriginalValue
 				,MT.RankOrgOutFit_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[Veteran]  PA ON PA.PersonId=MT.PersonId  AND PA.[Order]=MT.[Order]	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Veteran]  PA ON PA.PersonId=MT.PersonId  AND PA.[Order]=MT.[Order]	
 			WHERE MT.RankOrgOutFit_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -572,7 +564,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR ServiceNumber*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -590,7 +582,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.ServiceNumber AS OriginalValue
 				,MT.ServiceNumber_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[Veteran]  PA ON PA.PersonId=MT.PersonId  AND PA.[Order]=MT.[Order]	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Veteran]  PA ON PA.PersonId=MT.PersonId  AND PA.[Order]=MT.[Order]	
 			WHERE MT.ServiceNumber_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -600,7 +592,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR OtherWar*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -618,7 +610,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.OtherWar AS OriginalValue
 				,MT.OtherWar_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[Veteran]  PA ON PA.PersonId=MT.PersonId  AND PA.[Order]=MT.[Order]	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Veteran]  PA ON PA.PersonId=MT.PersonId  AND PA.[Order]=MT.[Order]	
 			WHERE MT.OtherWar_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -626,7 +618,6 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'Veteran'
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 13 - Update Execution  Status  
@@ -638,7 +629,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
-	UPDATE [RVRS_testdb].[RVRS].[Execution]
+	UPDATE [RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadDate			
 				,EndTime=@CurentTime
@@ -654,11 +645,10 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 
 		
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
- select * from [RVRS_testdb].[RVRS].[Execution] WHERE Entity= 'Veteran'
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
-		UPDATE [RVRS_testdb].[RVRS].[Execution]
+		UPDATE [RVRS].[Execution]
 		SET ExecutionStatus='Failed'
 			,LastLoadDate=@LastLoadDate			
 			,EndTime=@CurentTime
