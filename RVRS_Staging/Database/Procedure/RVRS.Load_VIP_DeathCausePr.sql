@@ -368,7 +368,8 @@ BEGIN
 
 			--scenario 2 & 3
 			UPDATE #Tmp_HoldData_Final
-			SET LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Validation Warning' + ' || ' + LoadNote ELSE '' END
+			SET DeathCause_Log_Flag=1
+			,LoadNote=CASE WHEN LoadNote!='' THEN 'Person|ParentMissing:Validation Warning' + ' || ' + LoadNote ELSE '' END
 				WHERE PersonId IS NULL
 				AND SrId IN (SELECT SRID FROM RVRS.Person_Log)
 
@@ -378,7 +379,7 @@ BEGIN
 					ELSE 'Person|ParentMissing:Not Processed' END
 			WHERE PersonId IS NULL
 				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-				  AND  LoadNote!=''
+				  AND DeathCause_Log_Flag=1
 
 			--scenario 4
 			UPDATE #Tmp_HoldData_Final								
