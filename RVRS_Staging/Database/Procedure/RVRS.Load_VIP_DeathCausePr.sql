@@ -93,7 +93,7 @@ BEGIN
 			  ,D.CERT_DESIG as CertDesig
 			  ,D.CODIA AS Cause	
 			  ,D.INTIA AS IntervalOrginal	
-			  ,ISNULL(D.UNITA,'NULL') AS UnitOriginal
+			  ,COALESCE(D.UNITA,'NULL') AS UnitOriginal
 			  ,NULL AS DimUnitOrginalId	
 			  ,NULL AS DimUnit1ConvId	
 			  ,NULL AS DimUnit2ConvId
@@ -119,7 +119,7 @@ BEGIN
 			  ,D.CERT_DESIG as CertDesig
 			  ,D.CODIB AS Cause	
 			  ,D.INTIB AS IntervalOrginal	
-			  ,ISNULL(D.UNITB,'NULL') AS UnitOriginal
+			  ,COALESCE(D.UNITB,'NULL') AS UnitOriginal
 			  ,NULL AS DimUnitOrginalId	
 			  ,NULL AS DimUnit1ConvId	
 			  ,NULL AS DimUnit2ConvId
@@ -144,7 +144,7 @@ BEGIN
 			  ,D.CERT_DESIG as CertDesig
 			  ,D.CODIC AS Cause	
 			  ,D.INTIC AS IntervalOrginal	
-			  ,ISNULL(D.UNITC,'NULL') AS UnitOriginal
+			  ,COALESCE(D.UNITC,'NULL') AS UnitOriginal
 			  ,NULL AS DimUnitOrginalId	
 			  ,NULL AS DimUnit1ConvId	
 			  ,NULL AS DimUnit2ConvId
@@ -169,7 +169,7 @@ BEGIN
 			  ,D.CERT_DESIG as CertDesig
 			  ,D.CODID AS Cause	
 			  ,D.INTID AS IntervalOrginal	
-			  ,ISNULL(D.UNITD,'NULL') AS UnitOriginal
+			  ,COALESCE(D.UNITD,'NULL') AS UnitOriginal
 			  ,NULL AS DimUnitOrginalId 	
 			  ,NULL AS  DimUnit1ConvId	
 			  ,NULL AS DimUnit2ConvId
@@ -254,8 +254,8 @@ BEGIN
 			  ,DC.IntervalType AS IntervalTypeConv	
 			  ,DC.Interval1 AS Interval1Conv	
 			  ,DC.Interval2 AS Interval2Conv
-			  ,ISNULL(DC.Unit1,'NULL') AS Unit1Conv	
-			  ,ISNULL(DC.Unit2,'NULL') AS Unit2Conv 
+			  ,COALESCE(DC.Unit1,'NULL') AS Unit1Conv	
+			  ,COALESCE(DC.Unit2,'NULL') AS Unit2Conv 
 			  ,DimUnit1ConvId	
 			  ,DimUnit2ConvId
 			  ,CreatedDate	
@@ -287,8 +287,8 @@ BEGIN
 			  ,IntervalTypeConv AS IntervalTypeConv	
 			  ,Interval1Conv AS Interval1Conv	
 			  ,Interval2Conv AS Interval2Conv
-			  ,ISNULL(Unit1Conv,'NULL') AS Unit1Conv
-			  ,ISNULL(Unit2Conv,'NULL') AS Unit2Conv
+			  ,Unit1Conv
+			  ,Unit2Conv
 			  ,DimUnit1ConvId	
 			  ,DimUnit2ConvId
 			  ,CreatedDate	
@@ -312,7 +312,7 @@ BEGIN
 
 		/*THIS CODE IS TO GET MATCH FROM DimDeathCauseUnit TABLE AND UPDATE THE DimUnitId WITH CORRECT VALUE*/
 		UPDATE MT
-		SET MT.DimUnitOrginalId=DS.DimDeathCauseUnitId
+		SET MT.DimUnitOrginalId=DS.DimDeathCauseUnitId			
 		FROM #Tmp_HoldData_Final MT
 		INNER JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDeathCauseUnit] DS WITH(NOLOCK) ON DS.Abbr=MT.UnitOriginal
 
@@ -338,13 +338,13 @@ BEGIN
 		UPDATE #Tmp_HoldData_Final
 		SET DeathCause_Log_Flag=1
 			,LoadNote=CASE WHEN LoadNote!='' THEN LoadNote +' || ' ELSE '' END +
-				'DimUnitOrginalId|Pending Review:Not a valid DimUnit1ConvId'
+				'DimUnit1ConvId|Pending Review:Not a valid DimUnit1ConvId'
 		WHERE DimUnit1ConvId IS NULL
 
 		UPDATE #Tmp_HoldData_Final
 		SET DeathCause_Log_Flag=1
 			,LoadNote=CASE WHEN LoadNote!='' THEN LoadNote +' || ' ELSE '' END +
-				'DimUnitOrginalId|Pending Review:Not a valid DimUnit2ConvId'
+				'DimUnit2ConvId|Pending Review:Not a valid DimUnit2ConvId'
 		WHERE DimUnit2ConvId IS NULL
 
 
@@ -419,7 +419,7 @@ BEGIN
 		)
 		SELECT PersonId	
 			   ,CauseOrder	
-			   ,ISNULL(Cause_DC,Cause)	
+			   ,COALESCE(Cause_DC,Cause)	
 			   ,IntervalOrginal	
 			   ,DimUnitOrginalId	
 			   ,IntervalTypeConv	
@@ -455,7 +455,7 @@ BEGIN
 		SELECT  SrId
 			   ,PersonId	
 			   ,CauseOrder	
-			   ,ISNULL(Cause_DC, Cause)	
+			   ,COALESCE(Cause_DC, Cause)	
 			   ,IntervalOrginal	
 			   ,DimUnitOrginalId	
 			   ,IntervalTypeConv	
