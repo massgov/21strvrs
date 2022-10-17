@@ -87,7 +87,7 @@ BEGIN
 			SET @LastLoadedDate='01/01/1900'
 
 		
-	    SELECT TOP 1000 D.DEATH_REC_ID AS SrId
+	    SELECT D.DEATH_REC_ID AS SrId
 			  ,P.PersonId	
 			  ,'A' AS CauseOrder
 			  ,D.CERT_DESIG as CertDesig
@@ -113,7 +113,7 @@ BEGIN
 
 		UNION ALL
 
-		SELECT TOP 1000 D.DEATH_REC_ID AS SrId
+		SELECT D.DEATH_REC_ID AS SrId
 			  ,P.PersonId		  
 			  ,'B' AS CauseOrder	
 			  ,D.CERT_DESIG as CertDesig
@@ -138,7 +138,7 @@ BEGIN
 
 		UNION ALL
 
-		SELECT TOP 1000 D.DEATH_REC_ID AS SrId
+		SELECT D.DEATH_REC_ID AS SrId
 			  ,P.PersonId	
 			  ,'C' AS CauseOrder	
 			  ,D.CERT_DESIG as CertDesig
@@ -163,7 +163,7 @@ BEGIN
 
 		UNION ALL
 
-		SELECT TOP 1000 D.DEATH_REC_ID AS SrId
+		SELECT D.DEATH_REC_ID AS SrId
 			  ,P.PersonId	
 			  ,'D' AS CauseOrder	
 			  ,D.CERT_DESIG as CertDesig
@@ -188,7 +188,7 @@ BEGIN
 
 		UNION ALL
 
-		SELECT TOP 1000 D.DEATH_REC_ID AS SrId
+		SELECT D.DEATH_REC_ID AS SrId
 			  ,P.PersonId	
 			  ,'OTHER' AS CauseOrder	
 			  ,D.CERT_DESIG as CertDesig
