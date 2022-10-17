@@ -1,5 +1,9 @@
  USE [RVRS_testdb]
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_VeteranOtherAtrPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_VeteranOtherAtrPr]
 GO 
@@ -12,13 +16,21 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_VeteranOtherAtrPr]
 AUTHOR	:Sailendra Singh
+<<<<<<< Updated upstream
 CREATED	:Oct 14 2022  
+=======
+CREATED	:Oct 17 2022  
+>>>>>>> Stashed changes
 PURPOSE	:TO LOAD DATA INTO FACT VeteranOtherAtr TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
+<<<<<<< Updated upstream
 Oct 14 2022 		Sailendra Singh						RVRS 153 : LOAD DECEDENT VeteranOtherAtr DATA FROM STAGING TO ODS
+=======
+Oct 17 2022 		Sailendra Singh						RVRS 153 : LOAD DECEDENT VeteranOtherAtr DATA FROM STAGING TO ODS
+>>>>>>> Stashed changes
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
@@ -131,7 +143,11 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
 		        SELECT   D.DEATH_REC_ID AS SrId
+<<<<<<< Updated upstream
 					  ,P.PersonId ,ISNULL(CONVERT(VARCHAR(12),ARMED),'NULL') Armed,VET_ENTRIES VeteranEntries,VET1_WAR WAR1,VET2_WAR WAR2,VET3_WAR WAR3
+=======
+					  ,P.PersonId ,COALESCE(ARMED,'NULL') Armed,VET_ENTRIES VeteranEntries,VET1_WAR WAR1,VET2_WAR WAR2,VET3_WAR WAR3
+>>>>>>> Stashed changes
 					  ,@CurentTime AS CreatedDate 
 					  ,VRV_REC_DATE_CREATED AS SrCreatedDate
 					  ,VRV_DATE_CHANGED AS SrUpdatedDate
