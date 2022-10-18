@@ -1,6 +1,6 @@
 USE RVRS_STAGING
 --Updated after Code Review 10/06/2022
-
+--Updated again 10/18/2022 updating this line to compare discrepencies in script
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('RVRS.Load_VIP_DeathCauseAcmeOtherAttrPr') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathCauseAcmeOtherAttrPr]
 GO
