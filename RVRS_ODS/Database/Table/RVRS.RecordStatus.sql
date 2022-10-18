@@ -13,7 +13,9 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	BEGIN
 		CREATE TABLE[RVRS].[RecordStatus](  		
 			[RecordStatusId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column 
-			[PersonId] BIGINT NOT NULL,  --  RVRS Column 			[DimMedicalInfoStatusId] INT NOT NULL CONSTRAINT [df_RecordStatusDimMedicalInfoStatusId] DEFAULT (0), -- IND_MED_INFO_STATUS			[DimPersonalInfoStatusId] INT NOT NULL CONSTRAINT [df_RecordStatusDimPersonalInfoStatusId] DEFAULT (0), -- IND_PERS_INFO_STATUS
+			[PersonId] BIGINT NOT NULL,  --  RVRS Column 
+			[DimMedicalInfoStatusId] INT NOT NULL CONSTRAINT [df_RecordStatusDimMedicalInfoStatusId] DEFAULT (0), -- IND_MED_INFO_STATUS
+			[DimPersonalInfoStatusId] INT NOT NULL CONSTRAINT [df_RecordStatusDimPersonalInfoStatusId] DEFAULT (0), -- IND_PERS_INFO_STATUS
 			[CreatedDate] DATETIME NOT NULL CONSTRAINT [df_RecordStatusCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store created date
 		   	[LoadNote] VARCHAR(MAX)
 		CONSTRAINT [pk_RecordStatusId] PRIMARY KEY CLUSTERED 

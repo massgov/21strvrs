@@ -1,5 +1,6 @@
 --drop table [RVRS].[DimCountry]
 --sp_help '[RVRS].[DimCountry]'
+-- SELECT * FROM [RVRS].[DimCountry]
 SET ANSI_NULLS ON
 GO
 

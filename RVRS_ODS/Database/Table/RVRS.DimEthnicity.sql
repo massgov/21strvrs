@@ -12,8 +12,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		CREATE TABLE [RVRS].[DimEthnicity](
 			[DimEthnicityId] INT NOT NULL IDENTITY (1,1),	
 			[BkEthnicityId] INT NOT NULL,
-			[EthnicityDesc] VARCHAR(128) NOT NULL,  
-			[DimEthnicityParentId] INT NOT NULL CONSTRAINT [df_DimEthnicityDimEthnicityParentId] DEFAULT (0),
+			[EthnicityDesc] VARCHAR(128) NOT NULL,  			
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
 			[SrcVoid] TINYINT  NOT NULL, -- it set by source - Src = Source 		

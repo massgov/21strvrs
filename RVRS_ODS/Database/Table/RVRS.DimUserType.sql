@@ -1,0 +1,27 @@
+--drop table [RVRS].[DimUserType]
+-- sp_help '[RVRS].[DimUserType]'
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.Objects 
+					WHERE object_id = OBJECT_ID('[RVRS].[DimUserType]') )
+	BEGIN 
+		CREATE TABLE [RVRS].[DimUserType](
+			[DimUserTypeId] INT NOT NULL IDENTITY (1,1),	
+			[BkUserTypeId] INT NOT NULL,
+			[UserTypeDesc] VARCHAR(128) NOT NULL,  
+			[StartDate] DateTime NULL,
+			[EndDate] DateTime NULL,
+			[Void] TINYINT NOT NULL CONSTRAINT [df_DimUserTypeVoid] DEFAULT (0),			
+		CONSTRAINT [pk_DimUserTypeId] PRIMARY KEY CLUSTERED 
+		(
+			[DimUserTypeId] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY]
+	END 
+GO
+
+

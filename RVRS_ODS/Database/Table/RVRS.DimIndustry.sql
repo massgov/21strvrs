@@ -12,7 +12,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	BEGIN 
 		CREATE TABLE [RVRS].[DimIndustry](
 			[DimIndustryId] INT NOT NULL IDENTITY (1,1),	
-			[BkTimeIndId] INT NOT NULL,
+			[BkIndustryId] INT NOT NULL,
 		    [IndustryDesc] VARCHAR(128) NOT NULL,
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,

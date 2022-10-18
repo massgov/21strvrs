@@ -13,11 +13,11 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		CREATE TABLE [RVRS].[DeathCauseAcme] (  
 		   [DeathCauseAcmeId] BIGINT NOT NULL IDENTITY (1,1),
 		   [PersonId] BIGINT NOT NULL,  --  RVRS Column 
-		   [Order] TINYINT NOT NULL,
-		   [Line] VARCHAR(2) NOT NULL, --LINE1,2,3 etc 
-		   [Sequence] VARCHAR(2) NOT NULL, --SEQ1,2,3 etc 
+		   [Order] DECIMAL (3,0) NOT NULL,
+		   [Line] DECIMAL (3,0) NOT NULL, --LINE1,2,3 etc 
+		   [Sequence] DECIMAL (3,0) NOT NULL, --SEQ1,2,3 etc 
 		   [CauseCategory] VARCHAR(8) NOT NULL, --CAUSE_CATEGORY1,2,3 etc 
-		   [InjuryNature] VARCHAR(2)  NULL, --NATURE_OF_INJURY_FLAG1,2,3 etc 
+		   [InjuryNature] DECIMAL (3,0)  NULL, --NATURE_OF_INJURY_FLAG1,2,3 etc 
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathCauseAcmeCreatedDate] DEFAULT (GETDATE()), -- RVRS Column	
 		   [LoadNote] VARCHAR(MAX)
 		CONSTRAINT [pk_DeathCauseAcmeId] PRIMARY KEY CLUSTERED 

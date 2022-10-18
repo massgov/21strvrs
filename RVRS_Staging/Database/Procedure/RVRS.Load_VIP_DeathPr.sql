@@ -371,7 +371,7 @@ BEGIN
 			WHERE PersonId IS NULL
 				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
 				  AND  Death_Log_Flag=1
-	
+
 		/***************************************************************Other Validations ENDS**************************************************************/
 				--PRINT '7'
 

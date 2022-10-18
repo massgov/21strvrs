@@ -11,9 +11,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	BEGIN 
 		CREATE TABLE [RVRS].[DimRegistrarTypeInternal](
 			[DimRegistrarTypeInternalId] INT NOT NULL IDENTITY (1,1),			
-			[DimRegistrarTypeInternalDesc] VARCHAR(128) NOT NULL,  --GENERAL,OCCURRENCE,RESIDENCE,STATE 
-			[StartDate] DateTime NULL,
-			[EndDate] DateTime NULL,
+			[RegistrarTypeInternalDesc] VARCHAR(128) NOT NULL,  --GENERAL,OCCURRENCE,RESIDENCE,STATE 
 			[Void] TINYINT NOT NULL CONSTRAINT [df_DimRegistrarTypeInternalVoid] DEFAULT (0),			
 		CONSTRAINT [pk_DimRegistrarTypeInternalId] PRIMARY KEY CLUSTERED 
 		(
