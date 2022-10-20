@@ -1,4 +1,5 @@
-use RVRS_Staging
+
+use rvrs_staging
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_DeathInformantPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathInformantPr]
@@ -130,7 +131,7 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 			
 
-		        SELECT TOP 10000000  D.DEATH_REC_ID AS SrId
+		        SELECT  D.DEATH_REC_ID AS SrId
 					  ,P.PersonId ,INFO_NME FirstName,INFO_LST_NME LastName,INFO_MIDD_NME MiddleName,COALESCE(INFO_SUFFIX,'NULL') Suffix,INFO_RELATION_LIST RelationList,COALESCE(INFO_RELATION,'NULL') InformantRelation,COALESCE(INFO_RELATION_OTHER,'NULL') OtherInformantRelation
 					  ,@CurentTime AS CreatedDate 
 					  ,VRV_REC_DATE_CREATED AS SrCreatedDate
@@ -228,7 +229,7 @@ PRINT '6'  + CONVERT (VARCHAR(50),GETDATE(),109)
 						 (InformantRelation='MEDICAL RECORDS' AND RelationList <> 9) OR (InformantRelation='OTHER' AND RelationList <> 10) OR (InformantRelation='UNKNOWN' AND RelationList <> 11) OR
 						 (InformantRelation='NIECE' AND RelationList <> 12) OR (InformantRelation='NEPHEW' AND RelationList <> 13) OR (InformantRelation='MEDICAL EXAMINER' AND RelationList <> 14) OR
 						 (InformantRelation='FUNERAL DIRECTOR' AND RelationList <> 15) OR (InformantRelation='SPOUSE' AND RelationList <> 16)						 
-						 OR InformantRelation IS NULL AND RelationList  IS NOT NULL THEN 'RelationList,InformantRelation|Error:Mismatch between code and relation' ELSE '' END AS LoadNote_5
+						 OR (InformantRelation IS NULL AND RelationList  IS NOT NULL) THEN 'RelationList,InformantRelation|Error:Mismatch between code and relation' ELSE '' END AS LoadNote_5
 					
 		INTO #Tmp_HoldData_Final				
 		FROM #Tmp_HoldData HD
