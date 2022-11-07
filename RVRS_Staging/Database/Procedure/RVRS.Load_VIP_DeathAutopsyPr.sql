@@ -74,7 +74,7 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 
 
 IF OBJECT_ID('[RVRS_testdb].[RVRS].[DeathAutopsy_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[DeathAutopsy_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), MedicalExaminerContacted_DC VARCHAR(128),AutopsyPerformed_DC VARCHAR(128),FindingAvailable_DC VARCHAR(128), [PersonId] BIGINT,[DimMedicalExaminerContactedId] INT,[DimAutopsyPerformedId] INT,[DimFindingAvailableId] INT, MedicalExaminerContacted VARCHAR(128),AutopsyPerformed VARCHAR(128),FindingAvailable VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathAutopsy_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+	CREATE TABLE [RVRS_testdb].[RVRS].[DeathAutopsy_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), [PersonId] BIGINT,[DimMedicalExaminerContactedId] INT,[DimAutopsyPerformedId] INT,[DimFindingAvailableId] INT, MedicalExaminerContacted VARCHAR(128),AutopsyPerformed VARCHAR(128),FindingAvailable VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathAutopsy_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -237,7 +237,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 */
 	
  
-	ALTER TABLE #Tmp_HoldData_Final ADD  MedicalExaminerContacted_DC VARCHAR(128),AutopsyPerformed_DC VARCHAR(128),FindingAvailable_DC VARCHAR(128), MedicalExaminerContacted_Flag BIT NOT NULL DEFAULT 0 ,AutopsyPerformed_Flag BIT NOT NULL DEFAULT 0 ,FindingAvailable_Flag BIT NOT NULL DEFAULT 0 ,DeathAutopsy_Log_Flag BIT NOT NULL DEFAULT 0,LoadNote VARCHAR(MAX) 
+	ALTER TABLE #Tmp_HoldData_Final ADD DeathAutopsy_Log_Flag BIT NOT NULL DEFAULT 0,LoadNote VARCHAR(MAX) 
 
 	UPDATE #Tmp_HoldData_Final SET LoadNote =  IIF( LoadNote_1 <> '',  '||' + LoadNote_1, '')
 	
@@ -267,26 +267,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 			
 			
-/*THIS CODE IS TO GET MATCH FROM [RVRS_Staging].[RVRS].[Data_Conversion] TABLE AND UPDATE THE DimMedicalExaminerContactedId WITH CORRECT VALUE,
-						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN DimYesNo TABLE*/		
-			
-  			
-			UPDATE MT
-				SET  MT.DimMedicalExaminerContactedId=DC.Mapping_Current_ID,
-				MedicalExaminerContacted_DC= DC.Mapping_Current
-				,MT.MedicalExaminerContacted_Flag=1
-				,MT.LoadNote='MedicalExaminerContacted|Warning:DimMedicalExaminerContactedId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
-			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.MedicalExaminerContacted
-			WHERE  DC.TableName='DimYesNo'
-				AND MT.DimMedicalExaminerContactedId IS NULL
-			
-
-			SET @RecordCountDebug=@@ROWCOUNT 
-            PRINT '8' +   CONVERT (VARCHAR(50),GETDATE(),109) 
-			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
-	
-					
 
 	       /*UPDATING THE DeathAutopsy_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN [RVRS_Staging].[RVRS].[Data_Conversion] TABLE*/
 
@@ -314,26 +294,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 			
 			
-/*THIS CODE IS TO GET MATCH FROM [RVRS_Staging].[RVRS].[Data_Conversion] TABLE AND UPDATE THE DimAutopsyPerformedId WITH CORRECT VALUE,
-						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN DimAutopsyPerformed TABLE*/		
-			
-  			
-			UPDATE MT
-				SET  MT.DimAutopsyPerformedId=DC.Mapping_Current_ID,
-				AutopsyPerformed_DC= DC.Mapping_Current
-				,MT.AutopsyPerformed_Flag=1
-				,MT.LoadNote='AutopsyPerformed|Warning:DimAutopsyPerformedId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
-			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.AutopsyPerformed
-			WHERE  DC.TableName='DimAutopsyPerformed'
-				AND MT.DimAutopsyPerformedId IS NULL
-			
-
-			SET @RecordCountDebug=@@ROWCOUNT 
-            PRINT '9' +   CONVERT (VARCHAR(50),GETDATE(),109) 
-			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
-	
-					
 
 	       /*UPDATING THE DeathAutopsy_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN [RVRS_Staging].[RVRS].[Data_Conversion] TABLE*/
 
@@ -361,26 +321,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 			
 			
-/*THIS CODE IS TO GET MATCH FROM [RVRS_Staging].[RVRS].[Data_Conversion] TABLE AND UPDATE THE DimFindingAvailableId WITH CORRECT VALUE,
-						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN DimYesNo TABLE*/		
-			
-  			
-			UPDATE MT
-				SET  MT.DimFindingAvailableId=DC.Mapping_Current_ID,
-				FindingAvailable_DC= DC.Mapping_Current
-				,MT.FindingAvailable_Flag=1
-				,MT.LoadNote='FindingAvailable|Warning:DimFindingAvailableId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
-			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.FindingAvailable
-			WHERE  DC.TableName='DimYesNo'
-				AND MT.DimFindingAvailableId IS NULL
-			
-
-			SET @RecordCountDebug=@@ROWCOUNT 
-            PRINT '10' +   CONVERT (VARCHAR(50),GETDATE(),109) 
-			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
-	
-					
 
 	       /*UPDATING THE DeathAutopsy_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN [RVRS_Staging].[RVRS].[Data_Conversion] TABLE*/
 
@@ -486,7 +426,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 	
 INSERT INTO [RVRS_testdb].[RVRS].[DeathAutopsy_Log]
 			(
-				 SrId, MedicalExaminerContacted_DC ,AutopsyPerformed_DC ,FindingAvailable_DC 
+				 SrId
 				 , [PersonId],[DimMedicalExaminerContactedId],[DimAutopsyPerformedId],[DimFindingAvailableId]	
 				 , MedicalExaminerContacted,AutopsyPerformed,FindingAvailable
 				,SrCreatedDate
@@ -496,7 +436,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[DeathAutopsy_Log]
 				,LoadNote
 			)
 			SELECT 
-			    SrId , MedicalExaminerContacted_DC ,AutopsyPerformed_DC ,FindingAvailable_DC 
+			    SrId 
 				, [PersonId],[DimMedicalExaminerContactedId],[DimAutopsyPerformedId],[DimFindingAvailableId]
 				, MedicalExaminerContacted,AutopsyPerformed,FindingAvailable
 				,SrCreatedDate
@@ -518,90 +458,6 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 12 - LOAD to DeathOriginal    
 ----------------------------------------------------------------------------------------------------------------------------------------------
 */
-
-	
-/*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimMedicalExaminerContactedId*/
-
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
-			(
-				 SrId
-				,Entity
-				,EntityColumnName
-				,EntityId
-				,ConvertedColumn
-				,OriginalValue
-				,ConvertedValue
-			)
-			SELECT MT.SrId AS SrId
-				,'DeathAutopsy' AS Entity
-				,'DeathAutopsyId' AS EntityColumnName
-				,PA.DeathAutopsyId AS EntityId
-				,'DimMedicalExaminerContactedId' AS ConvertedColumn
-				,MT.MedicalExaminerContacted AS OriginalValue
-				,MT.MedicalExaminerContacted_DC AS ConvertedValue
-			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathAutopsy]  PA ON PA.PersonId=MT.PersonId 	
-			WHERE MT.MedicalExaminerContacted_Flag=1
-
-			SET @RecordCountDebug=@@ROWCOUNT
-			
-PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
-
-	
-/*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimAutopsyPerformedId*/
-
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
-			(
-				 SrId
-				,Entity
-				,EntityColumnName
-				,EntityId
-				,ConvertedColumn
-				,OriginalValue
-				,ConvertedValue
-			)
-			SELECT MT.SrId AS SrId
-				,'DeathAutopsy' AS Entity
-				,'DeathAutopsyId' AS EntityColumnName
-				,PA.DeathAutopsyId AS EntityId
-				,'DimAutopsyPerformedId' AS ConvertedColumn
-				,MT.AutopsyPerformed AS OriginalValue
-				,MT.AutopsyPerformed_DC AS ConvertedValue
-			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathAutopsy]  PA ON PA.PersonId=MT.PersonId 	
-			WHERE MT.AutopsyPerformed_Flag=1
-
-			SET @RecordCountDebug=@@ROWCOUNT
-			
-PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
-
-	
-/*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimFindingAvailableId*/
-
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
-			(
-				 SrId
-				,Entity
-				,EntityColumnName
-				,EntityId
-				,ConvertedColumn
-				,OriginalValue
-				,ConvertedValue
-			)
-			SELECT MT.SrId AS SrId
-				,'DeathAutopsy' AS Entity
-				,'DeathAutopsyId' AS EntityColumnName
-				,PA.DeathAutopsyId AS EntityId
-				,'DimFindingAvailableId' AS ConvertedColumn
-				,MT.FindingAvailable AS OriginalValue
-				,MT.FindingAvailable_DC AS ConvertedValue
-			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathAutopsy]  PA ON PA.PersonId=MT.PersonId 	
-			WHERE MT.FindingAvailable_Flag=1
-
-			SET @RecordCountDebug=@@ROWCOUNT
-			
-PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 
 	
  select * from [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathAutopsy'
@@ -658,5 +514,4 @@ END
 */
 
 	
-
 
