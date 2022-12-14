@@ -1,5 +1,4 @@
- USE RVRS_Testdb
-
+USE RVRS_Staging
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_OccupationPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_OccupationPr]
@@ -24,10 +23,10 @@ Dec 14 2022 		Foyzur Rahman						RVRS 163 : LOAD DECEDENT Occupation DATA FROM S
 *****************************************************************************************
  For testing diff senarios you start using fresh data
 *****************************************************************************************
-DELETE FROM RVRS_Testdb.[RVRS].[DeathOriginal] WHERE Entity = 'Occupation'
-TRUNCATE TABLE RVRS_Testdb.[RVRS].[Occupation]
-DROP TABLE RVRS_Testdb.[RVRS].[Occupation_Log]
-DELETE FROM RVRS_Testdb.[RVRS].[Execution] WHERE Entity = 'Occupation'
+DELETE FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal] WHERE Entity = 'Occupation'
+TRUNCATE TABLE [RVRS_PROD].[RVRS_ODS].[RVRS].[Occupation]
+DROP TABLE [RVRS].[Occupation_Log]
+DELETE FROM [RVRS].[Execution] WHERE Entity = 'Occupation'
 
 *****************************************************************************************
  After execute the procedure you can run procedure 
@@ -73,8 +72,8 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData') IS NOT NULL
 */
 
 
-IF OBJECT_ID('RVRS_Testdb.[RVRS].[Occupation_Log]') IS NULL 
-	CREATE TABLE RVRS_Testdb.[RVRS].[Occupation_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), Occupation_DC Varchar(128),Industry_DC Varchar(128), [PersonId] BIGINT,[Industry] VARCHAR(64),[Occupation] VARCHAR(64),[DimNioshIndustryId] INT,[DimNioshOccupationId] INT, OccupCode VARCHAR(128),IndusCode VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),Occupation_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+IF OBJECT_ID('[RVRS].[Occupation_Log]') IS NULL 
+	CREATE TABLE [RVRS].[Occupation_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), Occupation_DC Varchar(128),Industry_DC Varchar(128), [PersonId] BIGINT,[Industry] VARCHAR(64),[Occupation] VARCHAR(64),[DimNioshIndustryId] INT,[DimNioshOccupationId] INT, OccupCode VARCHAR(128),IndusCode VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),Occupation_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -90,7 +89,7 @@ PRINT '1'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 	
 			
-INSERT INTO RVRS_Testdb.[RVRS].[Execution] 
+INSERT INTO [RVRS].[Execution] 
 		(
 			 Entity
 			,ExecutionStatus
@@ -124,7 +123,7 @@ INSERT INTO RVRS_Testdb.[RVRS].[Execution]
 */
 
 	
-SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM RVRS_Testdb.[RVRS].[Execution] WITH(NOLOCK) WHERE Entity='Occupation' AND ExecutionStatus='Completed')
+SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS].[Execution] WITH(NOLOCK) WHERE Entity='Occupation' AND ExecutionStatus='Completed')
 	        IF @LastLoadedDate IS NULL SET @LastLoadedDate = '01/01/1900'
 PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
@@ -139,9 +138,9 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		        INTO #Tmp_HoldData
 
-		        FROM RVRS_Staging.RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		        FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
-				LEFT JOIN RVRS_Staging.[RVRS].[Data_Conversion_Niosh_Occupation] C ON C.Industry=D.Indust AND C.Occupation=D.Occup				
+				LEFT JOIN [RVRS].[Data_Conversion_Niosh_Occupation] C ON C.Industry=D.Indust AND C.Occupation=D.Occup				
 				WHERE  
 		              CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 					  AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)				  
@@ -157,7 +156,6 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		   PRINT  @TotalProcessedRecords
 			
- select * from #Tmp_HoldData 
 PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
@@ -165,7 +163,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			BEGIN 
                 PRINT '5'  + CONVERT (VARCHAR(50),GETDATE(),109)	
 						
-				UPDATE RVRS_Testdb.[RVRS].[Execution]
+				UPDATE [RVRS].[Execution]
 						SET ExecutionStatus='Completed'
 						,LastLoadDate=@LastLoadedDate						
 						,EndTime=@CurentTime
@@ -189,7 +187,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 IF (SElECT count(1) from #Tmp_HoldData where PersonId is not null ) = 0
 			BEGIN
-					UPDATE RVRS_Testdb.[RVRS].[Execution]
+					UPDATE [RVRS].[Execution]
 					SET ExecutionStatus=@ExecutionStatus
 						,LastLoadDate=@LastLoadedDate					
 						,EndTime=@CurentTime
@@ -232,7 +230,7 @@ SET @LastLoadedDate = @MAXDateinData
 ----------------------------------------------------------------------------------------------------------------------------------------------
 */
 	
-/*THIS CODE IS TO GET MATCH FROM RVRS_Staging.[RVRS].[Data_Conversion] TABLE AND UPDATE THE Occupation WITH CORRECT VALUE,
+/*THIS CODE IS TO GET MATCH FROM [RVRS].[Data_Conversion] TABLE AND UPDATE THE Occupation WITH CORRECT VALUE,
 						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN Occupation_Occupation TABLE*/		
 			
   			
@@ -242,7 +240,7 @@ SET @LastLoadedDate = @MAXDateinData
 				,MT.Occupation_Flag=1
 				,MT.LoadNote='Occupation|Warning:Occupation got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData MT
-			JOIN RVRS_Staging.[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.Occupation
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.Occupation
 			WHERE  DC.TableName='Occupation_Occupation'
 				
 			
@@ -252,7 +250,7 @@ SET @LastLoadedDate = @MAXDateinData
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 					
-/*THIS CODE IS TO GET MATCH FROM RVRS_Staging.[RVRS].[Data_Conversion] TABLE AND UPDATE THE Industry WITH CORRECT VALUE,
+/*THIS CODE IS TO GET MATCH FROM [RVRS].[Data_Conversion] TABLE AND UPDATE THE Industry WITH CORRECT VALUE,
 						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN Occupation_Industry TABLE*/		
 			
   			
@@ -262,7 +260,7 @@ SET @LastLoadedDate = @MAXDateinData
 				,MT.Industry_Flag=1
 				,MT.LoadNote='Industry|Warning:Industry got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData MT
-			JOIN RVRS_Staging.[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.Industry
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.Industry
 			WHERE  DC.TableName='Occupation_Industry'
 				
 			
@@ -287,7 +285,7 @@ SET @LastLoadedDate = @MAXDateinData
 			
 			
 
-	       /*UPDATING THE Occupation_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN RVRS_Staging.[RVRS].[Data_Conversion] TABLE*/
+	       /*UPDATING THE Occupation_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN [RVRS].[Data_Conversion] TABLE*/
 
 			UPDATE #Tmp_HoldData 
 					SET Occupation_Log_Flag=1
@@ -314,7 +312,7 @@ SET @LastLoadedDate = @MAXDateinData
 			
 			
 
-	       /*UPDATING THE Occupation_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN RVRS_Staging.[RVRS].[Data_Conversion] TABLE*/
+	       /*UPDATING THE Occupation_Log_Flag FOR ALL THE RECORDS FOR WHICH WE WILL NOT HAVE A MATCH IN [RVRS].[Data_Conversion] TABLE*/
 
 			UPDATE #Tmp_HoldData 
 					SET Occupation_Log_Flag=1
@@ -337,7 +335,7 @@ SET @LastLoadedDate = @MAXDateinData
 				SET Occupation_Log_Flag=1
 					,LoadNote= 'Person|ParentMissing:Validation Errors' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					WHERE PersonId IS NULL
-					AND SrId IN (SELECT SRID FROM RVRS_Staging.RVRS.Person_Log WITH(NOLOCK))
+					AND SrId IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 
 				SET @RecordCountDebug=@@ROWCOUNT 
 				
@@ -348,7 +346,7 @@ SET @LastLoadedDate = @MAXDateinData
 				UPDATE #Tmp_HoldData
 					SET LoadNote='Person|ParentMissing:Not Processed' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					 WHERE PersonId IS NULL
-					  AND SrId NOT IN (SELECT SRID FROM RVRS_Staging.RVRS.Person_Log WITH(NOLOCK))
+					  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 					  AND Occupation_Log_Flag=1
 
 			    SET @RecordCountDebug=@@ROWCOUNT 
@@ -362,7 +360,7 @@ SET @LastLoadedDate = @MAXDateinData
                               ,LoadNote=CASE WHEN LoadNote!='' 
                                         THEN 'Person|ParentMissing:Not Processed' + ' || ' +  LoadNote  ELSE 'Person|ParentMissing:Not Processed' END
                                  WHERE PersonId IS NULL 
-                                 AND SrId NOT IN (SELECT SRID FROM RVRS_Staging.RVRS.Person_Log)
+                                 AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
                                  AND Occupation_Log_Flag = 0
 
                     SET @TotalParentMissingRecords=@@rowcount
@@ -375,10 +373,6 @@ SET @LastLoadedDate = @MAXDateinData
 
 					SET @RecordCountDebug=@@ROWCOUNT
                 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))  
- select * from #Tmp_HoldData 
- SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimNioshOccupation] DS WITH(NOLOCK) 
-			 SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimNioshIndustry] DS WITH(NOLOCK) 
-			
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 10 - LOAD to Target    
@@ -388,7 +382,7 @@ SET @LastLoadedDate = @MAXDateinData
 	
 SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 
-			INSERT INTO RVRS_Testdb.[RVRS].[Occupation]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[Occupation]
 			(
 				 [PersonId],[Industry],[Occupation],[DimNioshIndustryId],[DimNioshOccupationId]
 				,CreatedDate
@@ -407,7 +401,6 @@ SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10)) 
 
 	
- select * from RVRS_Testdb.[RVRS].[Occupation]
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 11 - LOAD to Log    
@@ -415,7 +408,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 */
 
 	
-INSERT INTO RVRS_Testdb.[RVRS].[Occupation_Log]
+INSERT INTO [RVRS].[Occupation_Log]
 			(
 				 SrId, Occupation_DC ,Industry_DC 
 				 , [PersonId],[Industry],[Occupation],[DimNioshIndustryId],[DimNioshOccupationId]	
@@ -443,7 +436,6 @@ INSERT INTO RVRS_Testdb.[RVRS].[Occupation_Log]
 PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10)) 
 
 	
- select * from RVRS_Testdb.[RVRS].[Occupation_Log] 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 12 - LOAD to DeathOriginal    
@@ -453,7 +445,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR Occupation*/
 
-			INSERT INTO RVRS_Testdb.[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -471,7 +463,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 				,MT.Occupation AS OriginalValue
 				,MT.Occupation_DC AS ConvertedValue
 			FROM #Tmp_HoldData MT
-			JOIN RVRS_Testdb.[RVRS].[Occupation]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Occupation]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.Occupation_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -481,7 +473,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR Industry*/
 
-			INSERT INTO RVRS_Testdb.[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -499,7 +491,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.Industry AS OriginalValue
 				,MT.Industry_DC AS ConvertedValue
 			FROM #Tmp_HoldData MT
-			JOIN RVRS_Testdb.[RVRS].[Occupation]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Occupation]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.Industry_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -507,7 +499,6 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 
 	
- select * from RVRS_Testdb.[RVRS].[DeathOriginal] WHERE Entity = 'Occupation'
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 13 - Update Execution  Status  
@@ -519,7 +510,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
-	UPDATE RVRS_Testdb.[RVRS].[Execution]
+	UPDATE [RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadDate			
 				,EndTime=@CurentTime
@@ -535,11 +526,10 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 
 		
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
- select * from RVRS_Testdb.[RVRS].[Execution] WHERE Entity= 'Occupation'
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
-		UPDATE RVRS_Testdb.[RVRS].[Execution]
+		UPDATE [RVRS].[Execution]
 		SET ExecutionStatus='Failed'
 			,LastLoadDate=@LastLoadDate			
 			,EndTime=@CurentTime
@@ -561,5 +551,4 @@ END
 */
 
 	
-
 
