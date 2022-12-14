@@ -1,4 +1,4 @@
-USE RVRS_Staging
+USE RVRS_Staging      
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_OccupationPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_OccupationPr]
