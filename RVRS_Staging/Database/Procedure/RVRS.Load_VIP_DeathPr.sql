@@ -180,14 +180,14 @@ BEGIN
 					,D.SFN_YEAR AS SfnYear
 					,D.VRV_RECORD_TYPE_ID AS RecordType
 					,D.OTHER_RECORD_TYPE AS OtherRecordType
-					,CASE WHEN ISDATE(D.DOD) = 1 THEN YEAR(CAST(D.DOD AS DATE)) 
-						  WHEN D.DOD LIKE '99/99/[0-9][0-9][0-9][0-9]'THEN RIGHT(D.DOD,4)
+					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 THEN YEAR(CAST(D.DOD_4_FD AS DATE)) 
+						  WHEN D.DOD_4_FD LIKE '99/99/[0-9][0-9][0-9][0-9]'THEN RIGHT(D.DOD_4_FD,4)
 					 ELSE NULL END AS DeathYear
-					,CASE WHEN ISDATE(D.DOD) = 1 THEN MONTH(CAST(D.DOD AS DATE))
-						  WHEN D.DOD LIKE '[0-9][0-9]/99/9999'THEN LEFT(D.DOD,2)
+					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 THEN MONTH(CAST(D.DOD_4_FD AS DATE))
+						  WHEN D.DOD_4_FD LIKE '[0-9][0-9]/99/9999'THEN LEFT(D.DOD_4_FD,2)
 					ELSE NULL END AS DeathMonth
-					,CASE WHEN ISDATE(D.DOD) = 1 THEN DAY(CAST(D.DOD AS DATE))
-						  WHEN D.DOD LIKE '99/[0-9][0-9]/9999'THEN SUBSTRING(D.DOD,4,2)   
+					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 THEN DAY(CAST(D.DOD_4_FD AS DATE))
+						  WHEN D.DOD_4_FD LIKE '99/[0-9][0-9]/9999'THEN SUBSTRING(D.DOD_4_FD,4,2)   
 					 ELSE NULL END AS DeathDay
 					,SUBSTRING(D.TOD,0,CHARINDEX(':',D.TOD,1)) AS DeathHour
 					,SUBSTRING(D.TOD,CHARINDEX(':',D.TOD,1)+1,LEN(D.TOD)) AS DeathMinute
@@ -208,21 +208,21 @@ BEGIN
 					,D.AGE1_CALC AS AgeCalcYear
 
 					/*1. VALID DATE CHECK*/																										--GOING TO DEATH_LOG
-					,CASE WHEN ISDATE(D.DOD) = 0 AND D.DOD LIKE '99/[0-9][0-9]/[0-9][0-9][0-9][0-9]' THEN ''
-						  WHEN ISDATE(D.DOD) = 0 AND D.DOD LIKE '[0-9][0-9]/99/[0-9][0-9][0-9][0-9]' THEN ''
-						  WHEN ISDATE(D.DOD) = 0 AND D.DOD LIKE '[0-9][0-9]/[0-9][0-9]/9999' THEN ''
-						  WHEN ISDATE(D.DOD) = 0 AND D.DOD <> '99/99/9999' THEN 'DOD|Error:NOT A VALID DATE'
+					,CASE WHEN ISDATE(D.DOD_4_FD) = 0 AND D.DOD_4_FD LIKE '99/[0-9][0-9]/[0-9][0-9][0-9][0-9]' THEN ''									--dod_4_fd
+						  WHEN ISDATE(D.DOD_4_FD) = 0 AND D.DOD_4_FD LIKE '[0-9][0-9]/99/[0-9][0-9][0-9][0-9]' THEN ''
+						  WHEN ISDATE(D.DOD_4_FD) = 0 AND D.DOD_4_FD LIKE '[0-9][0-9]/[0-9][0-9]/9999' THEN ''
+						  WHEN ISDATE(D.DOD_4_FD) = 0 AND D.DOD_4_FD <> '99/99/9999' THEN 'DOD_4_FD|Error:NOT A VALID DATE'
 						  ELSE '' END
 					 AS LoadNote
 
-					 /*2. ADD COMPARISON DOD AND DOD CAN BE PASSED AS WARNING*/															--GOING TO DEATH WITH WARNING
+					 /*2. ADD COMPARISON DOD AND DOD_4_FD CAN BE PASSED AS WARNING*/															--GOING TO DEATH WITH WARNING
 					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 AND ISDATE(D.DOD) = 1 AND D.DOD_4_FD<>D.DOD
 						THEN 'DOD_4_FD,DOD|Warning:Date of Death Mismatch in Tab 1 and Tab 6'
 						ELSE '' END AS LoadNote_1
 
 					/*3. CHECKING IF THE DATES ARE GREATER THAN 2014 AND LESS THAN TODAY*/														--GOING TO DEATH_LOG
-					,CASE WHEN ISDATE(D.DOD) = 1 AND YEAR(CAST(D.DOD AS DATE))<2014 AND YEAR(CAST(D.DOD AS DATE))>GETDATE() --YEAR(GETDATE)
-						THEN 'DOD|Error:Year of Death is before 2014 or later than today'
+					,CASE WHEN ISDATE(D.DOD_4_FD) = 1 AND YEAR(CAST(D.DOD_4_FD AS DATE))<2014 AND YEAR(CAST(D.DOD_4_FD AS DATE))>GETDATE() --YEAR(GETDATE)
+						THEN 'DOD_4_FD|Error:Year of Death is before 2014 or later than today'
 						ELSE '' END AS LoadNote_2
 
 					/*4. VERIFYING SFN_NUM HAS 6 DIGITS*/																						--GOING TO DEATH_LOG
@@ -248,7 +248,7 @@ BEGIN
 					 AS LoadNote_6
 
 					 /*8. VERFYING VRV_RECORD_TYPE_ID FOR INSTATE AND OUT OF STATE*/															--GOING TO DEATH_LOG
-					 ,CASE WHEN (D.VRV_RECORD_TYPE_ID <> 40 AND D.DSTATEL = 'MASSACHUSETTS') OR (D.VRV_RECORD_TYPE_ID = 40 AND D.DSTATEL != 'MASSACHUSETTS') 
+					 ,CASE WHEN (D.VRV_RECORD_TYPE_ID <> 40 AND (D.DSTATEL = 'MASSACHUSETTS' OR D.DSTATEL = 'MA')) OR (D.VRV_RECORD_TYPE_ID = 40 AND D.DSTATEL != 'MASSACHUSETTS' AND D.DSTATEL != 'MA') 
 							THEN 'RecordType,DSTATEL|Error:RecordType & Death State  Mismatch'
 						  ELSE '' END
 					 AS LoadNote_7
@@ -260,7 +260,7 @@ BEGIN
 
 
 					/*10. VERIFYING INTERNAL_CASE_NUMBER HAS RIGHT CALCULATION*/																--GOING TO DEATH_LOG
-					,CASE WHEN (ISNULL(D.INTERNAL_CASE_NUMBER,-1) <> ISNULL((CAST(YEAR(CAST(D.DOD AS DATE)) AS VARCHAR(5)) + CAST(CAST(D.VRV_RECORD_TYPE_ID AS INT) AS VARCHAR(5)) + D.SFN_NUM),-1))
+					,CASE WHEN (ISNULL(D.INTERNAL_CASE_NUMBER,-1) <> ISNULL((CAST(YEAR(CAST(D.DOD_4_FD AS DATE)) AS VARCHAR(5)) + CAST(CAST(D.VRV_RECORD_TYPE_ID AS INT) AS VARCHAR(5)) + D.SFN_NUM),-1))
 						  THEN 'InternalCaseNumber|Error:Internal Case Number wrongly calculated'
 						  ELSE '' END
 					 AS LoadNote_9
@@ -281,56 +281,61 @@ BEGIN
 
 					/*13. CHECKING IF TIME OF DEATH ON TAB 1 MATHCES WITH TAB 6*/																--GOING TO DEATH WITH WARNING			
 					,CASE WHEN D.TOD IS NOT NULL AND D.TOD_ME IS NOT NULL AND D.TOD!=D.TOD_ME
-						THEN 'TOD|Warning:Death Hour and Minute Mismatch in Tab 1 and Tab 6' ELSE '' END AS LoadNote_12
+						THEN 'TOD,TOD_ME|Warning:Warning:Time of Death Mismatch in Decedent and Autopsy page' ELSE '' END AS LoadNote_12				
 
-					/*14. VERIFYING VALID DATE RANGE FOR SfnYear*/																				--GOING TO DEATH_LOG
+					/*14. VERIFYING VALID DATE RANGE FOR SfnYear*/																				
 					,CASE WHEN D.SFN_YEAR<2014 OR D.SFN_YEAR>YEAR(CAST(GETDATE() AS DATE)) 
 						THEN 'SfnYear|Error:SfnYear not in valid range' ELSE '' END AS LoadNote_13
 	
 					--16. VRV_RECORD_TYPE_ID VS SFN_TYPE_ID					
-					,CASE WHEN (D.SFN_TYPE_ID=40 AND D.VRV_RECORD_TYPE_ID=49 OR D.SFN_TYPE_ID=49 AND D.VRV_RECORD_TYPE_ID=40) --6 RECORDS WHERE SFN_TYPE AND RECORD_TYPE DO NOT MATCH
-						THEN 'SfnType|Warning:SfnType & RecordType Mismatch' ELSE '' END AS LoadNote_15
+					,CASE WHEN (D.SFN_TYPE_ID IN (40,42,47) AND D.VRV_RECORD_TYPE_ID=49 OR D.SFN_TYPE_ID=49 AND D.VRV_RECORD_TYPE_ID=40) 
+						THEN 'SfnType|Warning:SfnType & RecordType Mismatch' ELSE '' END AS LoadNote_15						
 
 					--17. Confirm that Non-ME certifier always  have NATURAL Manner of Death, if not log error and SAVE ASIDE 
-					,CASE WHEN MANNER_L<>'Natural' AND CERT_DESIG <> 'MEDICAL EXAMINER' 
+					,CASE WHEN D.MANNER_L<>'Natural' AND D.CERT_DESIG <> 'MEDICAL EXAMINER' 
 						THEN 'DimDeathMannerId,DimCertifierDesignId|Error:Manner of Death is not Natural and is not examined by Medical Examiner' ELSE '' END AS LoadNote_16
 
 					--18. For registered records, this field must be populated, if not log warning and save ASIS
-					,CASE WHEN MANNER_L IS NULL 
-						THEN 'DimDeathMannerId|Warning:Manner of Death is blank for Registered Record' ELSE '' END AS LoadNote_17
+					,CASE WHEN D.MANNER_L IS NULL													
+						THEN 'DimDeathMannerId|Error:Manner of Death is blank for Registered Record' ELSE '' END AS LoadNote_17
 
 					--19. Verify value Manner and Manner_L are match, if not log error and SAVE ASIDE
-					,CASE WHEN ((MANNER IS NULL AND MANNER_L IS NOT NULL) OR (MANNER IS NOT NULL AND MANNER_L IS NULL) OR  MANNER<>LEFT(MANNER_L,1)) 
+					,CASE WHEN ((D.MANNER IS NULL AND D.MANNER_L IS NOT NULL) OR (D.MANNER IS NOT NULL AND D.MANNER_L IS NULL) OR  D.MANNER<>LEFT(D.MANNER_L,1)) 
 						THEN 'DimDeathMannerId,MANNER|Error:Manner of Death Description and Manner Abbrebiation Mismatch' ELSE '' END AS LoadNote_18
 
 					--20.Is it consistent with Decedent's Sex,  Otherwise log error and keep it ASIDE.
-					,CASE WHEN PREG IS NOT NULL AND SEX <> 'F' 
-						THEN 'DimPregnancyStatusId,SEX|Error:Pregnancy Status and Sex Mismatch' ELSE '' END AS LoadNote_19
+					,CASE WHEN D.PREG IS NOT NULL AND D.SEX <> 'F' 
+						THEN 'DimPregnancyStatusId,Person.DimSexId|Error:Pregnancy Status and Sex Mismatch' ELSE '' END AS LoadNote_19
 
 
 					--21. Is it consistent with Decedent's Sex and valid Age range(between 8 and 70),  Otherwise log error and keep it ASIDE.
-					,CASE WHEN PREG NOT IN (1,8,9) AND AgeCalcYear NOT BETWEEN 8 AND 70
+					,CASE WHEN D.PREG NOT IN (1,8,9) AND D.AgeCalcYear NOT BETWEEN 8 AND 70
 						THEN 'DimPregnancyStatusId,Person.AgeCalcYear|Error:Pregnancy Status not in valid Age range' ELSE '' END AS LoadNote_20
 
-					--22. Value should be Y,N or Unknown, Probably,  or NULL , otherwise log error and Keep it ASIDE.	
-					,CASE WHEN TOBAC NOT IN ('Y','N','U',NULL)
-						THEN 'DimTobaccoUseId|Error:Not a valid TobaccoStatus' ELSE '' END AS LoadNote_21
+					----22. Value should be Y,N or Unknown, Probably,  or NULL , otherwise log error and Keep it ASIDE.	
+					--,CASE WHEN TOBAC NOT IN ('Y','N','U',NULL)
+					--	THEN 'DimTobaccoUseId|Error:Not a valid TobaccoStatus' ELSE '' END AS LoadNote_21
 
 					--23. If the code is mismatch with CERT_DESIG value , otherwise log error and Keep it ASIDE
-					,CASE WHEN (CERT_DESIG_CODE = 1 AND CERT_DESIG != 'CERTIFIER IN ATTENDANCE AT TIME OF DEATH')
-							OR (CERT_DESIG_CODE = 2 AND CERT_DESIG != 'MEDICAL EXAMINER')
-							OR (CERT_DESIG_CODE = 3 AND CERT_DESIG != 'PHYSICIAN IN CHARGE OF PATIENT''S CARE')
-							OR (CERT_DESIG_CODE = 4 AND CERT_DESIG != 'NURSE PRACTITIONER IN ATTENDANCE AT THE TIME OF PATIENT''S DEATH')
-							OR (CERT_DESIG_CODE = 5 AND CERT_DESIG != 'NURSE PRACTITIONER IN CHARGE OF PATIENT''S CARE')
-							OR (CERT_DESIG_CODE = 6 AND CERT_DESIG != 'PHYSICIAN ASSISTANT IN ATTENDANCE AT TIME OF DEATH')
-							OR (CERT_DESIG_CODE = 7 AND CERT_DESIG != 'PHYSICIAN ASSISTANT IN CHARGE OF PATIENT''S CARE')
-							OR (CERT_DESIG_CODE IS NULL AND CERT_DESIG != 'OTHER')
-						THEN 'DimCertifierDesignId,CERT_DESIG_CODE,CERT_DESIG|Error:Certifier Designation and Certifier Designation Code Mismatch' ELSE '' END AS LoadNote_22
+					,CASE WHEN (D.CERT_DESIG_CODE = 1 AND D.CERT_DESIG != 'CERTIFIER IN ATTENDANCE AT TIME OF DEATH')
+							OR (D.CERT_DESIG_CODE = 2 AND D.CERT_DESIG != 'MEDICAL EXAMINER')
+							OR (D.CERT_DESIG_CODE = 3 AND D.CERT_DESIG != 'PHYSICIAN IN CHARGE OF PATIENT''S CARE')
+							OR (D.CERT_DESIG_CODE = 4 AND D.CERT_DESIG != 'NURSE PRACTITIONER IN ATTENDANCE AT THE TIME OF PATIENT''S DEATH')
+							OR (D.CERT_DESIG_CODE = 5 AND D.CERT_DESIG != 'NURSE PRACTITIONER IN CHARGE OF PATIENT''S CARE')
+							OR (D.CERT_DESIG_CODE = 6 AND D.CERT_DESIG != 'PHYSICIAN ASSISTANT IN ATTENDANCE AT TIME OF DEATH')
+							OR (D.CERT_DESIG_CODE = 7 AND D.CERT_DESIG != 'PHYSICIAN ASSISTANT IN CHARGE OF PATIENT''S CARE')
+							OR (D.CERT_DESIG_CODE IS NULL AND D.CERT_DESIG != 'OTHER')
+							OR (D.CERT_DESIG_CODE IS NOT NULL AND D.CERT_DESIG IS NULL)
+						THEN 'DimCertifierDesignId,CERT_DESIG_CODE|Error:Certifier Designation and Certifier Designation Code Mismatch' ELSE '' END AS LoadNote_22
+
+					--24. For instate records, this value should not be NULL , otherwise log error and keep it ASIDE			--change loadnote case
+					,CASE WHEN D.VRV_RECORD_TYPE_ID = 40 AND D.CERT_DESIG IS NULL 
+							THEN 'RecordType,DimCertifierDesignId|Error:Certifier Designation cannot be blank for In-State Record'  ELSE '' END AS LoadNote_23
 				
-					--24. Confirm that indicators such as Midnight and Noon align with time of death (e.g. 12:00) 
-					,CASE WHEN ((TOD_IN ='M' AND ISDATE(REPLACE(TOD,'99','01')) = 0) OR (TOD_IN IN( 'A', 'P') 
-							AND ISDATE(TOD + REPLACE(REPLACE(TOD_IN,'A','AM'),'P','PM')) = 0)) 
-						THEN 'TOD,DimDeathTimeIndId|Error:Time of death not in a valid  range' ELSE '' END AS LoadNote_23
+					--25. Confirm that indicators such as Midnight and Noon align with time of death (e.g. 12:00) 
+					,CASE WHEN ((D.TOD_IN ='M' AND ISDATE(REPLACE(D.TOD,'99','01')) = 0) OR (D.TOD_IN IN( 'A', 'P') 
+							AND ISDATE(D.TOD + REPLACE(REPLACE(D.TOD_IN,'A','AM'),'P','PM')) = 0)) 
+						THEN 'TOD,DimDeathTimeIndId|Error:Time of death not in a valid  range' ELSE '' END AS LoadNote_24
 
 								
 		
@@ -414,11 +419,11 @@ BEGIN
 						(CASE WHEN LoadNote_19 <> '' THEN ' || ' ELSE '' END) +
 						LoadNote_20 +
 						(CASE WHEN LoadNote_20 <> '' THEN ' || ' ELSE '' END) +
-						LoadNote_21 +
-						(CASE WHEN LoadNote_21 <> '' THEN ' || ' ELSE '' END) +
 						LoadNote_22 +
 						(CASE WHEN LoadNote_22 <> '' THEN ' || ' ELSE '' END) +
-						LoadNote_23
+						LoadNote_23 +
+						(CASE WHEN LoadNote_23 <> '' THEN ' || ' ELSE '' END) +
+						LoadNote_24
 						AS Death_Log_LoadNote
 					,LoadNote_1 +
 						(CASE WHEN LoadNote_1 <> '' THEN ' || ' ELSE '' END) +
@@ -426,9 +431,7 @@ BEGIN
 						(CASE WHEN LoadNote_8 <> '' THEN ' || ' ELSE '' END) +
 						LoadNote_12 +
 						(CASE WHEN LoadNote_12 <> '' THEN ' || ' ELSE '' END) +
-						LoadNote_15 +
-						(CASE WHEN LoadNote_15 <> '' THEN ' || ' ELSE '' END) +
-						LoadNote_17 
+						LoadNote_15  
 						AS LoadNote
 
 						INTO #Tmp_HoldData_Final
@@ -567,6 +570,14 @@ BEGIN
 				WHERE PersonId IS NULL
 				AND SrId IN (SELECT SRID FROM RVRS.Person_Log)
 
+			--Scenario 5			
+			UPDATE #Tmp_HoldData_Final
+				SET Death_Log_LoadNote=CASE WHEN Death_Log_LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+Death_Log_LoadNote
+					ELSE 'Person|ParentMissing:Not Processed' END
+			WHERE PersonId IS NULL
+				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
+				  AND  Death_Log_Flag=1
+
 			--Scenario 4
 				IF EXISTS(SELECT Death_Log_Flag FROM #Tmp_HoldData_Final WHERE PersonId IS NULL 
 								AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
@@ -576,14 +587,6 @@ BEGIN
 					set @Note = 'Parent table has not been processed yet'
 				END
 				
-
-			--Scenario 5			
-			UPDATE #Tmp_HoldData_Final
-				SET Death_Log_LoadNote=CASE WHEN Death_Log_LoadNote!='' THEN 'Person|ParentMissing:Not Processed'+' || '+Death_Log_LoadNote
-					ELSE 'Person|ParentMissing:Not Processed' END
-			WHERE PersonId IS NULL
-				  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
-				  AND  Death_Log_Flag=1
 	
 		/***************************************************************Other Validations ENDS**************************************************************/
 				--PRINT '7'
