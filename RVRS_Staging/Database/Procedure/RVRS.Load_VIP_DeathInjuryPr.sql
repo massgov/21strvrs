@@ -1,4 +1,3 @@
- USE [RVRS_testdb]
 
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_DeathInjuryPr]') AND [type]='P')
@@ -24,10 +23,10 @@ Jan  6 2023 		Sailendra Singh						RVRS 170 : LOAD DECEDENT DeathInjury DATA FRO
 *****************************************************************************************
  For testing diff senarios you start using fresh data
 *****************************************************************************************
-DELETE FROM [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathInjury'
-TRUNCATE TABLE [RVRS_testdb].[RVRS].[DeathInjury]
-DROP TABLE [RVRS_testdb].[RVRS].[DeathInjury_Log]
-DELETE FROM [RVRS_testdb].[RVRS].[Execution] WHERE Entity = 'DeathInjury'
+DELETE FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal] WHERE Entity = 'DeathInjury'
+TRUNCATE TABLE [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]
+DROP TABLE [RVRS].[DeathInjury_Log]
+DELETE FROM [RVRS].[Execution] WHERE Entity = 'DeathInjury'
 
 *****************************************************************************************
  After execute the procedure you can run procedure 
@@ -73,8 +72,8 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 */
 
 
-IF OBJECT_ID('[RVRS_testdb].[RVRS].[DeathInjury_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[DeathInjury_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), InjuryNature_DC VARCHAR(128),InjuryPlace_DC VARCHAR(128),InjuryPlaceOther_DC VARCHAR(128),InjuryTransportOther_DC VARCHAR(128), [PersonId] BIGINT,[InjuryYear] VARCHAR(16),[InjuryMonth] VARCHAR(16),[InjuryDay] VARCHAR(16),[InjuryHour] VARCHAR(16),[InjuryMinute] VARCHAR(16),[DimInjuryTimeIndId] INT,[DimInjuryAtWorkId] INT,[InjuryNature] VARCHAR(512),[DimInjuryPlaceId] INT,[DimOtherInjuryPlaceId] INT,[DimInjuryTransportId] INT,[DimInjuryTransportOtherId] INT, DOD VARCHAR(128),DOI VARCHAR(128),TOI VARCHAR(128),InjuryTimeInd VARCHAR(128),InjuryAtWork VARCHAR(128),InjuryPlace VARCHAR(128),InjuryPlaceOther VARCHAR(128),InjuryTransport VARCHAR(128),InjuryTransportOther VARCHAR(128),Certifier VARCHAR(128),MannerOfDeath VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathInjury_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+IF OBJECT_ID('[RVRS].[DeathInjury_Log]') IS NULL 
+	CREATE TABLE [RVRS].[DeathInjury_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), InjuryNature_DC VARCHAR(128),InjuryPlace_DC VARCHAR(128),InjuryPlaceOther_DC VARCHAR(128),InjuryTransportOther_DC VARCHAR(128), [PersonId] BIGINT,[InjuryYear] VARCHAR(16),[InjuryMonth] VARCHAR(16),[InjuryDay] VARCHAR(16),[InjuryHour] VARCHAR(16),[InjuryMinute] VARCHAR(16),[DimInjuryTimeIndId] INT,[DimInjuryAtWorkId] INT,[InjuryNature] VARCHAR(512),[DimInjuryPlaceId] INT,[DimOtherInjuryPlaceId] INT,[DimInjuryTransportId] INT,[DimInjuryTransportOtherId] INT, DOD VARCHAR(128),DOI VARCHAR(128),TOI VARCHAR(128),InjuryTimeInd VARCHAR(128),InjuryAtWork VARCHAR(128),InjuryPlace VARCHAR(128),InjuryPlaceOther VARCHAR(128),InjuryTransport VARCHAR(128),InjuryTransportOther VARCHAR(128),Certifier VARCHAR(128),MannerOfDeath VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathInjury_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -90,7 +89,7 @@ PRINT '1'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 	
 			
-INSERT INTO [RVRS_testdb].[RVRS].[Execution] 
+INSERT INTO [RVRS].[Execution] 
 		(
 			 Entity
 			,ExecutionStatus
@@ -124,7 +123,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[Execution]
 */
 
 	
-SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS_testdb].[RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathInjury' AND ExecutionStatus='Completed')
+SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathInjury' AND ExecutionStatus='Completed')
 	        IF @LastLoadedDate IS NULL SET @LastLoadedDate = '01/01/1900'
 PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
@@ -139,7 +138,7 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		        INTO #Tmp_HoldData
 
-		        FROM [RVRS_Staging].RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		        FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
 				WHERE 
 		              CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
@@ -163,7 +162,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			BEGIN 
                 PRINT '5'  + CONVERT (VARCHAR(50),GETDATE(),109)	
 						
-				UPDATE [RVRS_testdb].[RVRS].[Execution]
+				UPDATE [RVRS].[Execution]
 						SET ExecutionStatus='Completed'
 						,LastLoadDate=@LastLoadedDate						
 						,EndTime=@CurentTime
@@ -187,7 +186,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 IF (SElECT count(1) from #Tmp_HoldData where PersonId is not null ) = 0
 			BEGIN
-					UPDATE [RVRS_testdb].[RVRS].[Execution]
+					UPDATE [RVRS].[Execution]
 					SET ExecutionStatus=@ExecutionStatus
 						,LastLoadDate=@LastLoadedDate					
 						,EndTime=@CurentTime
@@ -314,7 +313,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.InjuryNature_Flag=1
 				,MT.LoadNote='InjuryNature|Warning:InjuryNature got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryNature
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryNature
 			WHERE  DC.TableName='DeathInjury_InjuryNature'
 				
 			
@@ -348,7 +347,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.InjuryPlace_Flag=1
 				,MT.LoadNote='InjuryPlace|Warning:DimInjuryPlaceId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[DeathInjury_InjuryPlace_Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryPlace
+			JOIN [RVRS].[DeathInjury_InjuryPlace_Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryPlace
 			WHERE  DC.TableName='DimInjuryPlace'
 				AND MT.DimInjuryPlaceId IS NULL
 			
@@ -375,7 +374,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 			ALTER TABLE #Tmp_HoldData_Final ADD DimOtherInjuryPlaceId INT
 
-						/*ONLY THIS SECTION MODIFIED SINCE WE COULD NOT ADJUST IN CODE LAYOUT */
+			/*ONLY THIS SECTION MODIFIED SINCE WE COULD NOT ADJUST IN CODE LAYOUT */ 
 
 			UPDATE MT
 			SET MT.DimOtherInjuryPlaceId = 0
@@ -386,7 +385,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 
-		/***********************************************************************/
+/***********************************************************************/
 		
 			UPDATE MT
 			SET MT.DimOtherInjuryPlaceId =DS.DimOtherInjuryPlaceId  
@@ -408,7 +407,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.InjuryPlaceOther_Flag=1
 				,MT.LoadNote='InjuryPlaceOther|Warning:DimOtherInjuryPlaceId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryPlaceOther
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryPlaceOther
 			WHERE  DC.TableName='DimOtherInjuryPlace'
 				AND MT.DimOtherInjuryPlaceId IS NULL
 			
@@ -470,7 +469,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.InjuryTransportOther_Flag=1
 				,MT.LoadNote='InjuryTransportOther|Warning:DimInjuryTransportOtherId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryTransportOther
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryTransportOther
 			WHERE  DC.TableName='DimInjuryTransportOther'
 				AND MT.DimInjuryTransportOtherId IS NULL
 			
@@ -504,7 +503,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				SET DeathInjury_Log_Flag=1
 					,LoadNote= 'Person|ParentMissing:Validation Errors' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					WHERE PersonId IS NULL
-					AND SrId IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					AND SrId IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 
 				SET @RecordCountDebug=@@ROWCOUNT 
 				
@@ -515,7 +514,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				UPDATE #Tmp_HoldData_Final
 					SET LoadNote='Person|ParentMissing:Not Processed' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					 WHERE PersonId IS NULL
-					  AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 					  AND DeathInjury_Log_Flag=1
 
 			    SET @RecordCountDebug=@@ROWCOUNT 
@@ -529,7 +528,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
                               ,LoadNote=CASE WHEN LoadNote!='' 
                                         THEN 'Person|ParentMissing:Not Processed' + ' || ' +  LoadNote  ELSE 'Person|ParentMissing:Not Processed' END
                                  WHERE PersonId IS NULL 
-                                 AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log)
+                                 AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
                                  AND DeathInjury_Log_Flag = 0
 
                     SET @TotalParentMissingRecords=@@rowcount
@@ -551,7 +550,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathInjury]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]
 			(
 				 [PersonId],[InjuryYear],[InjuryMonth],[InjuryDay],[InjuryHour],[InjuryMinute],[DimInjuryTimeIndId],[DimInjuryAtWorkId],[InjuryNature],[DimInjuryPlaceId],[DimOtherInjuryPlaceId],[DimInjuryTransportId],[DimInjuryTransportOtherId]
 				,CreatedDate
@@ -577,7 +576,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 */
 
 	
-INSERT INTO [RVRS_testdb].[RVRS].[DeathInjury_Log]
+INSERT INTO [RVRS].[DeathInjury_Log]
 			(
 				 SrId, InjuryNature_DC ,InjuryPlace_DC ,InjuryPlaceOther_DC ,InjuryTransportOther_DC 
 				 , [PersonId],[InjuryYear],[InjuryMonth],[InjuryDay],[InjuryHour],[InjuryMinute],[DimInjuryTimeIndId],[DimInjuryAtWorkId],[InjuryNature],[DimInjuryPlaceId],[DimOtherInjuryPlaceId],[DimInjuryTransportId],[DimInjuryTransportOtherId]	
@@ -614,7 +613,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR InjuryNature*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -632,7 +631,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 				,MT.InjuryNature AS OriginalValue
 				,MT.InjuryNature_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.InjuryNature_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -642,7 +641,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimInjuryPlaceId*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -660,7 +659,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.InjuryPlace AS OriginalValue
 				,MT.InjuryPlace_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.InjuryPlace_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -670,7 +669,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimOtherInjuryPlaceId*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -688,7 +687,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.InjuryPlaceOther AS OriginalValue
 				,MT.InjuryPlaceOther_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.InjuryPlaceOther_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -698,7 +697,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimInjuryTransportOtherId*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -716,7 +715,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.InjuryTransportOther AS OriginalValue
 				,MT.InjuryTransportOther_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.InjuryTransportOther_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -735,7 +734,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
-	UPDATE [RVRS_testdb].[RVRS].[Execution]
+	UPDATE [RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadDate			
 				,EndTime=@CurentTime
@@ -754,7 +753,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
-		UPDATE [RVRS_testdb].[RVRS].[Execution]
+		UPDATE [RVRS].[Execution]
 		SET ExecutionStatus='Failed'
 			,LastLoadDate=@LastLoadDate			
 			,EndTime=@CurentTime
@@ -776,3 +775,5 @@ END
 */
 
 	
+
+
