@@ -1,3 +1,4 @@
+ USE [RVRS_testdb]
 
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_DeathInjuryPr]') AND [type]='P')
@@ -12,21 +13,21 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_DeathInjuryPr]
 AUTHOR	:Sailendra Singh
-CREATED	:Dec 28 2022  
+CREATED	:Jan  6 2023  
 PURPOSE	:TO LOAD DATA INTO FACT DeathInjury TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Dec 28 2022 		Sailendra Singh						RVRS 170 : LOAD DECEDENT DeathInjury DATA FROM STAGING TO ODS
+Jan  6 2023 		Sailendra Singh						RVRS 170 : LOAD DECEDENT DeathInjury DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
 *****************************************************************************************
-DELETE FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal] WHERE Entity = 'DeathInjury'
-TRUNCATE TABLE [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]
-DROP TABLE [RVRS].[DeathInjury_Log]
-DELETE FROM [RVRS].[Execution] WHERE Entity = 'DeathInjury'
+DELETE FROM [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathInjury'
+TRUNCATE TABLE [RVRS_testdb].[RVRS].[DeathInjury]
+DROP TABLE [RVRS_testdb].[RVRS].[DeathInjury_Log]
+DELETE FROM [RVRS_testdb].[RVRS].[Execution] WHERE Entity = 'DeathInjury'
 
 *****************************************************************************************
  After execute the procedure you can run procedure 
@@ -72,8 +73,8 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 */
 
 
-IF OBJECT_ID('[RVRS].[DeathInjury_Log]') IS NULL 
-	CREATE TABLE [RVRS].[DeathInjury_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), InjuryNature_DC VARCHAR(128),InjuryPlace_DC VARCHAR(128),InjuryPlaceOther_DC VARCHAR(128),InjuryTransportOther_DC VARCHAR(128), [PersonId] BIGINT,[InjuryYear] VARCHAR(16),[InjuryMonth] VARCHAR(16),[InjuryDay] VARCHAR(16),[InjuryHour] VARCHAR(16),[InjuryMinute] VARCHAR(16),[DimInjuryTimeIndId] INT,[DimInjuryAtWorkId] INT,[InjuryNature] VARCHAR(512),[DimInjuryPlaceId] INT,[DimOtherInjuryPlaceId] INT,[DimInjuryTransportId] INT,[DimInjuryTransportOtherId] INT, DOD VARCHAR(128),DOI VARCHAR(128),TOI VARCHAR(128),InjuryTimeInd VARCHAR(128),InjuryAtWork VARCHAR(128),InjuryPlace VARCHAR(128),InjuryPlaceOther VARCHAR(128),InjuryTransport VARCHAR(128),InjuryTransportOther VARCHAR(128),Certifier VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathInjury_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+IF OBJECT_ID('[RVRS_testdb].[RVRS].[DeathInjury_Log]') IS NULL 
+	CREATE TABLE [RVRS_testdb].[RVRS].[DeathInjury_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), InjuryNature_DC VARCHAR(128),InjuryPlace_DC VARCHAR(128),InjuryPlaceOther_DC VARCHAR(128),InjuryTransportOther_DC VARCHAR(128), [PersonId] BIGINT,[InjuryYear] VARCHAR(16),[InjuryMonth] VARCHAR(16),[InjuryDay] VARCHAR(16),[InjuryHour] VARCHAR(16),[InjuryMinute] VARCHAR(16),[DimInjuryTimeIndId] INT,[DimInjuryAtWorkId] INT,[InjuryNature] VARCHAR(512),[DimInjuryPlaceId] INT,[DimOtherInjuryPlaceId] INT,[DimInjuryTransportId] INT,[DimInjuryTransportOtherId] INT, DOD VARCHAR(128),DOI VARCHAR(128),TOI VARCHAR(128),InjuryTimeInd VARCHAR(128),InjuryAtWork VARCHAR(128),InjuryPlace VARCHAR(128),InjuryPlaceOther VARCHAR(128),InjuryTransport VARCHAR(128),InjuryTransportOther VARCHAR(128),Certifier VARCHAR(128),MannerOfDeath VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathInjury_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -89,7 +90,7 @@ PRINT '1'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 	
 			
-INSERT INTO [RVRS].[Execution] 
+INSERT INTO [RVRS_testdb].[RVRS].[Execution] 
 		(
 			 Entity
 			,ExecutionStatus
@@ -123,7 +124,7 @@ INSERT INTO [RVRS].[Execution]
 */
 
 	
-SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathInjury' AND ExecutionStatus='Completed')
+SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS_testdb].[RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathInjury' AND ExecutionStatus='Completed')
 	        IF @LastLoadedDate IS NULL SET @LastLoadedDate = '01/01/1900'
 PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
@@ -131,14 +132,14 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
 		        SELECT   D.DEATH_REC_ID AS SrId
-					  ,P.PersonId ,DOD DOD,DOI DOI,RIGHT(DOI,4) InjuryYear,LEFT(DOI,2) InjuryMonth,SUBSTRING(DOI,4,2) InjuryDay,TOI TOI,LEFT(TOI,2) InjuryHour,RIGHT(TOI,2) InjuryMinute,COALESCE(TOI_IND,'NULL') InjuryTimeInd,COALESCE(INJRY_WORK,'NULL') InjuryAtWork,INJRY_L InjuryNature,COALESCE(INJRY_PLACEL,'NULL') InjuryPlace,COALESCE(INJRY_PLACEL,'NULL') InjuryPlaceOther,COALESCE(INJRY_TRANSPRT,'NULL') InjuryTransport,COALESCE(INJRY_TRANSPRT_OTHER,'NULL') InjuryTransportOther,COALESCE(CERT_DESIG,'NULL') Certifier
+					  ,P.PersonId ,DOD DOD,DOI DOI,RIGHT(DOI,4) InjuryYear,LEFT(DOI,2) InjuryMonth,SUBSTRING(DOI,4,2) InjuryDay,TOI TOI,LEFT(TOI,2) InjuryHour,RIGHT(TOI,2) InjuryMinute,COALESCE(TOI_IND,'NULL') InjuryTimeInd,COALESCE(INJRY_WORK,'NULL') InjuryAtWork,INJRY_L InjuryNature,COALESCE(INJRY_PLACEL,'NULL') InjuryPlace,COALESCE(INJRY_PLACEL,'NULL') InjuryPlaceOther,COALESCE(INJRY_TRANSPRT,'NULL') InjuryTransport,COALESCE(INJRY_TRANSPRT_OTHER,'NULL') InjuryTransportOther,COALESCE(CERT_DESIG,'NULL') Certifier,MANNER_L MannerOfDeath
 					  ,@CurentTime AS CreatedDate 
 					  ,VRV_REC_DATE_CREATED AS SrCreatedDate
 					  ,VRV_DATE_CHANGED AS SrUpdatedDate
 
 		        INTO #Tmp_HoldData
 
-		        FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		        FROM [RVRS_Staging].RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
 				WHERE 
 		              CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
@@ -162,7 +163,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			BEGIN 
                 PRINT '5'  + CONVERT (VARCHAR(50),GETDATE(),109)	
 						
-				UPDATE [RVRS].[Execution]
+				UPDATE [RVRS_testdb].[RVRS].[Execution]
 						SET ExecutionStatus='Completed'
 						,LastLoadDate=@LastLoadedDate						
 						,EndTime=@CurentTime
@@ -186,7 +187,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 IF (SElECT count(1) from #Tmp_HoldData where PersonId is not null ) = 0
 			BEGIN
-					UPDATE [RVRS].[Execution]
+					UPDATE [RVRS_testdb].[RVRS].[Execution]
 					SET ExecutionStatus=@ExecutionStatus
 						,LastLoadDate=@LastLoadedDate					
 						,EndTime=@CurentTime
@@ -223,18 +224,24 @@ PRINT '6'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	        ,CASE WHEN DOI NOT LIKE '[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]' THEN 'DOI|Error:Date of Injury is not in valid format' ELSE '' END AS LoadNote_3
 	        ,CASE WHEN TRY_CAST (DOD AS DateTime)<TRY_CAST(DOI AS DateTime) THEN 'DOI,DOD|Error:Date of Injury is greater than Date of Death' ELSE '' END AS LoadNote_4
 	        ,CASE WHEN DOI IS NOT NULL AND Certifier <>'MEDICAL EXAMINER' AND DOI<>'99/99/9999' THEN 'DOI,Death.DimCertifierDesignId|Error:When Date of Injury is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_5
+	        ,CASE WHEN MannerOfDeath NOT IN ('Natural','Pending investigation','Could not be determined','Therapeutic complication')  AND DOI IS NULL THEN 'DOI,Death.DimDeathMannerId|Error:When Manner of Death is Accident or Homicide or Suicide then Date of Injury should be populated' ELSE '' END AS LoadNote_6
 	        ,CASE WHEN ((InjuryTimeInd ='M' AND ISDATE(REPLACE(TOI,'99','01')) = 0) OR (InjuryTimeInd IN( 'A', 'P') 
-							AND ISDATE(TOI + REPLACE(REPLACE(InjuryTimeInd,'A','AM'),'P','PM')) = 0)) THEN 'TOI,DimInjuryTimeIndId|Error:Time of Injury not in a valid  range' ELSE '' END AS LoadNote_6
-	        ,CASE WHEN TOI NOT LIKE '[0-9][0-9]:[0-9][0-9]' THEN 'TOI|Error:Not a valid format for Time of Injury' ELSE '' END AS LoadNote_7
-	        ,CASE WHEN TOI IS NOT NULL AND Certifier <>'MEDICAL EXAMINER' AND TOI<>'99:99' THEN 'TOI,Death.DimCertifierDesignId|Error:When Time of Injury is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_8
-	        ,CASE WHEN TOI LIKE '12:00' AND InjuryTimeInd NOT IN ('N','D') THEN 'TOI,InjuryTimeInd|Error:Time of Injury not in align with Time Indicator' ELSE '' END AS LoadNote_9
-	        ,CASE WHEN InjuryTimeInd  <> 'NULL'  AND Certifier <>'MEDICAL EXAMINER' THEN 'DimInjuryTimeIndId,Death.DimCertifierDesignId|Error:When Time Indicator of Injury is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_10
-	        ,CASE WHEN InjuryAtWork= 'Y' AND (InjuryNature IS NULL OR InjuryPlace IS NULL OR InjuryTransport IS NULL) THEN 'DimInjuryAtWorkId,InjuryNature,DimInjuryPlaceID,DimInjuryTransportID|Error:Injury occurred at work but InjuryNature Or InjuryPlace is missing' ELSE '' END AS LoadNote_11
-	        ,CASE WHEN InjuryAtWork= 'Y' AND Certifier <>'MEDICAL EXAMINER' THEN 'Death.DimCertifierDesignId,DimInjuryAtWorkId|Error:When Injury at Work is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_12
-	        ,CASE WHEN InjuryNature IS NOT NULL AND Certifier <>'MEDICAL EXAMINER' THEN 'InjuryNature,Death.DimCertifierDesignId|Error:When Injury Nature is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_13
-	        ,CASE WHEN InjuryPlace  <> 'NULL'  AND InjuryAtWork= 'Y' AND Certifier <>'MEDICAL EXAMINER'  THEN 'DimInjuryPlaceId,Death.DimCertifierDesignId|Error:Injury occurred at work but InjuryAtWork is missing' ELSE '' END AS LoadNote_14
-	        ,CASE WHEN InjuryTransport  <> 'NULL'AND Certifier <>'MEDICAL EXAMINER' THEN 'DimInjuryTransportId,Death.DimCertifierDesignId|Error:When Injury Transport is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_15
-	        ,CASE WHEN InjuryTransportOther <> 'NULL' AND Certifier <>'MEDICAL EXAMINER' THEN 'DimInjuryTransportOtherId,Death.DimCertifierDesignId|Error:When Injury Transport Other is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_16
+							AND ISDATE(TOI + REPLACE(REPLACE(InjuryTimeInd,'A','AM'),'P','PM')) = 0)) THEN 'TOI,DimInjuryTimeIndId|Error:Time of Injury not in a valid  range' ELSE '' END AS LoadNote_7
+	        ,CASE WHEN TOI NOT LIKE '[0-9][0-9]:[0-9][0-9]' THEN 'TOI|Error:Not a valid format for Time of Injury' ELSE '' END AS LoadNote_8
+	        ,CASE WHEN TOI IS NOT NULL AND Certifier <>'MEDICAL EXAMINER' AND TOI<>'99:99' THEN 'TOI,Death.DimCertifierDesignId|Error:When Time of Injury is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_9
+	        ,CASE WHEN MannerOfDeath NOT IN ('Natural','Pending investigation','Could not be determined','Therapeutic complication')  AND TOI IS NULL THEN 'TOI,Death.DimDeathMannerId|Error:When Manner of Death is Accident or Homicide or Suicide then Time of Injury should be populated' ELSE '' END AS LoadNote_10
+	        ,CASE WHEN TOI LIKE '12:00' AND InjuryTimeInd NOT IN ('N','D') THEN 'TOI,DimInjuryTimeIndId|Error:Time of Injury not in align with Time Indicator' ELSE '' END AS LoadNote_11
+	        ,CASE WHEN InjuryTimeInd  <> 'NULL'  AND Certifier <>'MEDICAL EXAMINER' THEN 'DimInjuryTimeIndId,Death.DimCertifierDesignId|Error:When Time Indicator of Injury is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_12
+	        ,CASE WHEN MannerOfDeath NOT IN ('Natural','Pending investigation','Could not be determined','Therapeutic complication')  AND InjuryTimeInd = 'NULL' THEN 'DimInjuryTimeIndId,Death.DimDeathMannerId|Error:When Manner of Death is Accident or Homicide or Suicide then Time of Injury Indicator should be populated' ELSE '' END AS LoadNote_13
+	        ,CASE WHEN InjuryAtWork <> 'NULL'  AND Certifier <>'MEDICAL EXAMINER' THEN 'Death.DimCertifierDesignId,DimInjuryAtWorkId|Error:When Injury at Work is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_14
+	        ,CASE WHEN MannerOfDeath NOT IN ('Natural','Pending investigation','Could not be determined','Therapeutic complication')  AND InjuryAtWork = 'NULL' THEN 'DimInjuryAtWorkId,Death.DimDeathMannerId|Error:When Manner of Death is Accident or Homicide or Suicide then Injury at Work field should be populated' ELSE '' END AS LoadNote_15
+	        ,CASE WHEN InjuryNature IS NOT NULL AND Certifier <>'MEDICAL EXAMINER' THEN 'InjuryNature,Death.DimCertifierDesignId|Error:When Injury Nature is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_16
+	        ,CASE WHEN MannerOfDeath NOT IN ('Natural','Pending investigation','Could not be determined','Therapeutic complication')  AND InjuryNature IS NULL THEN 'InjuryNature,Death.DimDeathMannerId|Error:When Manner of Death is Accident or Homicide or Suicide then Injury Nature should be populated' ELSE '' END AS LoadNote_17
+	        ,CASE WHEN InjuryPlace  <> 'NULL' AND Certifier <>'MEDICAL EXAMINER'  THEN 'DimInjuryPlaceId,Death.DimCertifierDesignId|Error:When Injury Place is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_18
+	        ,CASE WHEN MannerOfDeath NOT IN ('Natural','Pending investigation','Could not be determined','Therapeutic complication')  AND InjuryPlace = 'NULL' THEN 'DimInjuryPlaceId,Death.DimDeathMannerId|Error:When Manner of Death is Accident or Homicide or Suicide then Injury Place should be populated' ELSE '' END AS LoadNote_19
+	        ,CASE WHEN InjuryTransport  <> 'NULL'AND Certifier <>'MEDICAL EXAMINER' THEN 'DimInjuryTransportId,Death.DimCertifierDesignId|Error:When Injury Transport is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_20
+	        ,CASE WHEN InjuryTransport <> 'OTHER' AND InjuryTransportOther <>'NULL' THEN 'DimInjuryTransportOtherId,DimInjuryTransportId|Error:When Injury Transport Other field is populated then Injury Transport must have Other as value' ELSE '' END AS LoadNote_21
+	        ,CASE WHEN InjuryTransportOther <> 'NULL' AND Certifier <>'MEDICAL EXAMINER' THEN 'DimInjuryTransportOtherId,Death.DimCertifierDesignId|Error:When Injury Transport Other is populated Certifier should be Medical Examiner' ELSE '' END AS LoadNote_22
 					
 		INTO #Tmp_HoldData_Final				
 		FROM #Tmp_HoldData HD
@@ -253,7 +260,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
  
 	ALTER TABLE #Tmp_HoldData_Final ADD  InjuryNature_DC VARCHAR(128),InjuryPlace_DC VARCHAR(128),InjuryPlaceOther_DC VARCHAR(128),InjuryTransportOther_DC VARCHAR(128), InjuryNature_Flag BIT NOT NULL DEFAULT 0 ,InjuryPlace_Flag BIT NOT NULL DEFAULT 0 ,InjuryPlaceOther_Flag BIT NOT NULL DEFAULT 0 ,InjuryTransportOther_Flag BIT NOT NULL DEFAULT 0 ,DeathInjury_Log_Flag BIT NOT NULL DEFAULT 0,LoadNote VARCHAR(MAX) 
 
-	UPDATE #Tmp_HoldData_Final SET LoadNote =  IIF( LoadNote_1 <> '',  '||' + LoadNote_1, '') +  IIF( LoadNote_2 <> '',  '||' + LoadNote_2, '') +  IIF( LoadNote_3 <> '',  '||' + LoadNote_3, '') +  IIF( LoadNote_4 <> '',  '||' + LoadNote_4, '') +  IIF( LoadNote_5 <> '',  '||' + LoadNote_5, '') +  IIF( LoadNote_6 <> '',  '||' + LoadNote_6, '') +  IIF( LoadNote_7 <> '',  '||' + LoadNote_7, '') +  IIF( LoadNote_8 <> '',  '||' + LoadNote_8, '') +  IIF( LoadNote_9 <> '',  '||' + LoadNote_9, '') +  IIF( LoadNote_10 <> '',  '||' + LoadNote_10, '') +  IIF( LoadNote_11 <> '',  '||' + LoadNote_11, '') +  IIF( LoadNote_12 <> '',  '||' + LoadNote_12, '') +  IIF( LoadNote_13 <> '',  '||' + LoadNote_13, '') +  IIF( LoadNote_14 <> '',  '||' + LoadNote_14, '') +  IIF( LoadNote_15 <> '',  '||' + LoadNote_15, '') +  IIF( LoadNote_16 <> '',  '||' + LoadNote_16, '')
+	UPDATE #Tmp_HoldData_Final SET LoadNote =  IIF( LoadNote_1 <> '',  '||' + LoadNote_1, '') +  IIF( LoadNote_2 <> '',  '||' + LoadNote_2, '') +  IIF( LoadNote_3 <> '',  '||' + LoadNote_3, '') +  IIF( LoadNote_4 <> '',  '||' + LoadNote_4, '') +  IIF( LoadNote_5 <> '',  '||' + LoadNote_5, '') +  IIF( LoadNote_6 <> '',  '||' + LoadNote_6, '') +  IIF( LoadNote_7 <> '',  '||' + LoadNote_7, '') +  IIF( LoadNote_8 <> '',  '||' + LoadNote_8, '') +  IIF( LoadNote_9 <> '',  '||' + LoadNote_9, '') +  IIF( LoadNote_10 <> '',  '||' + LoadNote_10, '') +  IIF( LoadNote_11 <> '',  '||' + LoadNote_11, '') +  IIF( LoadNote_12 <> '',  '||' + LoadNote_12, '') +  IIF( LoadNote_13 <> '',  '||' + LoadNote_13, '') +  IIF( LoadNote_14 <> '',  '||' + LoadNote_14, '') +  IIF( LoadNote_15 <> '',  '||' + LoadNote_15, '') +  IIF( LoadNote_16 <> '',  '||' + LoadNote_16, '') +  IIF( LoadNote_17 <> '',  '||' + LoadNote_17, '') +  IIF( LoadNote_18 <> '',  '||' + LoadNote_18, '') +  IIF( LoadNote_19 <> '',  '||' + LoadNote_19, '') +  IIF( LoadNote_20 <> '',  '||' + LoadNote_20, '') +  IIF( LoadNote_21 <> '',  '||' + LoadNote_21, '') +  IIF( LoadNote_22 <> '',  '||' + LoadNote_22, '')
 	
 	UPDATE #Tmp_HoldData_Final SET DeathInjury_Log_Flag = 0
 
@@ -307,7 +314,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.InjuryNature_Flag=1
 				,MT.LoadNote='InjuryNature|Warning:InjuryNature got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryNature
+			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryNature
 			WHERE  DC.TableName='DeathInjury_InjuryNature'
 				
 			
@@ -341,7 +348,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.InjuryPlace_Flag=1
 				,MT.LoadNote='InjuryPlace|Warning:DimInjuryPlaceId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS].[DeathInjury_InjuryPlace_Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryPlace
+			JOIN [RVRS_Staging].[RVRS].[DeathInjury_InjuryPlace_Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryPlace
 			WHERE  DC.TableName='DimInjuryPlace'
 				AND MT.DimInjuryPlaceId IS NULL
 			
@@ -368,7 +375,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 			ALTER TABLE #Tmp_HoldData_Final ADD DimOtherInjuryPlaceId INT
 
-			/*ONLY THIS SECTION MODIFIED SINCE WE COULD NOT ADJUST IN CODE LAYOUT */
+						/*ONLY THIS SECTION MODIFIED SINCE WE COULD NOT ADJUST IN CODE LAYOUT */
 
 			UPDATE MT
 			SET MT.DimOtherInjuryPlaceId = 0
@@ -401,7 +408,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.InjuryPlaceOther_Flag=1
 				,MT.LoadNote='InjuryPlaceOther|Warning:DimOtherInjuryPlaceId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryPlaceOther
+			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryPlaceOther
 			WHERE  DC.TableName='DimOtherInjuryPlace'
 				AND MT.DimOtherInjuryPlaceId IS NULL
 			
@@ -463,7 +470,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.InjuryTransportOther_Flag=1
 				,MT.LoadNote='InjuryTransportOther|Warning:DimInjuryTransportOtherId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryTransportOther
+			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.InjuryTransportOther
 			WHERE  DC.TableName='DimInjuryTransportOther'
 				AND MT.DimInjuryTransportOtherId IS NULL
 			
@@ -497,7 +504,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				SET DeathInjury_Log_Flag=1
 					,LoadNote= 'Person|ParentMissing:Validation Errors' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					WHERE PersonId IS NULL
-					AND SrId IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
+					AND SrId IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
 
 				SET @RecordCountDebug=@@ROWCOUNT 
 				
@@ -508,7 +515,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				UPDATE #Tmp_HoldData_Final
 					SET LoadNote='Person|ParentMissing:Not Processed' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					 WHERE PersonId IS NULL
-					  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
+					  AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
 					  AND DeathInjury_Log_Flag=1
 
 			    SET @RecordCountDebug=@@ROWCOUNT 
@@ -522,7 +529,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
                               ,LoadNote=CASE WHEN LoadNote!='' 
                                         THEN 'Person|ParentMissing:Not Processed' + ' || ' +  LoadNote  ELSE 'Person|ParentMissing:Not Processed' END
                                  WHERE PersonId IS NULL 
-                                 AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
+                                 AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log)
                                  AND DeathInjury_Log_Flag = 0
 
                     SET @TotalParentMissingRecords=@@rowcount
@@ -544,7 +551,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 
-			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]
+			INSERT INTO [RVRS_testdb].[RVRS].[DeathInjury]
 			(
 				 [PersonId],[InjuryYear],[InjuryMonth],[InjuryDay],[InjuryHour],[InjuryMinute],[DimInjuryTimeIndId],[DimInjuryAtWorkId],[InjuryNature],[DimInjuryPlaceId],[DimOtherInjuryPlaceId],[DimInjuryTransportId],[DimInjuryTransportOtherId]
 				,CreatedDate
@@ -570,11 +577,11 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 */
 
 	
-INSERT INTO [RVRS].[DeathInjury_Log]
+INSERT INTO [RVRS_testdb].[RVRS].[DeathInjury_Log]
 			(
 				 SrId, InjuryNature_DC ,InjuryPlace_DC ,InjuryPlaceOther_DC ,InjuryTransportOther_DC 
 				 , [PersonId],[InjuryYear],[InjuryMonth],[InjuryDay],[InjuryHour],[InjuryMinute],[DimInjuryTimeIndId],[DimInjuryAtWorkId],[InjuryNature],[DimInjuryPlaceId],[DimOtherInjuryPlaceId],[DimInjuryTransportId],[DimInjuryTransportOtherId]	
-				 , DOD,DOI,TOI,InjuryTimeInd,InjuryAtWork,InjuryPlace,InjuryPlaceOther,InjuryTransport,InjuryTransportOther,Certifier
+				 , DOD,DOI,TOI,InjuryTimeInd,InjuryAtWork,InjuryPlace,InjuryPlaceOther,InjuryTransport,InjuryTransportOther,Certifier,MannerOfDeath
 				,SrCreatedDate
 				,SrUpdatedDate
 				,CreatedDate
@@ -584,7 +591,7 @@ INSERT INTO [RVRS].[DeathInjury_Log]
 			SELECT 
 			    SrId , InjuryNature_DC ,InjuryPlace_DC ,InjuryPlaceOther_DC ,InjuryTransportOther_DC 
 				, [PersonId],[InjuryYear],[InjuryMonth],[InjuryDay],[InjuryHour],[InjuryMinute],[DimInjuryTimeIndId],[DimInjuryAtWorkId],[InjuryNature],[DimInjuryPlaceId],[DimOtherInjuryPlaceId],[DimInjuryTransportId],[DimInjuryTransportOtherId]
-				, DOD,DOI,TOI,InjuryTimeInd,InjuryAtWork,InjuryPlace,InjuryPlaceOther,InjuryTransport,InjuryTransportOther,Certifier
+				, DOD,DOI,TOI,InjuryTimeInd,InjuryAtWork,InjuryPlace,InjuryPlaceOther,InjuryTransport,InjuryTransportOther,Certifier,MannerOfDeath
 				,SrCreatedDate
 				,SrUpdatedDate
 				,CreatedDate
@@ -607,7 +614,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR InjuryNature*/
 
-			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -625,7 +632,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 				,MT.InjuryNature AS OriginalValue
 				,MT.InjuryNature_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_testdb].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.InjuryNature_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -635,7 +642,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimInjuryPlaceId*/
 
-			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -653,7 +660,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.InjuryPlace AS OriginalValue
 				,MT.InjuryPlace_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_testdb].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.InjuryPlace_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -663,7 +670,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimOtherInjuryPlaceId*/
 
-			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -681,7 +688,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.InjuryPlaceOther AS OriginalValue
 				,MT.InjuryPlaceOther_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_testdb].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.InjuryPlaceOther_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -691,7 +698,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimInjuryTransportOtherId*/
 
-			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -709,7 +716,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.InjuryTransportOther AS OriginalValue
 				,MT.InjuryTransportOther_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_testdb].[RVRS].[DeathInjury]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.InjuryTransportOther_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -728,7 +735,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
-	UPDATE [RVRS].[Execution]
+	UPDATE [RVRS_testdb].[RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadDate			
 				,EndTime=@CurentTime
@@ -747,7 +754,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
-		UPDATE [RVRS].[Execution]
+		UPDATE [RVRS_testdb].[RVRS].[Execution]
 		SET ExecutionStatus='Failed'
 			,LastLoadDate=@LastLoadDate			
 			,EndTime=@CurentTime
@@ -769,5 +776,3 @@ END
 */
 
 	
-
-
