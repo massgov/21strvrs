@@ -1,5 +1,4 @@
- USE [RVRS_testdb]
-
+use RVRS_Staging
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_DeathPronouncementPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathPronouncementPr]
@@ -13,21 +12,21 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_DeathPronouncementPr]
 AUTHOR	:Rashmi Nagaraj
-CREATED	:Jan 20 2023  
+CREATED	:Jan 25 2023  
 PURPOSE	:TO LOAD DATA INTO FACT DeathPronouncement TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Jan 20 2023 		Rashmi Nagaraj						RVRS TBD : LOAD DECEDENT DeathPronouncement DATA FROM STAGING TO ODS
+Jan 25 2023 		Rashmi Nagaraj						RVRS TBD : LOAD DECEDENT DeathPronouncement DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
 *****************************************************************************************
-DELETE FROM [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathPronouncement'
-TRUNCATE TABLE [RVRS_testdb].[RVRS].[DeathPronouncement]
-DROP TABLE [RVRS_testdb].[RVRS].[DeathPronouncement_Log]
-DELETE FROM [RVRS_testdb].[RVRS].[Execution] WHERE Entity = 'DeathPronouncement'
+DELETE FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal] WHERE Entity = 'DeathPronouncement'
+TRUNCATE TABLE [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathPronouncement]
+DROP TABLE [RVRS].[DeathPronouncement_Log]
+DELETE FROM [RVRS].[Execution] WHERE Entity = 'DeathPronouncement'
 
 *****************************************************************************************
  After execute the procedure you can run procedure 
@@ -73,8 +72,8 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 */
 
 
-IF OBJECT_ID('[RVRS_testdb].[RVRS].[DeathPronouncement_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[DeathPronouncement_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), [PersonId] BIGINT,[PronouncedYear] VARCHAR(16),[PronouncedMonth] VARCHAR(16),[PronouncedDay] VARCHAR(16),[PronouncedHour] VARCHAR(16),[PronouncedMinute] VARCHAR(16),[DimPronouncedTimeIndId] INT, PRO_DATE VARCHAR(128),PRO_TIME VARCHAR(128),PronouncedTimeInd VARCHAR(128),FL_PRONOUNCEMENT_EXISTS VARCHAR(128),DOD VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathPronouncement_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+IF OBJECT_ID('[RVRS].[DeathPronouncement_Log]') IS NULL 
+	CREATE TABLE [RVRS].[DeathPronouncement_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), [PersonId] BIGINT,[PronouncedYear] VARCHAR(16),[PronouncedMonth] VARCHAR(16),[PronouncedDay] VARCHAR(16),[PronouncedHour] VARCHAR(16),[PronouncedMinute] VARCHAR(16),[DimPronouncedTimeIndId] INT, PRO_DATE VARCHAR(128),PRO_TIME VARCHAR(128),PronouncedTimeInd VARCHAR(128),FL_PRONOUNCEMENT_EXISTS VARCHAR(128),DOD VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathPronouncement_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -90,7 +89,7 @@ PRINT '1'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 	
 			
-INSERT INTO [RVRS_testdb].[RVRS].[Execution] 
+INSERT INTO [RVRS].[Execution] 
 		(
 			 Entity
 			,ExecutionStatus
@@ -124,7 +123,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[Execution]
 */
 
 	
-SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS_testdb].[RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathPronouncement' AND ExecutionStatus='Completed')
+SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathPronouncement' AND ExecutionStatus='Completed')
 	        IF @LastLoadedDate IS NULL SET @LastLoadedDate = '01/01/1900'
 PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
@@ -139,7 +138,7 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		        INTO #Tmp_HoldData
 
-		        FROM [RVRS_Staging].RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		        FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
 				WHERE 
 		              CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
@@ -157,7 +156,6 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		   PRINT  @TotalProcessedRecords
 			
- select * from #Tmp_HoldData 
 PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
@@ -165,7 +163,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			BEGIN 
                 PRINT '5'  + CONVERT (VARCHAR(50),GETDATE(),109)	
 						
-				UPDATE [RVRS_testdb].[RVRS].[Execution]
+				UPDATE [RVRS].[Execution]
 						SET ExecutionStatus='Completed'
 						,LastLoadDate=@LastLoadedDate						
 						,EndTime=@CurentTime
@@ -189,7 +187,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 IF (SElECT count(1) from #Tmp_HoldData where PersonId is not null ) = 0
 			BEGIN
-					UPDATE [RVRS_testdb].[RVRS].[Execution]
+					UPDATE [RVRS].[Execution]
 					SET ExecutionStatus=@ExecutionStatus
 						,LastLoadDate=@LastLoadedDate					
 						,EndTime=@CurentTime
@@ -229,8 +227,8 @@ PRINT '6'  + CONVERT (VARCHAR(50),GETDATE(),109)
 							AND ISDATE(PRO_TIME + REPLACE(REPLACE(PronouncedTimeInd,'A','AM'),'P','PM')) = 0)) THEN 'PRO_TIME,DimPronouncedTimeIndId|Error:Time of Pronouncement not in a valid  range' ELSE '' END AS LoadNote_5
 	        ,CASE WHEN PRO_TIME NOT LIKE '[0-9][0-9]:[0-9][0-9]' THEN 'PRO_TIME|Error:Not a valid format for Time of Pronouncement' ELSE '' END AS LoadNote_6
 	        ,CASE WHEN PRO_TIME LIKE '12:00' AND PronouncedTimeInd NOT IN ('N','D') THEN 'PRO_TIME,DimPronouncedTimeIndId|Error:Time of Pronouncement not in align with Time Indicator' ELSE '' END AS LoadNote_7
-	        ,CASE WHEN (FL_PRONOUNCEMENT_EXISTS = 'Y' AND PRO_TIME IS  NULL ) OR (FL_PRONOUNCEMENT_EXISTS = 'Y' AND PRO_DATE IS  NULL) THEN 'FL_PRONOUNCEMENT_EXISTS,PRO_DATE,PRO_TIME|Warning: If FL_PRONOUNCEMENT_EXISTS is YES Pronouncement Date and Time should be blank' ELSE '' END AS LoadNote_8
-	        ,CASE WHEN ( PRO_TIME IS NOT NULL AND PRO_DATE IS  NULL )  THEN 'PRO_DATE,PRO_TIME|Error: Pronouncement Date is blank when Pronouncement Time is not blank' ELSE '' END AS LoadNote_9
+	        ,CASE WHEN (FL_PRONOUNCEMENT_EXISTS = 'Y' AND PRO_TIME IS  NULL ) OR (FL_PRONOUNCEMENT_EXISTS = 'Y' AND PRO_DATE IS  NULL) THEN 'FL_PRONOUNCEMENT_EXISTS,PRO_DATE,PRO_TIME|Warning: If FL_PRONOUNCEMENT_EXISTS is YES Pronouncement Date and Time should not be blank' ELSE '' END AS LoadNote_8
+	        ,CASE WHEN ( PRO_TIME IS NOT NULL AND PRO_DATE IS  NULL )  THEN 'PRO_DATE,PRO_TIME|Error: When Pronouncement Time is populated Pronouncement date cannot be blank' ELSE '' END AS LoadNote_9
 					
 		INTO #Tmp_HoldData_Final				
 		FROM #Tmp_HoldData HD
@@ -289,7 +287,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				SET DeathPronouncement_Log_Flag=1
 					,LoadNote= 'Person|ParentMissing:Validation Errors' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					WHERE PersonId IS NULL
-					AND SrId IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					AND SrId IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 
 				SET @RecordCountDebug=@@ROWCOUNT 
 				
@@ -300,7 +298,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				UPDATE #Tmp_HoldData_Final
 					SET LoadNote='Person|ParentMissing:Not Processed' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					 WHERE PersonId IS NULL
-					  AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 					  AND DeathPronouncement_Log_Flag=1
 
 			    SET @RecordCountDebug=@@ROWCOUNT 
@@ -314,7 +312,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
                               ,LoadNote=CASE WHEN LoadNote!='' 
                                         THEN 'Person|ParentMissing:Not Processed' + ' || ' +  LoadNote  ELSE 'Person|ParentMissing:Not Processed' END
                                  WHERE PersonId IS NULL 
-                                 AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log)
+                                 AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
                                  AND DeathPronouncement_Log_Flag = 0
 
                     SET @TotalParentMissingRecords=@@rowcount
@@ -327,9 +325,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 					SET @RecordCountDebug=@@ROWCOUNT
                 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))  
- select * from #Tmp_HoldData_Final 
- SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimTimeInd] DS WITH(NOLOCK) 
-			
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 10 - LOAD to Target    
@@ -339,7 +334,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathPronouncement]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathPronouncement]
 			(
 				 [PersonId],[PronouncedYear],[PronouncedMonth],[PronouncedDay],[PronouncedHour],[PronouncedMinute],[DimPronouncedTimeIndId]
 				,CreatedDate
@@ -358,7 +353,6 @@ SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathPronouncement]
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 11 - LOAD to Log    
@@ -366,7 +360,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 */
 
 	
-INSERT INTO [RVRS_testdb].[RVRS].[DeathPronouncement_Log]
+INSERT INTO [RVRS].[DeathPronouncement_Log]
 			(
 				 SrId
 				 , [PersonId],[PronouncedYear],[PronouncedMonth],[PronouncedDay],[PronouncedHour],[PronouncedMinute],[DimPronouncedTimeIndId]	
@@ -394,7 +388,6 @@ INSERT INTO [RVRS_testdb].[RVRS].[DeathPronouncement_Log]
 PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathPronouncement_Log] 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 12 - LOAD to DeathOriginal    
@@ -402,7 +395,6 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 */
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathPronouncement'
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 13 - Update Execution  Status  
@@ -414,7 +406,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
-	UPDATE [RVRS_testdb].[RVRS].[Execution]
+	UPDATE [RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadDate			
 				,EndTime=@CurentTime
@@ -430,11 +422,10 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 
 		
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
- select * from [RVRS_testdb].[RVRS].[Execution] WHERE Entity= 'DeathPronouncement'
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
-		UPDATE [RVRS_testdb].[RVRS].[Execution]
+		UPDATE [RVRS].[Execution]
 		SET ExecutionStatus='Failed'
 			,LastLoadDate=@LastLoadDate			
 			,EndTime=@CurentTime
