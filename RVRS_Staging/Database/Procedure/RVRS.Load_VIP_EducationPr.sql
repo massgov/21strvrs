@@ -1,5 +1,4 @@
- USE [RVRS_testdb]
-
+USE RVRS_Staging
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_EducationPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_EducationPr]
@@ -13,21 +12,21 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_EducationPr]
 AUTHOR	:Rashmi Nagaraj
-CREATED	:Jan 25 2023  
+CREATED	:Jan 26 2023  
 PURPOSE	:TO LOAD DATA INTO FACT Education TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Jan 25 2023 		Rashmi Nagaraj						RVRS TBD : LOAD DECEDENT Education DATA FROM STAGING TO ODS
+Jan 26 2023 		Rashmi Nagaraj						RVRS TBD : LOAD DECEDENT Education DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
 *****************************************************************************************
-DELETE FROM [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'Education'
-TRUNCATE TABLE [RVRS_testdb].[RVRS].[Education]
-DROP TABLE [RVRS_testdb].[RVRS].[Education_Log]
-DELETE FROM [RVRS_testdb].[RVRS].[Execution] WHERE Entity = 'Education'
+DELETE FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal] WHERE Entity = 'Education'
+TRUNCATE TABLE [RVRS_PROD].[RVRS_ODS].[RVRS].[Education]
+DROP TABLE [RVRS].[Education_Log]
+DELETE FROM [RVRS].[Execution] WHERE Entity = 'Education'
 
 *****************************************************************************************
  After execute the procedure you can run procedure 
@@ -73,8 +72,8 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 */
 
 
-IF OBJECT_ID('[RVRS_testdb].[RVRS].[Education_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[Education_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), [PersonId] BIGINT,[DimEducationId] INT, EducationId VARCHAR(128),PersonAgeCalcYear VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),Education_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+IF OBJECT_ID('[RVRS].[Education_Log]') IS NULL 
+	CREATE TABLE [RVRS].[Education_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), [PersonId] BIGINT,[DimEducationId] INT, EducationId VARCHAR(128),AgeCalcYear VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),Education_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -90,7 +89,7 @@ PRINT '1'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 	
 			
-INSERT INTO [RVRS_testdb].[RVRS].[Execution] 
+INSERT INTO [RVRS].[Execution] 
 		(
 			 Entity
 			,ExecutionStatus
@@ -124,7 +123,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[Execution]
 */
 
 	
-SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS_testdb].[RVRS].[Execution] WITH(NOLOCK) WHERE Entity='Education' AND ExecutionStatus='Completed')
+SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS].[Execution] WITH(NOLOCK) WHERE Entity='Education' AND ExecutionStatus='Completed')
 	        IF @LastLoadedDate IS NULL SET @LastLoadedDate = '01/01/1900'
 PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
@@ -132,14 +131,14 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
 		        SELECT  D.DEATH_REC_ID AS SrId
-					  ,P.PersonId ,DEDUC EducationId,AGE1_CALC PersonAgeCalcYear
+					  ,P.PersonId ,DEDUC EducationId,AGE1_CALC AgeCalcYear
 					  ,@CurentTime AS CreatedDate 
 					  ,VRV_REC_DATE_CREATED AS SrCreatedDate
 					  ,VRV_DATE_CHANGED AS SrUpdatedDate
 
 		        INTO #Tmp_HoldData
 
-		        FROM [RVRS_Staging].RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		        FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
 				WHERE 
 		              CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
@@ -159,7 +158,6 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		   PRINT  @TotalProcessedRecords
 			
- select * from #Tmp_HoldData 
 PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
@@ -167,7 +165,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			BEGIN 
                 PRINT '5'  + CONVERT (VARCHAR(50),GETDATE(),109)	
 						
-				UPDATE [RVRS_testdb].[RVRS].[Execution]
+				UPDATE [RVRS].[Execution]
 						SET ExecutionStatus='Completed'
 						,LastLoadDate=@LastLoadedDate						
 						,EndTime=@CurentTime
@@ -191,7 +189,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 IF (SElECT count(1) from #Tmp_HoldData where PersonId is not null ) = 0
 			BEGIN
-					UPDATE [RVRS_testdb].[RVRS].[Execution]
+					UPDATE [RVRS].[Execution]
 					SET ExecutionStatus=@ExecutionStatus
 						,LastLoadDate=@LastLoadedDate					
 						,EndTime=@CurentTime
@@ -223,7 +221,7 @@ PRINT '6'  + CONVERT (VARCHAR(50),GETDATE(),109)
    
 		SELECT *
 			
-	        ,CASE WHEN ( PersonAgeCalcYear  < 14  AND EducationId = 2 ) OR  (PersonAgeCalcYear  < 16 AND EducationId IN (3 ,4,5,6,7,8) ) OR(PersonAgeCalcYear < 5 AND EducationId NOT IN (1,9,10,11)) THEN 'PersonAgeCalcYear,EducationId|Warning: Age cut off and Education Mismatch' ELSE '' END AS LoadNote_1
+	        ,CASE WHEN (AgeCalcYear < 14 AND EducationId in (7,8,9)) OR (AgeCalcYear < 16 AND EducationId IN (8,9)) OR(AgeCalcYear < 5 AND EducationId IN (2,3,4,5,6,7,8,9)) THEN 'Person.AgeCalcYear,DimEducationId|Warning: Age cut off and Education Mismatch' ELSE '' END AS LoadNote_1
 					
 		INTO #Tmp_HoldData_Final				
 		FROM #Tmp_HoldData HD
@@ -294,7 +292,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				SET Education_Log_Flag=1
 					,LoadNote= 'Person|ParentMissing:Validation Errors' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					WHERE PersonId IS NULL
-					AND SrId IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					AND SrId IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 
 				SET @RecordCountDebug=@@ROWCOUNT 
 				
@@ -305,7 +303,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				UPDATE #Tmp_HoldData_Final
 					SET LoadNote='Person|ParentMissing:Not Processed' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					 WHERE PersonId IS NULL
-					  AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 					  AND Education_Log_Flag=1
 
 			    SET @RecordCountDebug=@@ROWCOUNT 
@@ -319,7 +317,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
                               ,LoadNote=CASE WHEN LoadNote!='' 
                                         THEN 'Person|ParentMissing:Not Processed' + ' || ' +  LoadNote  ELSE 'Person|ParentMissing:Not Processed' END
                                  WHERE PersonId IS NULL 
-                                 AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log)
+                                 AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
                                  AND Education_Log_Flag = 0
 
                     SET @TotalParentMissingRecords=@@rowcount
@@ -332,9 +330,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 					SET @RecordCountDebug=@@ROWCOUNT
                 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))  
- select * from #Tmp_HoldData_Final 
- SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimEducation] DS WITH(NOLOCK) 
-			
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 10 - LOAD to Target    
@@ -344,7 +339,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 
-			INSERT INTO [RVRS_testdb].[RVRS].[Education]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[Education]
 			(
 				 [PersonId],[DimEducationId]
 				,CreatedDate
@@ -363,7 +358,6 @@ SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[Education]
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 11 - LOAD to Log    
@@ -371,11 +365,11 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 */
 
 	
-INSERT INTO [RVRS_testdb].[RVRS].[Education_Log]
+INSERT INTO [RVRS].[Education_Log]
 			(
 				 SrId
 				 , [PersonId],[DimEducationId]	
-				 , EducationId,PersonAgeCalcYear
+				 , EducationId,AgeCalcYear
 				,SrCreatedDate
 				,SrUpdatedDate
 				,CreatedDate
@@ -385,7 +379,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[Education_Log]
 			SELECT 
 			    SrId 
 				, [PersonId],[DimEducationId]
-				, EducationId,PersonAgeCalcYear
+				, EducationId,AgeCalcYear
 				,SrCreatedDate
 				,SrUpdatedDate
 				,CreatedDate
@@ -399,7 +393,6 @@ INSERT INTO [RVRS_testdb].[RVRS].[Education_Log]
 PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[Education_Log] 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 12 - LOAD to DeathOriginal    
@@ -407,7 +400,6 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 */
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'Education'
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 13 - Update Execution  Status  
@@ -419,7 +411,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
-	UPDATE [RVRS_testdb].[RVRS].[Execution]
+	UPDATE [RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadDate			
 				,EndTime=@CurentTime
@@ -435,11 +427,10 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 
 		
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
- select * from [RVRS_testdb].[RVRS].[Execution] WHERE Entity= 'Education'
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
-		UPDATE [RVRS_testdb].[RVRS].[Execution]
+		UPDATE [RVRS].[Execution]
 		SET ExecutionStatus='Failed'
 			,LastLoadDate=@LastLoadDate			
 			,EndTime=@CurentTime
