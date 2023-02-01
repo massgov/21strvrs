@@ -1,5 +1,4 @@
-USE RVRS_Staging
-
+USE RVRS_STAGING
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_EducationPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_EducationPr]
 GO 
@@ -12,13 +11,13 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_EducationPr]
 AUTHOR	:Rashmi Nagaraj
-CREATED	:Jan 26 2023  
+CREATED	:Feb  1 2023  
 PURPOSE	:TO LOAD DATA INTO FACT Education TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Jan 26 2023 		Rashmi Nagaraj						RVRS TBD : LOAD DECEDENT Education DATA FROM STAGING TO ODS
+Feb  1 2023 		Rashmi Nagaraj						RVRS TBD : LOAD DECEDENT Education DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
@@ -452,4 +451,3 @@ END
 */
 
 	
-
