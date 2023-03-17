@@ -1966,6 +1966,7 @@ insert into #Generic values
 ,('','DEATH_REGISTRATION_MEDICAL_INJURY_HELMET_STATUS_CD_ID')
 ,('','DEATH_REGISTRATION_MEDICAL_INJURY_SEATBELT_STATUS_CD_ID')
 
+
 UPDATE c2 SET Statuss = 'Dup'
 from #ContextAttribute c1
 inner join #ContextAttribute c2 on c1.Field = c2.Field 
