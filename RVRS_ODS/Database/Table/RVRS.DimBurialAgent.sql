@@ -17,7 +17,6 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[MiddleName] VARCHAR(128), --BURIAL_AGENT_MNAME
 			[LastName] VARCHAR(128), --BURIAL_AGENT_LNAME
 			[DimSuffixId]INT NOT NULL CONSTRAINT [df_DimBurialAgentDimSuffixId] DEFAULT (0),--BURIAL_AGENT_SUFFIX
-			[IsCurrent] VARCHAR(2) NULL,
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
 			[SrcVoid] TINYINT  NOT NULL, -- it set by source - Src = Source 		

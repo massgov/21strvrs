@@ -1,5 +1,8 @@
 --drop table [RVRS].[DimPersonTypeInternal]
 --sp_help '[RVRS].[DimPersonTypeInternal]'
+--sp_rename 'rvrs.DimPersonTypeInternal.PersonTypeDesc', 'PersonTypeInternalDesc', 'Column'
+--sp_rename 'rvrs.DimPersonTypeInternal.DimPersonTypeId', 'DimPersonTypeInternalId', 'Column'
+
 SET ANSI_NULLS ON
 GO
 
@@ -11,7 +14,8 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	BEGIN 
 		CREATE TABLE [RVRS].[DimPersonTypeInternal](
 			[DimPersonTypeInternalId] INT NOT NULL,		
-		    [PersonTypeDesc] VARCHAR(128) NOT NULL,				
+		    [PersonTypeInternalDesc] VARCHAR(128) NOT NULL,	
+			[PersonGuidCode] char(3),
 			[Void] TINYINT NOT NULL, 
 		CONSTRAINT [pk_DimPersonTypeInternalId] PRIMARY KEY CLUSTERED 
 		(

@@ -31,7 +31,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		   [DeathHour] DECIMAL(2,0) NULL,--Hour(TOD_ME)		   [DeathMinute] DECIMAL(2,0) NULL,--Min(TOD_ME)
 		   [DimTimeIndId] INT NOT NULL CONSTRAINT [df_DeathMedicalRecordDimTimeIndId] DEFAULT (0),--TOD_IN_ME
 		   [PronouncedYear] DECIMAL(4,0) NULL, --Year(ME_PRO_DATE)		   [PronouncedMonth] DECIMAL(2,0) NULL,--Month(ME_PRO_DATE)		   [PronouncedDay] DECIMAL(2,0) NULL,--Day(ME_PRO_DATE)		   [PronouncedHour] DECIMAL(2,0) NULL,--Hour(ME_PRO_TIME)		   [PronouncedMinute] DECIMAL(2,0) NULL,--Min(ME_PRO_TIME)
-		   [DimPronouncedTimeInd] INT NOT NULL CONSTRAINT [df_DeathMedicalRecordDimPronouncedTimeInd] DEFAULT (0),--ME_PRO_TIME_IN
+		   [DimPronouncedTimeIndId] INT NOT NULL CONSTRAINT [df_DeathMedicalRecordDimPronouncedTimeIndId] DEFAULT (0),--ME_PRO_TIME_IN
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathMedicalRecordCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store the created date 
 		   [LoadNote] VARCHAR(MAX)
 		CONSTRAINT [pk_DeathMedicalRecordId] PRIMARY KEY CLUSTERED 

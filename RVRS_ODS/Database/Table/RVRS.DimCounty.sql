@@ -1,5 +1,8 @@
 --drop  table [RVRS].[DimCounty]
 --sp_help '[RVRS].[DimCounty]'
+-- select * from [RVRS].[DimCounty] order by fipscode 
+-- Alter table [RVRS].[DimCounty] ADD [InStateCode] VARCHAR(3) NULL
+--alter table [RVRS].[DimCounty] ADD ValueSet VARCHAR(512)  
 SET ANSI_NULLS ON
 GO
 
@@ -15,7 +18,9 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[DimStateId] INT NOT NULL CONSTRAINT [df_DimCountyDimStateId]  DEFAULT ((0)),
 			[FipsCode] VARCHAR(3) NULL,
 			[NchsCode] VARCHAR(3) NULL,
+			[InStateCode] VARCHAR(3) NULL,
 			[CountyDesc] VARCHAR(128) NOT NULL,  --COUNTY_NAME
+			[ValueSet] VARCHAR(512) NOT NULL, 
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
 			[SrcVoid] TINYINT NOT NULL  --- CONSTRAINT [df_DimCountyActive]  DEFAULT ((1)), --Void

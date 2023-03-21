@@ -1986,7 +1986,7 @@ UPDATE c1 SET Statuss = 'Match'
           , ViP_Column = g.Column_Vip
 from #ContextAttribute c1
 INNER JOIN #Generic g on c1.field = g.Column_Mavrice 
-where Statuss is null  --311
+where Statuss is null  --331
 
 update c1 set vip_column = null 
 from #ContextAttribute c1 where trim(vip_column) = '' -- cleanup  --142
@@ -2094,7 +2094,7 @@ from #ContextAttribute c1 where trim(vip_column) in ( '','0') -- cleanup  --4
  /*
  9- exist in audit 
 **/
-
+--drop table #auditField 
 SELECT distinct  f.[NAME]
 into #auditField 
 FROM rVRS.VIP_VRV_AUDIT_TBL_AMEND a 
@@ -2103,7 +2103,7 @@ inner join rvrs.VIP_FIELD_ADMIN f on f.field_id = ad.field_id and f.MODULE_ID = 
 where exists ( SELECT 1
 FROM rVRS.VIP_VRV_AUDIT_TBL_AMEND ai
 where ai.MMR_MOD_FUNC_ID in (225,252)  and ai.MODULE_ID = 2 and a.RECORD_ID = ai.RECORD_ID) 
-and a.MODULE_ID =2  --529
+and a.MODULE_ID =2 and  a.MMR_MOD_FUNC_ID in (225,252,2060) --529
 
 select * from #auditField order by 1 
 
@@ -2125,7 +2125,7 @@ from #ContextAttribute c where c.ViP_Column in (
 ,'DOD/TOD/TOD_ME/TOD_IN/TOD_IN_ME'
 ,'DOI + TOI'
 ,'INFO_ADDR1/INFO_PO_BOX'
-)--46
+)--46 
 
 select * from #ContextAttribute where multicolumn = 1
 
@@ -2137,12 +2137,12 @@ alter table #contextattribute add ExistInAudit VARCHAR(3) default 'NO'
 update c  set ExistInAudit = 'Yes' from #generic g 
 inner join #auditField af on g.Column_Vip =af.[NAME] 
 inner join #contextattribute c on c.ViP_Column = af.[Name]
-where isnull(c.statuss,'NULL') not in ('dup', 'skip') and c.ViP_Column is not null --180
+where isnull(c.statuss,'NULL') not in ('dup', 'skip') and c.ViP_Column is not null --180 3/17/2023:179
 
 select * from #contextattribute where multicolumn !=1 and vip_column is not null and existinaudit is null
 select * from #contextattribute where ExistInAudit = 'Yes' and statuss is null 
 --multi 
-select * from #contextattribute where multicolumn = 1 --45
+select * from #contextattribute where multicolumn = 1 --45 3/17/2023:46
 
 update c set existinaudit = 'Yes'
 from #auditField af 
@@ -2172,7 +2172,27 @@ insert into #multiple Values
 ('DOI'),
 ('TOI'),
 ('INFO_ADDR1'),
-('INFO_PO_BOX')
+('INFO_PO_BOX'),
+('CAUSE_CATEGORY1'),
+('CAUSE_CATEGORY2'),
+('CAUSE_CATEGORY3'),
+('CAUSE_CATEGORY4'),
+('CAUSE_CATEGORY5'),
+('CAUSE_CATEGORY6'),
+('CAUSE_CATEGORY7'),
+('CAUSE_CATEGORY8'),
+('CAUSE_CATEGORY9'),
+('CAUSE_CATEGORY10'),
+('CAUSE_CATEGORY11'),
+('CAUSE_CATEGORY12'),
+('CAUSE_CATEGORY13'),
+('CAUSE_CATEGORY14'),
+('CAUSE_CATEGORY15'),
+('CAUSE_CATEGORY16'),
+('CAUSE_CATEGORY17'),
+('CAUSE_CATEGORY18'),
+('CAUSE_CATEGORY19'),
+('CAUSE_CATEGORY20')
 
 select *
 from #ContextAttribute c 
@@ -2199,11 +2219,10 @@ where c.ViP_Column in (
 'BURIAL_PERMIT_ISSUE_DATE/BURIAL_PERMIT_ISSUE_DATE_RV'
 ,'BURIAL_PERMIT_NUMBER/BURIAL_PERMIT_NUMBER_RV'
 ,'CERT_SIGN_DATE/SIGN_DATE_ME'
-,'CAUSE_CATEGORY1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20'
 ,'DOD/TOD/TOD_ME/TOD_IN/TOD_IN_ME'
 ,'DOI + TOI'
 ,'INFO_ADDR1/INFO_PO_BOX'
-) --15
+)  --15
 
 
 update c  set ExistInAudit = 'Yes' from 
@@ -2213,6 +2232,15 @@ where isnull(c.statuss,'NULL') not in ('dup', 'skip') and c.ViP_Column is not nu
 
 select * from #contextattribute where VIP_Column_Single is not null 
 
+-- commented because category is not audited in VIP 
+--INSERT INTO #ContextAttribute (Id,	Field,	Statuss,	VIP_Column,	multicolumn,	ExistInAudit,	VIP_Column_Single)
+--select ID * 100 , c.Field, 'Multi Splitted',c.Vip_Column, Null, NULL, m.Field
+--from #ContextAttribute c 
+--inner join #multiple m on  c.Vip_column like   left (m.Field, len(m.Field)-2) + '%' --or c.Vip_column like m.Field + '/%'  or  c.Vip_column like  '%/' +m.Field + '%'
+--where c.ViP_Column in (
+--'CAUSE_CATEGORY1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20'
+--)  --15
+--order by m.Field,c.Field
 
 /*
  11- Add from generic 
@@ -2359,7 +2387,7 @@ update c set vip_column = p.vip_column
 from #pending p 
 inner join #ContextAttribute c on p.field = c.field 
 where isnull(c.statuss,'NULL')  not in ( 'dup','skip')
-and c.vip_column not in ('OCCUR_REGIS_NUM') --15
+and c.vip_column not in ('OCCUR_REGIS_NUM') --15 --14-3/17/2023
 
 --check race 
 select * from #pending where field like '%HISPANIC%'
@@ -2382,13 +2410,13 @@ select * from #generic g where not exists (select 1 from #ContextAttribute c whe
 update c  set ExistInAudit = 'Yes' from 
  #auditField af 
 inner join #contextattribute c on c.vip_column = af.[Name]
-where isnull(c.statuss,'NULL') not in ('dup', 'skip') and c.ViP_Column is not null --13
+where isnull(c.statuss,'NULL') not in ('dup', 'skip') and c.ViP_Column is not null --13 12:3/17/2023
 and ExistInAudit  ='NO' --12
 
 /*
 15 copy 
 **/
-select * from #ContextAttribute where isnull(statuss,'xc') != 'Add' order by id  --1189
+select * from #ContextAttribute where isnull(statuss,'xc') != 'Add' order by id  --1189 -- 1204:3/17/2023
 
 select * from #ContextAttribute where isnull(statuss,'xc') = 'Add' order by id  --14
 
@@ -2396,16 +2424,20 @@ select * from #ContextAttribute where isnull(statuss,'xc') = 'Add' order by id  
 CREATE SCHEMA MAVRIC_AMEND 
 select * from #ContextAttribute
 
-UPDATE c SET VIP_COLUMN_Single = Vip_column from #ContextAttribute c where multicolumn is null and VIP_COLUMN_Single is null  --1172
+UPDATE c SET VIP_COLUMN_Single = Vip_column from #ContextAttribute c where multicolumn is null and VIP_COLUMN_Single is null  --1172 1157:3/17/2023
+update c set vip_column_single = null from #ContextAttribute c where statuss in ('Skip', 'Dup') --445
+update c set vip_column_single = null from #ContextAttribute c where vip_column like '%Pending%' --17
+
 select * from #ContextAttribute where VIP_COLUMN_Single is null and vip_column is not null 
 
 
-select * from MAVRIC_AMEND.ContextAttribute
+select * from MAVRIC_AMEND.ContextAttribute --1218
 
-select * from MAVRIC_AMEND.ContextAttribute where multicolumn = 1
+select * from #ContextAttribute where  VIP_COLUMN_Single is not null --233
 
 /* 17 Create new schema in staging and store ContextAttribute*/
 
+-- not run on 3/17/2023 category might is not audited 
 drop table MAVRIC_AMEND.ContextAttribute
 SELECT *
 INTO MAVRIC_AMEND.ContextAttribute
@@ -2416,8 +2448,10 @@ order by name
 update c set vip_column_single = null from MAVRIC_AMEND.ContextAttribute c where statuss in ('Skip', 'Dup') --445
 update c set vip_column_single = null from MAVRIC_AMEND.ContextAttribute c where vip_column like '%Pending%' --17
 
-
 select * from MAVRIC_AMEND.ContextAttribute c  where vip_column_single is not null 
+UPDATE c set vip_column_single = vip_column_single + ':Removed' from MAVRIC_AMEND.ContextAttribute c where field = 'DATE_UPDATED' 
+select * from MAVRIC_AMEND.ContextAttribute where field like '%DATE_UPDATED%'
+
 --FRom Burial, RACE, Attend, pro, VET, Some flags , Cause Units-- 338
 
 

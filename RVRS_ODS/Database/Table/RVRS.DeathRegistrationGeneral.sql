@@ -1,5 +1,5 @@
 --drop table [RVRS].[DeathRegistrationGeneral]
---sp_help '[RVRS].[DeathRegistrationGeneral]'
+--sp_help '[RVRS].[DeathRegistrationGeneral]'  
 SET ANSI_NULLS ON
 GO
  
@@ -14,18 +14,18 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		CREATE TABLE[RVRS].[DeathRegistrationGeneral](  		
 			[DeathRegistrationGeneralId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column 
 			[PersonId] BIGINT NOT NULL,  --  RVRS Column 
-			[DimRegistrarId] INT NOT NULL CONSTRAINT [df_DeathRegistrationGeneralDimRegistrarId] DEFAULT (0), -- RECORD_REGISTRAR
+			[RegistrarName] VARCHAR(64) NOT NULL, -- RECORD_REGISTRAR
 			[RegistrationNumber] VARCHAR(32) NOT NULL, -- RECORD_REGIS_NUM
 			[RegistrationDate]  DATETIME NOT NULL, -- RECORD_REGIS_DATE
 			[AmendmentDate]  DATETIME NULL, -- DATE_OF_AMENDMENT
 			[DimRecordAccessId] INT NOT NULL CONSTRAINT [df_DeathRegistrationGeneralDimRecordAccessId] DEFAULT (0), -- IND_ACCESS_STATUS
-			[GrpRegistered]  VARCHAR(2) NOT NULL, -- IND_RECORD_OWNER
+			[RecordOwner] CHAR(2) NOT NULL, -- IND_RECORD_OWNER --OCCURRENCE,STATE
 			[ScrRegistererUserId]  INT NOT NULL, -- RECORD_REGISTRAR_ID
 			[FlRegistered] DECIMAL (1,0) NOT NULL, -- VRV_REGISTERED_FLAG
-			[FlUpdatePending] DECIMAL (1,0)  NULL, -- FL_UPDATE_PENDING
-			[FlAmendmentInProcess] DECIMAL (1,0)  NULL, -- AMEND_IN_PROCESS
-			[FlDelayed] DECIMAL (1,0) NULL, -- FL_DELAYED
-			[FlAmended] DECIMAL (1,0) NULL, -- FL_AMENDED
+			[FlUpdatePending] VARCHAR(4)  NULL, -- FL_UPDATE_PENDING
+			[FlAmendmentInProcess] VARCHAR(4)  NULL, -- AMEND_IN_PROCESS
+			[FlDelayed] VARCHAR(4) NULL, -- FL_DELAYED
+			[FlAmended] DECIMAL(1,0) NULL, -- FL_AMENDED
 			[DimRegistrationStatusId] INT NOT NULL CONSTRAINT [df_DeathRegistrationGeneralDimRegistrationStatusId] DEFAULT (0), -- IND_REGIS_STATUS
 			[CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathRegistrationGeneralCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store created date
 		   	[LoadNote] VARCHAR(MAX)

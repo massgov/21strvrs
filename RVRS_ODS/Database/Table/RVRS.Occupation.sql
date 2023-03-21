@@ -13,8 +13,10 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		CREATE TABLE [RVRS].[Occupation] (  
 		   [OccupationId] BIGINT NOT NULL IDENTITY (1,1),
 		   [PersonId] BIGINT NOT NULL,  --  RVRS Column 	 
-		   [DimIndustryId]INT NOT NULL CONSTRAINT [df_OccupationDimIndustryId] DEFAULT (0),	
-		   [DimOccupationId]INT NOT NULL CONSTRAINT [df_OccupationDimOccupationId] DEFAULT (0),	
+		   [Industry] VARCHAR(64) NULL,	--INDUST	    
+		   [Occupation] VARCHAR(64) NULL,	 --OCCUP	
+		   [DimNioshIndustryId] INT NOT NULL CONSTRAINT [df_OccupationDimNioshIndustryId] DEFAULT (0),	 --INDUST
+		   [DimNioshOccupationId] INT NOT NULL CONSTRAINT [df_OccupationDimNioshOccupationId] DEFAULT (0), --OCCUP
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_OccupationCreatedDate] DEFAULT (GETDATE()), -- RVRS Column	
 		   [LoadNote] VARCHAR(MAX)
 		CONSTRAINT [pk_OccupationId] PRIMARY KEY CLUSTERED 

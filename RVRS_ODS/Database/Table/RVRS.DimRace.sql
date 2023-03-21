@@ -13,7 +13,6 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[DimRaceId] INT NOT NULL IDENTITY (1,1),	
 			[BkRaceId] INT NOT NULL,
 			[RaceDesc] VARCHAR(128) NOT NULL,  
-			[DimRaceParentId] INT NOT NULL CONSTRAINT [df_DimRaceDimRaceParentId] DEFAULT (0), --	 RACE15,DETHNIC4 
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
 			[SrcVoid] TINYINT  NOT NULL, -- it set by source - Src = Source 		

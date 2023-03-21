@@ -12,9 +12,9 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	BEGIN 
 		CREATE TABLE [RVRS].[Ethnicity] (  
 		   [EthnicityId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column to store the
-		   [PersonId] BIGINT NOT NULL ,  --  RVRS Column to store the	
-		   [DimEthnicityGrpId] INT NOT NULL CONSTRAINT [df_EthnicityDimEthnicityParentId] DEFAULT (0), --e.g. DETHNIC_AFRICAN_CB,DETHNIC_EUROPEAN	  
-		   [DimEthnicityId] INT NOT NULL CONSTRAINT [df_EthnicityDimEthnicityId] DEFAULT (0), --Multiple Columns (e.g.DETHNIC_AFRICAN_CB,DETHNIC_AMERICAN)		   
+		   [PersonId] BIGINT NOT NULL ,  --  RVRS Column to store the			 
+		   [DimEthnicityId] INT NOT NULL CONSTRAINT [df_EthnicityDimEthnicityId] DEFAULT (0), --Multiple Columns (e.g.DETHNIC_AFRICAN_CB,DETHNIC_AMERICAN)		
+		   [DimOtherEthnicityId] INT NOT NULL CONSTRAINT [df_EthnicityDimOtherEthnicityId] DEFAULT (0), --e.g. DETHNIC_AFRICAN_CB,DETHNIC_EUROPEAN	 
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_EthnicityCreatedDate] DEFAULT (GETDATE()) -- RVRS Column to store the 		   
 		CONSTRAINT [pk_EthnicityId] PRIMARY KEY CLUSTERED 
 		(
