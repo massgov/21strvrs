@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DPH-MXL00429DQ"
   DTS:CreatorName="EHS\RNagaraj"
-  DTS:DTSID="{12743125-D96B-4DAD-847C-76C30692D2EB}"
+  DTS:DTSID="{80709460-8742-4EEE-9289-98B82F81936B}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="4"
-  DTS:VersionGUID="{086E2788-E773-4E8C-BACE-C44660826476}">
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{3D0DEECF-156B-4BCF-B320-FF20CA08F5EC}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -21,7 +21,7 @@
       DTS:refId="Package\Data Flow Task"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
-      DTS:DTSID="{1D137D3E-F373-4AD0-8389-1B85F719EF34}"
+      DTS:DTSID="{60F4C211-D8A8-42BD-BDB1-4BE853E3A1E2}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
       DTS:ObjectName="Data Flow Task">
@@ -100,7 +100,7 @@
               <connections>
                 <connection
                   refId="Package\Data Flow Task\ODBC Source.Connections[ODBCConnection]"
-                  connectionManagerID="{D745DCBF-643C-4620-9553-E651CDA40C50}:external"
+                  connectionManagerID="{616606B7-B251-410D-BE85-3E74C1565D06}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_Postgres32_unicode]"
                   description="The ODBC runtime connection used to access the database."
                   name="ODBCConnection" />
@@ -923,7 +923,7 @@
                   dataType="System.Int32"
                   description="Specifies the mode used to access the database."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">3</property>
                 <property
                   dataType="System.Boolean"
                   description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
@@ -935,7 +935,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                  name="FastLoadOptions"></property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
@@ -944,7 +944,7 @@
               <connections>
                 <connection
                   refId="Package\Data Flow Task\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerID="{6883065A-B99B-424C-92C9-6E2C0DCCFB40}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
@@ -1470,7 +1470,7 @@
       DTS:refId="Package\Trunacte Table"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:DTSID="{ABF963D0-B762-4D17-ACE2-511F66CD79B7}"
+      DTS:DTSID="{84195274-641D-4DD0-B55D-1E8A7EB8783A}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Trunacte Table"
@@ -1479,8 +1479,8 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}"
-          SQLTask:SqlStatementSource="truncate table RVRS. Divorcetbl_20002015" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:Connection="{6883065A-B99B-424C-92C9-6E2C0DCCFB40}"
+          SQLTask:SqlStatementSource="truncate table RVRS.LegacyPlus_Divorce_tbl_20002015" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -1488,7 +1488,7 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
-      DTS:DTSID="{0FFFF47B-EAEA-4156-B235-7359766A2171}"
+      DTS:DTSID="{0A2E71A6-D8BC-43FB-BC61-C8AB707A2BA8}"
       DTS:From="Package\Trunacte Table"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
@@ -1507,11 +1507,11 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="153.6,42.4"
+          Size="153.333333333334,42.6666666666667"
           Id="Package\Data Flow Task"
           TopLeft="375.499985297522,198.766668202612" />
         <NodeLayout
-          Size="148,41.6"
+          Size="148,41.3333333333334"
           Id="Package\Trunacte Table"
           TopLeft="376.666651699279,104.000000826518" />
         <EdgeLayout
@@ -1545,11 +1545,11 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="174.4,42.4"
+          Size="174.666666666667,42.6666666666667"
           Id="Package\Data Flow Task\OLE DB Destination"
           TopLeft="278.75000404194,110.684210049809" />
         <NodeLayout
-          Size="146.4,42.4"
+          Size="146.666666666667,42.6666666666667"
           Id="Package\Data Flow Task\ODBC Source"
           TopLeft="290.875004144385,21.2105254915612" />
         <EdgeLayout
