@@ -1,6 +1,5 @@
 --drop table [RVRS].[DeathPlace]
 --sp_help '[RVRS].[DeathPlace]'
---select * from [RVRS].[DeathPlace]
 SET ANSI_NULLS ON
 GO
 
@@ -18,6 +17,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		   [DimDeathFacilityId] INT NOT NULL CONSTRAINT [df_DeathPlaceDimDeathFacilityId] DEFAULT (0), --DHOSPITALL
 		   [DimOtherDeathPlaceId] INT NOT NULL CONSTRAINT [df_DeathPlaceDimOtherDeathPlaceId] DEFAULT (0), --DPLACE_OTHR	
 		   [DeathFacilityCode] VARCHAR(16) NULL, --DFACILITYL
+		   [FgSameAsResidence] VARCHAR(1) NULL, 
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathPlaceCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store created date
 		   [LoadNote] VARCHAR(MAX)
 		CONSTRAINT [pk_DeathPlaceId] PRIMARY KEY CLUSTERED 

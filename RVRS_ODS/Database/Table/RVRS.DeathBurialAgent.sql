@@ -14,11 +14,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		CREATE TABLE[RVRS].[DeathBurialAgent](  		
 			[DeathBurialAgentId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column 
 			[PersonId] BIGINT NOT NULL,  --  RVRS Column 
-			[FirstName] VARCHAR(128), --BURIAL_AGENT_GNAME
-			[MiddleName] VARCHAR(128), --BURIAL_AGENT_MNAME
-			[LastName] VARCHAR(128), --BURIAL_AGENT_LNAME
-			[DimBurialAgentTitleId] INT NOT NULL CONSTRAINT [df_DeathBurialAgentDimBurialAgentTitleId] DEFAULT (0), --BURIAL_AGENT_TITLE
-			[DimSuffixId]INT NOT NULL CONSTRAINT [df_DeathBurialAgentDimSuffixId] DEFAULT (0),--BURIAL_AGENT_SUFFIX
+			[DimBurialAgentId] INT NOT NULL CONSTRAINT [df_DeathBurialAgentDimBurialAgentId] DEFAULT (0), -- BURIAL_AGENT_TITLE,BURIAL_AGENT_GNAME,BURIAL_AGENT_MNAME,BURIAL_AGENT_LNAME,BURIAL_AGENT_SUFFIX
 			[CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathBurialAgentCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store created date
 		   	[LoadNote] VARCHAR(MAX)
 		CONSTRAINT [pk_DeathBurialAgentId] PRIMARY KEY CLUSTERED 
