@@ -14,8 +14,8 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		CREATE TABLE[RVRS].[DeathFuneralHome](  		
 			[DeathFuneralHomeId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column 
 			[PersonId] BIGINT NOT NULL,  --  RVRS Column 
-            [DimFuneralHomeId] INT NOT NULL CONSTRAINT [df_DeathFuneralHomeDimFuneralHomeId] DEFAULT (0), -- FNRL_NME
-			[DimTradeServiceCallId] INT NOT NULL CONSTRAINT [df_DeathFuneralHomeDimTradeServiceCallId] DEFAULT (0), -- FNRL_SERVICE_OOS			
+            [DimFuneralHomeNameId] INT NOT NULL CONSTRAINT [df_DeathFuneralHomeDimFuneralHomeNameId] DEFAULT (0),  --  FH_RESPONSIBLE_NAME,FNRL_NME
+		    [DimFuneralHomeTypeInternalId] INT NOT NULL CONSTRAINT [df_DeathFuneralHomeDimFuneralHomeTypeInternalId] DEFAULT (0),  --  
 			[CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathFuneralHomeCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store created date
 		   	[LoadNote] VARCHAR(MAX)
 		CONSTRAINT [pk_DeathFuneralHomeId] PRIMARY KEY CLUSTERED 
@@ -26,3 +26,4 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	END
 
 GO 
+

@@ -1,0 +1,995 @@
+{
+  "paper": {
+    "name": "A4",
+    "leftMargin": 0.5,
+    "rightMargin": 0.5,
+    "topMargin": 0.5,
+    "bottomMargin": 0.5,
+    "isPortriat": true
+  },
+  "modelVersion": 2.01,
+  "defaultSchema": "default",
+  "server": {
+    "objectType": "Server_CONCEPTUAL",
+    "name": "Default",
+    "schemas": [
+      {
+        "objectType": "Schema_CONCEPTUAL",
+        "name": "default",
+        "tables": [
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Event",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Person",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Address",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Death",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Funeral Home",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Entity 1",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Disposition",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Funeral Home director",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Health Care Providers",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Informant ",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Cause of Death",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "veteran",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Registration Data",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Unclassified Other Data",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "Medical Record Basic data",
+            "oldName": "",
+            "foreignKeys": []
+          }
+        ]
+      }
+    ]
+  },
+  "diagrams": [
+    {
+      "name": "Diagram 1",
+      "paperWidth": 1,
+      "paperHeight": 1,
+      "tableFont": "Arial Unicode MS",
+      "tableFontSize": 14,
+      "isBalckWhite": false,
+      "showDBSchemaName": false,
+      "showViewRelations": true,
+      "notation": "crowsfoot",
+      "showFieldComment": false,
+      "showTableComment": false,
+      "shapes": [
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Event",
+          "x": 540,
+          "y": 240,
+          "width": 190,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 1",
+          "x": 820,
+          "y": 230,
+          "width": 270,
+          "height": 90,
+          "text": "stores all the event basic info about the event (SFN, Event Date, Registration Date,Amendement Date)",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Person",
+          "x": 250,
+          "y": 210,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 2",
+          "x": 30,
+          "y": 200,
+          "width": 190,
+          "height": 60,
+          "text": "Stores PII data ",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Address",
+          "x": 250,
+          "y": 290,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 2 Copy 1",
+          "x": 30,
+          "y": 320,
+          "width": 190,
+          "height": 60,
+          "text": "Stores all Address\r\n\r\n",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Death",
+          "x": 250,
+          "y": 370,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Funeral Home",
+          "x": 250,
+          "y": 770,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Disposition",
+          "x": 250,
+          "y": 690,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Funeral Home director",
+          "x": 250,
+          "y": 850,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Health Care Providers",
+          "x": 250,
+          "y": 930,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 3",
+          "x": 500,
+          "y": 400,
+          "width": 400,
+          "height": 70,
+          "text": "All death related fieilds (Mannner, Place of Death, Injury, some behariour info (Pregancey))",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4",
+          "x": 500,
+          "y": 800,
+          "width": 440,
+          "height": 50,
+          "text": "Funeral home names and other related data except address",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4 Copy 1",
+          "x": 500,
+          "y": 630,
+          "width": 260,
+          "height": 50,
+          "text": "Informat data except address",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4 Copy 1 Copy 1",
+          "x": 500,
+          "y": 720,
+          "width": 390,
+          "height": 50,
+          "text": "Place of dispostion and related fields except address",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Informant ",
+          "x": 250,
+          "y": 610,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Cause of Death",
+          "x": 250,
+          "y": 450,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Medical Record Basic data",
+          "x": 250,
+          "y": 1010,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "veteran",
+          "x": 250,
+          "y": 530,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Registration Data",
+          "x": 250,
+          "y": 1090,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "Unclassified Other Data",
+          "x": 250,
+          "y": 1170,
+          "width": 200,
+          "height": 80,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "label",
+          "name": "Title",
+          "x": 96,
+          "y": 25,
+          "width": 298,
+          "height": 40,
+          "text": "ODS Death Conceptual Model",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 20,
+          "isFontBold": true,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "Label 1",
+          "x": 139,
+          "y": 60,
+          "width": 118,
+          "height": 30,
+          "text": "Author : Bezawit",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4 Copy 1 Copy 2",
+          "x": 500,
+          "y": 550,
+          "width": 260,
+          "height": 50,
+          "text": "Deceased Veteran Data\r\n",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4 Copy 2",
+          "x": 500,
+          "y": 870,
+          "width": 450,
+          "height": 50,
+          "text": "Funeral director names and other related data except address",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4 Copy 2 Copy 1",
+          "x": 500,
+          "y": 950,
+          "width": 410,
+          "height": 50,
+          "text": "Stores Cerifier, ME, Attendance Nurse, Pronouncers, etc.",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4 Copy 2 Copy 1 Copy 1",
+          "x": 500,
+          "y": 1030,
+          "width": 490,
+          "height": 60,
+          "text": "Deceased basic Data from medical recrod e.g Sex, Name (These data may be redundent\r\n)",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4 Copy 2 Copy 1 Copy 1 Copy 1",
+          "x": 500,
+          "y": 1110,
+          "width": 400,
+          "height": 50,
+          "text": "Registration related data, including State, Res and Occ ",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 4 Copy 2 Copy 1 Copy 1 Copy 1 Copy 1",
+          "x": 500,
+          "y": 1180,
+          "width": 400,
+          "height": 50,
+          "text": "Registration related data, including State, Res and Occ ",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "line",
+          "name": "Line 1",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 250
+            },
+            {
+              "x": 460,
+              "y": 1240
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 1",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 490,
+              "y": 800
+            },
+            {
+              "x": 460,
+              "y": 800
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "name": "Line 2",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "vertices": [
+            {
+              "x": 490,
+              "y": 800
+            },
+            {
+              "x": 490,
+              "y": 300
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "name": "Line 3",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "vertices": [
+            {
+              "x": 490,
+              "y": 300
+            },
+            {
+              "x": 540,
+              "y": 300
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 2",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 250
+            },
+            {
+              "x": 450,
+              "y": 250
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 3",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 1220
+            },
+            {
+              "x": 450,
+              "y": 1220
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 4",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 1140
+            },
+            {
+              "x": 460,
+              "y": 1140
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 5",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 1060
+            },
+            {
+              "x": 450,
+              "y": 1060
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 6",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 970
+            },
+            {
+              "x": 450,
+              "y": 970
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 7",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 900
+            },
+            {
+              "x": 450,
+              "y": 900
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 8",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 820
+            },
+            {
+              "x": 450,
+              "y": 820
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 9",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 740
+            },
+            {
+              "x": 450,
+              "y": 740
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 10",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 660
+            },
+            {
+              "x": 460,
+              "y": 660
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 11",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 570
+            },
+            {
+              "x": 450,
+              "y": 570
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 12",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 490
+            },
+            {
+              "x": 450,
+              "y": 490
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 13",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 410
+            },
+            {
+              "x": 450,
+              "y": 410
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 14",
+          "opacity": 1.0,
+          "lineWidth": 1,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 460,
+              "y": 330
+            },
+            {
+              "x": 450,
+              "y": 330
+            }
+          ]
+        }
+      ],
+      "layers": [],
+      "relations": [],
+      "viewRelations": []
+    }
+  ]
+}

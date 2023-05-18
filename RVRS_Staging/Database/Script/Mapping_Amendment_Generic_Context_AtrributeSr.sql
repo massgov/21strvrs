@@ -2449,8 +2449,20 @@ update c set vip_column_single = null from MAVRIC_AMEND.ContextAttribute c where
 update c set vip_column_single = null from MAVRIC_AMEND.ContextAttribute c where vip_column like '%Pending%' --17
 
 select * from MAVRIC_AMEND.ContextAttribute c  where vip_column_single is not null 
-UPDATE c set vip_column_single = vip_column_single + ':Removed' from MAVRIC_AMEND.ContextAttribute c where field = 'DATE_UPDATED' 
+UPDATE c set vip_column_single = 'VRV_DATE_CHANGED:Removed' from MAVRIC_AMEND.ContextAttribute c where field = 'DATE_UPDATED' and vip_column_single = 'VRV_DATE_CHANGED'
 select * from MAVRIC_AMEND.ContextAttribute where field like '%DATE_UPDATED%'
+
+--- 3/24/2023 corrected the column name as per Sandra 
+select * from MAVRIC_AMEND.ContextAttribute where field in ('TASK_DECEDENT_MOTHER_CURRENT_NAME_LAST_NAME','TASK_DECEDENT_SURVIVING_SPOUSE_CURRENT_NAME_LAST_NAME')
+--prod 
+/*
+    select * from DAVE_MIGRATION.MAVRIC_AMEND_ContextAttribute  where field in ('TASK_DECEDENT_MOTHER_CURRENT_NAME_LAST_NAME','TASK_DECEDENT_SURVIVING_SPOUSE_CURRENT_NAME_LAST_NAME')
+	UPDATE c set field = 'TASK_DECEDENT_MOTHER_CURRENT_NAME_NAME_LAST_NAME' from DAVE_MIGRATION.MAVRIC_AMEND_ContextAttribute  c where field = 'TASK_DECEDENT_MOTHER_CURRENT_NAME_LAST_NAME' 
+    UPDATE c set Field = 'TASK_DECEDENT_SURVIVING_SPOUSE_CURRENT_NAME_NAME_LAST_NAME' from DAVE_MIGRATION.MAVRIC_AMEND_ContextAttribute  c where field = 'TASK_DECEDENT_SURVIVING_SPOUSE_CURRENT_NAME_LAST_NAME' 
+*/
+ UPDATE c set field = 'TASK_DECEDENT_MOTHER_CURRENT_NAME_NAME_LAST_NAME' from MAVRIC_AMEND.ContextAttribute c where field = 'TASK_DECEDENT_MOTHER_CURRENT_NAME_LAST_NAME' 
+ UPDATE c set Field = 'TASK_DECEDENT_SURVIVING_SPOUSE_CURRENT_NAME_NAME_LAST_NAME' from MAVRIC_AMEND.ContextAttribute c where field = 'TASK_DECEDENT_SURVIVING_SPOUSE_CURRENT_NAME_LAST_NAME' 
+
 
 --FRom Burial, RACE, Attend, pro, VET, Some flags , Cause Units-- 338
 
