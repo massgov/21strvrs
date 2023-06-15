@@ -13,13 +13,13 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_DeathFuneralHomePr]
 AUTHOR	:Sailendra Singh
-CREATED	:Jun  2 2023  
+CREATED	:Jun 14 2023  
 PURPOSE	:TO LOAD DATA INTO FACT DeathFuneralHome TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Jun  2 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathFuneralHome DATA FROM STAGING TO ODS
+Jun 14 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathFuneralHome DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
@@ -245,9 +245,11 @@ PRINT '6'  + CONVERT (VARCHAR(50),GETDATE(),109)
    
 		SELECT *
 			
-	        ,CASE WHEN (FNRL_SERVICE_OOS = 'Y' and FH_RESPONSIBLE_NAME= FNRL_NME) THEN 'FNRL_SERVICE_OOS,RESPONSIBE_NAME,FNRL_NME|Error:Funeral Home and Responsible Funeral Home names are same for Trade Service Call' ELSE '' END AS LoadNote_1
-	        ,CASE WHEN (FNRL_SERVICE_OOS = 'N' and FH_RESPONSIBLE_NAME<> FNRL_NME) THEN 'FNRL_SERVICE_OOS,RESPONSIBE_NAME,FNRL_NME|Error:Funeral Home and Responsible Funeral Home names are different for no Trade Service Call' ELSE '' END AS LoadNote_2
-	        ,CASE WHEN ((TRADE_FH_UNLISTED =  'N' OR FL_FUNERAL_HOME_UNLISTED = 'N') AND FNRL_NME<>FH_NAME)  THEN 'TRADE_FH_UNLISTED,FL_FUNERAL_HOME_UNLISTED,FNRL_NME,VIP_VT_FUNERAL_HOME_CD.FH_NAME|Warning:The Name of the Funeral Home does not match the Name from Code table' ELSE '' END AS LoadNote_3
+	        ,CASE WHEN DimFuneralHomeTypeInternalId =2 AND FNRL_SERVICE_OOS = 'Y' and COALESCE(FH_RESPONSIBLE_NAME,'')=COALESCE(FNRL_NME,'') THEN 'DimFuneralHomeTypeInternalId,FNRL_SERVICE_OOS,RESPONSIBE_NAME,FNRL_NME|Error:Funeral Home and Responsible Funeral Home names are same for Trade Service Call' ELSE '' END AS LoadNote_1
+	        ,CASE WHEN DimFuneralHomeTypeInternalId =1 AND FNRL_SERVICE_OOS = 'N' and COALESCE(FH_RESPONSIBLE_NAME,'')<>COALESCE(FNRL_NME,'') THEN 'DimFuneralHomeTypeInternalId,FNRL_SERVICE_OOS,RESPONSIBE_NAME,FNRL_NME|Error:Funeral Home and Responsible Funeral Home names are different for Non-Trade Service Call' ELSE '' END AS LoadNote_2
+	        ,CASE WHEN DimFuneralHomeTypeInternalId =1 AND (TRADE_FH_UNLISTED =  'N' OR FL_FUNERAL_HOME_UNLISTED = 'N') AND FNRL_NME<>FH_NAME THEN 'DimFuneralHomeTypeInternalId,TRADE_FH_UNLISTED,FL_FUNERAL_HOME_UNLISTED,FNRL_NME,VIP_VT_FUNERAL_HOME_CD.FH_NAME|Warning:The Name of the Funeral Home does not match the Name from Code table' ELSE '' END AS LoadNote_3
+	        ,CASE WHEN DimFuneralHomeTypeInternalId =1 AND FNRL_NME IS NULL THEN 'DimFuneralHomeTypeInternalId,FNRL_NME|Error:Missing Funeral Home Name' ELSE '' END AS LoadNote_4
+	        ,CASE WHEN DimFuneralHomeTypeInternalId =2 AND FH_RESPONSIBLE_NAME IS NULL THEN 'DimFuneralHomeTypeInternalId,FH_RESPONSIBLE_NAME|Error:Missing Responsible Funeral Home Name for Trade Service' ELSE '' END AS LoadNote_5
 					
 		INTO #Tmp_HoldData_Final				
 		FROM #Tmp_HoldData HD
@@ -266,7 +268,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
  
 	ALTER TABLE #Tmp_HoldData_Final ADD  FuneralHomeName_DC VARCHAR(128), FuneralHomeName_Flag BIT NOT NULL DEFAULT 0 ,DeathFuneralHome_Log_Flag BIT NOT NULL DEFAULT 0,LoadNote VARCHAR(MAX) 
 
-	UPDATE #Tmp_HoldData_Final SET LoadNote =  IIF( LoadNote_1 <> '',  '||' + LoadNote_1, '') +  IIF( LoadNote_2 <> '',  '||' + LoadNote_2, '') +  IIF( LoadNote_3 <> '',  '||' + LoadNote_3, '')
+	UPDATE #Tmp_HoldData_Final SET LoadNote =  IIF( LoadNote_1 <> '',  '||' + LoadNote_1, '') +  IIF( LoadNote_2 <> '',  '||' + LoadNote_2, '') +  IIF( LoadNote_3 <> '',  '||' + LoadNote_3, '') +  IIF( LoadNote_4 <> '',  '||' + LoadNote_4, '') +  IIF( LoadNote_5 <> '',  '||' + LoadNote_5, '')
 	
 	UPDATE #Tmp_HoldData_Final SET DeathFuneralHome_Log_Flag = 0
 
