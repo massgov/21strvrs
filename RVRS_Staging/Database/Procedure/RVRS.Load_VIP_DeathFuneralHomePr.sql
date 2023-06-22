@@ -1,4 +1,3 @@
- USE [RVRS_testdb]
 
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_DeathFuneralHomePr]') AND [type]='P')
@@ -13,21 +12,21 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_DeathFuneralHomePr]
 AUTHOR	:Sailendra Singh
-CREATED	:Jun 14 2023  
+CREATED	:Jun 16 2023  
 PURPOSE	:TO LOAD DATA INTO FACT DeathFuneralHome TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Jun 14 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathFuneralHome DATA FROM STAGING TO ODS
+Jun 16 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathFuneralHome DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
 *****************************************************************************************
-DELETE FROM [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathFuneralHome'
-TRUNCATE TABLE [RVRS_testdb].[RVRS].[DeathFuneralHome]
-DROP TABLE [RVRS_testdb].[RVRS].[DeathFuneralHome_Log]
-DELETE FROM [RVRS_testdb].[RVRS].[Execution] WHERE Entity = 'DeathFuneralHome'
+DELETE FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal] WHERE Entity = 'DeathFuneralHome'
+TRUNCATE TABLE [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathFuneralHome]
+DROP TABLE [RVRS].[DeathFuneralHome_Log]
+DELETE FROM [RVRS].[Execution] WHERE Entity = 'DeathFuneralHome'
 
 *****************************************************************************************
  After execute the procedure you can run procedure 
@@ -73,8 +72,8 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 */
 
 
-IF OBJECT_ID('[RVRS_testdb].[RVRS].[DeathFuneralHome_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[DeathFuneralHome_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), FuneralHomeName_DC VARCHAR(128), [PersonId] BIGINT,[DimFuneralHomeNameId] INT,[DimFuneralHomeTypeInternalId] INT, FuneralHomeName VARCHAR(128),FNRL_SERVICE_OOS VARCHAR(128),TRADE_FH_UNLISTED VARCHAR(128),FL_FUNERAL_HOME_UNLISTED VARCHAR(128),FNRL_NME VARCHAR(128),FH_NAME VARCHAR(128),FH_RESPONSIBLE_NAME VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathFuneralHome_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+IF OBJECT_ID('[RVRS].[DeathFuneralHome_Log]') IS NULL 
+	CREATE TABLE [RVRS].[DeathFuneralHome_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), FuneralHomeName_DC VARCHAR(128), [PersonId] BIGINT,[DimFuneralHomeNameId] INT,[DimFuneralHomeTypeInternalId] INT, FuneralHomeName VARCHAR(128),FNRL_SERVICE_OOS VARCHAR(128),TRADE_FH_UNLISTED VARCHAR(128),FL_FUNERAL_HOME_UNLISTED VARCHAR(128),FNRL_NME VARCHAR(128),FH_NAME VARCHAR(128),FH_RESPONSIBLE_NAME VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathFuneralHome_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -90,7 +89,7 @@ PRINT '1'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 	
 			
-INSERT INTO [RVRS_testdb].[RVRS].[Execution] 
+INSERT INTO [RVRS].[Execution] 
 		(
 			 Entity
 			,ExecutionStatus
@@ -124,7 +123,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[Execution]
 */
 
 	
-SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS_testdb].[RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathFuneralHome' AND ExecutionStatus='Completed')
+SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathFuneralHome' AND ExecutionStatus='Completed')
 	        IF @LastLoadedDate IS NULL SET @LastLoadedDate = '01/01/1900'
 PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
@@ -139,7 +138,7 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		        INTO #Tmp_HoldData
 
-		        FROM [RVRS_Staging].RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		        FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
 				LEFT JOIN [RVRS_STAGING].[RVRS].[VIP_VT_Funeral_Home_CD] F ON D.VRV_FUNERAL_HOME_LOC_ID = F.FH_LOCATION
 				WHERE 
@@ -162,7 +161,7 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 					  ,VRV_REC_DATE_CREATED AS SrCreatedDate
 					  ,VRV_DATE_CHANGED AS SrUpdatedDate
 
-		        FROM [RVRS_Staging].RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		        FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
 				LEFT JOIN [RVRS_STAGING].[RVRS].[VIP_VT_Funeral_Home_CD] F ON D.VRV_FUNERAL_HOME_LOC_ID = F.FH_LOCATION
 				WHERE 
@@ -181,7 +180,6 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		   PRINT  @TotalProcessedRecords
 			
- select * from #Tmp_HoldData 
 PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
@@ -189,7 +187,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			BEGIN 
                 PRINT '5'  + CONVERT (VARCHAR(50),GETDATE(),109)	
 						
-				UPDATE [RVRS_testdb].[RVRS].[Execution]
+				UPDATE [RVRS].[Execution]
 						SET ExecutionStatus='Completed'
 						,LastLoadDate=@LastLoadedDate						
 						,EndTime=@CurentTime
@@ -213,7 +211,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 IF (SElECT count(1) from #Tmp_HoldData where PersonId is not null ) = 0
 			BEGIN
-					UPDATE [RVRS_testdb].[RVRS].[Execution]
+					UPDATE [RVRS].[Execution]
 					SET ExecutionStatus=@ExecutionStatus
 						,LastLoadDate=@LastLoadedDate					
 						,EndTime=@CurentTime
@@ -247,7 +245,7 @@ PRINT '6'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 	        ,CASE WHEN DimFuneralHomeTypeInternalId =2 AND FNRL_SERVICE_OOS = 'Y' and COALESCE(FH_RESPONSIBLE_NAME,'')=COALESCE(FNRL_NME,'') THEN 'DimFuneralHomeTypeInternalId,FNRL_SERVICE_OOS,RESPONSIBE_NAME,FNRL_NME|Error:Funeral Home and Responsible Funeral Home names are same for Trade Service Call' ELSE '' END AS LoadNote_1
 	        ,CASE WHEN DimFuneralHomeTypeInternalId =1 AND FNRL_SERVICE_OOS = 'N' and COALESCE(FH_RESPONSIBLE_NAME,'')<>COALESCE(FNRL_NME,'') THEN 'DimFuneralHomeTypeInternalId,FNRL_SERVICE_OOS,RESPONSIBE_NAME,FNRL_NME|Error:Funeral Home and Responsible Funeral Home names are different for Non-Trade Service Call' ELSE '' END AS LoadNote_2
-	        ,CASE WHEN DimFuneralHomeTypeInternalId =1 AND (TRADE_FH_UNLISTED =  'N' OR FL_FUNERAL_HOME_UNLISTED = 'N') AND FNRL_NME<>FH_NAME THEN 'DimFuneralHomeTypeInternalId,TRADE_FH_UNLISTED,FL_FUNERAL_HOME_UNLISTED,FNRL_NME,VIP_VT_FUNERAL_HOME_CD.FH_NAME|Warning:The Name of the Funeral Home does not match the Name from Code table' ELSE '' END AS LoadNote_3
+	        ,CASE WHEN ((FNRL_SERVICE_OOS = 'Y' AND TRADE_FH_UNLISTED =  'N') OR (FNRL_SERVICE_OOS = 'N' AND FL_FUNERAL_HOME_UNLISTED = 'N')) AND FNRL_NME<>FH_NAME THEN 'FNRL_SERVICE_OOS,TRADE_FH_UNLISTED,FL_FUNERAL_HOME_UNLISTED,FNRL_NME,VIP_VT_FUNERAL_HOME_CD.FH_NAME|Warning:The Name of the Funeral Home does not match the Name from Code table' ELSE '' END AS LoadNote_3
 	        ,CASE WHEN DimFuneralHomeTypeInternalId =1 AND FNRL_NME IS NULL THEN 'DimFuneralHomeTypeInternalId,FNRL_NME|Error:Missing Funeral Home Name' ELSE '' END AS LoadNote_4
 	        ,CASE WHEN DimFuneralHomeTypeInternalId =2 AND FH_RESPONSIBLE_NAME IS NULL THEN 'DimFuneralHomeTypeInternalId,FH_RESPONSIBLE_NAME|Error:Missing Responsible Funeral Home Name for Trade Service' ELSE '' END AS LoadNote_5
 					
@@ -306,7 +304,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.FuneralHomeName_Flag=1
 				,MT.LoadNote='FuneralHomeName|Warning:DimFuneralHomeNameId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.FuneralHomeName
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.FuneralHomeName
 			WHERE  DC.TableName='DimFuneralHomeName'
 				AND MT.DimFuneralHomeNameId IS NULL
 			
@@ -340,7 +338,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				SET DeathFuneralHome_Log_Flag=1
 					,LoadNote= 'Person|ParentMissing:Validation Errors' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					WHERE PersonId IS NULL
-					AND SrId IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					AND SrId IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 
 				SET @RecordCountDebug=@@ROWCOUNT 
 				
@@ -351,7 +349,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				UPDATE #Tmp_HoldData_Final
 					SET LoadNote='Person|ParentMissing:Not Processed' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					 WHERE PersonId IS NULL
-					  AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 					  AND DeathFuneralHome_Log_Flag=1
 
 			    SET @RecordCountDebug=@@ROWCOUNT 
@@ -365,7 +363,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
                               ,LoadNote=CASE WHEN LoadNote!='' 
                                         THEN 'Person|ParentMissing:Not Processed' + ' || ' +  LoadNote  ELSE 'Person|ParentMissing:Not Processed' END
                                  WHERE PersonId IS NULL 
-                                 AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log)
+                                 AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
                                  AND DeathFuneralHome_Log_Flag = 0
 
                     SET @TotalParentMissingRecords=@@rowcount
@@ -378,9 +376,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 					SET @RecordCountDebug=@@ROWCOUNT
                 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))  
- select * from #Tmp_HoldData_Final 
- SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimFuneralHomeName] DS WITH(NOLOCK) 
-			
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 10 - LOAD to Target    
@@ -390,7 +385,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathFuneralHome]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathFuneralHome]
 			(
 				 [PersonId],[DimFuneralHomeNameId],[DimFuneralHomeTypeInternalId]
 				,CreatedDate
@@ -409,7 +404,6 @@ SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathFuneralHome]
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 11 - LOAD to Log    
@@ -417,7 +411,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 */
 
 	
-INSERT INTO [RVRS_testdb].[RVRS].[DeathFuneralHome_Log]
+INSERT INTO [RVRS].[DeathFuneralHome_Log]
 			(
 				 SrId, FuneralHomeName_DC 
 				 , [PersonId],[DimFuneralHomeNameId],[DimFuneralHomeTypeInternalId]	
@@ -445,7 +439,6 @@ INSERT INTO [RVRS_testdb].[RVRS].[DeathFuneralHome_Log]
 PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathFuneralHome_Log] 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 12 - LOAD to DeathOriginal    
@@ -455,7 +448,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimFuneralHomeNameId*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -473,7 +466,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 				,MT.FuneralHomeName AS OriginalValue
 				,MT.FuneralHomeName_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathFuneralHome]  PA ON PA.PersonId=MT.PersonId  AND PA.DimFuneralHomeTypeInternalId=MT.DimFuneralHomeTypeInternalId	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathFuneralHome]  PA ON PA.PersonId=MT.PersonId  AND PA.DimFuneralHomeTypeInternalId=MT.DimFuneralHomeTypeInternalId	
 			WHERE MT.FuneralHomeName_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -481,7 +474,6 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathFuneralHome'
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 13 - Update Execution  Status  
@@ -493,7 +485,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
-	UPDATE [RVRS_testdb].[RVRS].[Execution]
+	UPDATE [RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadDate			
 				,EndTime=@CurentTime
@@ -509,11 +501,10 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 
 		
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
- select * from [RVRS_testdb].[RVRS].[Execution] WHERE Entity= 'DeathFuneralHome'
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
-		UPDATE [RVRS_testdb].[RVRS].[Execution]
+		UPDATE [RVRS].[Execution]
 		SET ExecutionStatus='Failed'
 			,LastLoadDate=@LastLoadDate			
 			,EndTime=@CurentTime
