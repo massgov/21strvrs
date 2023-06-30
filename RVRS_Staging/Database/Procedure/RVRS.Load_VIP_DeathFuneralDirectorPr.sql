@@ -13,13 +13,13 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_DeathFuneralDirectorPr]
 AUTHOR	:Sailendra Singh
-CREATED	:Jun 28 2023  
+CREATED	:Jun 30 2023  
 PURPOSE	:TO LOAD DATA INTO FACT DeathFuneralDirector TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Jun 28 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathFuneralDirector DATA FROM STAGING TO ODS
+Jun 30 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathFuneralDirector DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
@@ -74,7 +74,7 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 
 
 IF OBJECT_ID('[RVRS_testdb].[RVRS].[DeathFuneralDirector_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[DeathFuneralDirector_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), FirstName_DC VARCHAR(128),LastName_DC VARCHAR(128),LicenseNumber_DC VARCHAR(128),Suffix_DC VARCHAR(128),LastName_Suffix_DC VARCHAR(128), [PersonId] BIGINT,[FirstName] VARCHAR(128),[MiddleName] VARCHAR(128),[LastName] VARCHAR(128),[DimSuffixId] INT,[LicenseNumber] VARCHAR(32), LastName_Suffix VARCHAR(128),Suffix VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathFuneralDirector_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+	CREATE TABLE [RVRS_testdb].[RVRS].[DeathFuneralDirector_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), FirstName_DC VARCHAR(128),MiddleName_DC VARCHAR(128),LastName_DC VARCHAR(128),LicenseNumber_DC VARCHAR(128),Suffix_DC VARCHAR(128),LastName_Suffix_DC VARCHAR(128), [PersonId] BIGINT,[FirstName] VARCHAR(128),[MiddleName] VARCHAR(128),[LastName] VARCHAR(128),[DimSuffixId] INT,[LicenseNumber] VARCHAR(32), LastName_Suffix VARCHAR(128),Suffix VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathFuneralDirector_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -220,9 +220,9 @@ PRINT '6'  + CONVERT (VARCHAR(50),GETDATE(),109)
    
 		SELECT *
 			
-	        ,CASE WHEN FirstName like '[^a-zA-Z]%' THEN 'FirstName|Error:Not a valid First Name' ELSE '' END AS LoadNote_1
-	        ,CASE WHEN MiddleName like '[^a-zA-Z]%' THEN 'MiddleName|Error:Not a valid Middle Name' ELSE '' END AS LoadNote_2
-	        ,CASE WHEN LastName like '[^a-zA-Z]%' THEN 'LastName|Error:Not a valid Last Name' ELSE '' END AS LoadNote_3
+	        ,CASE WHEN LEFT(FirstName,1) LIKE '[^a-zA-Z]' AND FirstName NOT LIKE '-%' THEN 'FirstName|Error:FirstName does not start with Alphabet' ELSE '' END AS LoadNote_1
+	        ,CASE WHEN LEFT(MiddleName,1) LIKE '[^a-zA-Z]' and MiddleName NOT LIKE '-%' THEN 'MiddleName|Error:MiddleName does not start with Alphabet' ELSE '' END AS LoadNote_2
+	        ,CASE WHEN LEFT(LastName,1) LIKE '[^a-zA-Z]' and LastName NOT LIKE '-%' THEN 'LastName|Error:LastName does not start with Alphabet' ELSE '' END AS LoadNote_3
 					
 		INTO #Tmp_HoldData_Final				
 		FROM #Tmp_HoldData HD
@@ -239,7 +239,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 */
 	
  
-	ALTER TABLE #Tmp_HoldData_Final ADD  FirstName_DC VARCHAR(128),LastName_DC VARCHAR(128),LicenseNumber_DC VARCHAR(128),Suffix_DC VARCHAR(128),LastName_Suffix_DC VARCHAR(128), FirstName_Flag BIT NOT NULL DEFAULT 0 ,LastName_Flag BIT NOT NULL DEFAULT 0 ,LicenseNumber_Flag BIT NOT NULL DEFAULT 0 ,Suffix_Flag BIT NOT NULL DEFAULT 0 ,LastName_Suffix_Flag BIT NOT NULL DEFAULT 0 ,DeathFuneralDirector_Log_Flag BIT NOT NULL DEFAULT 0,LoadNote VARCHAR(MAX) 
+	ALTER TABLE #Tmp_HoldData_Final ADD  FirstName_DC VARCHAR(128),MiddleName_DC VARCHAR(128),LastName_DC VARCHAR(128),LicenseNumber_DC VARCHAR(128),Suffix_DC VARCHAR(128),LastName_Suffix_DC VARCHAR(128), FirstName_Flag BIT NOT NULL DEFAULT 0 ,MiddleName_Flag BIT NOT NULL DEFAULT 0 ,LastName_Flag BIT NOT NULL DEFAULT 0 ,LicenseNumber_Flag BIT NOT NULL DEFAULT 0 ,Suffix_Flag BIT NOT NULL DEFAULT 0 ,LastName_Suffix_Flag BIT NOT NULL DEFAULT 0 ,DeathFuneralDirector_Log_Flag BIT NOT NULL DEFAULT 0,LoadNote VARCHAR(MAX) 
 
 	UPDATE #Tmp_HoldData_Final SET LoadNote =  IIF( LoadNote_1 <> '',  '||' + LoadNote_1, '') +  IIF( LoadNote_2 <> '',  '||' + LoadNote_2, '') +  IIF( LoadNote_3 <> '',  '||' + LoadNote_3, '')
 	
@@ -275,6 +275,26 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 					
+/*THIS CODE IS TO GET MATCH FROM [RVRS].[Data_Conversion] TABLE AND UPDATE THE MiddleName WITH CORRECT VALUE,
+						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN DeathFuneralDirector_MiddleName TABLE*/		
+			
+  			
+			UPDATE MT
+				SET 
+				MiddleName_DC= DC.Mapping_Current
+				,MT.MiddleName_Flag=1
+				,MT.LoadNote='MiddleName|Warning:MiddleName got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
+			FROM #Tmp_HoldData_Final MT
+			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.MiddleName
+			WHERE  DC.TableName='DeathFuneralDirector_MiddleName'
+				
+			
+
+			SET @RecordCountDebug=@@ROWCOUNT 
+            PRINT '9' +   CONVERT (VARCHAR(50),GETDATE(),109) 
+			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
+	
+					
 /*THIS CODE IS TO GET MATCH FROM [RVRS].[Data_Conversion] TABLE AND UPDATE THE LastName WITH CORRECT VALUE,
 						FOR THE RECORDS WHICH COULD NOT GET A MATCH IN DeathFuneralDirector_LastName TABLE*/		
 			
@@ -291,7 +311,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
 			SET @RecordCountDebug=@@ROWCOUNT 
-            PRINT '9' +   CONVERT (VARCHAR(50),GETDATE(),109) 
+            PRINT '10' +   CONVERT (VARCHAR(50),GETDATE(),109) 
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 					
@@ -311,7 +331,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
 			SET @RecordCountDebug=@@ROWCOUNT 
-            PRINT '10' +   CONVERT (VARCHAR(50),GETDATE(),109) 
+            PRINT '11' +   CONVERT (VARCHAR(50),GETDATE(),109) 
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 					
@@ -345,7 +365,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
 			SET @RecordCountDebug=@@ROWCOUNT 
-            PRINT '11' +   CONVERT (VARCHAR(50),GETDATE(),109) 
+            PRINT '12' +   CONVERT (VARCHAR(50),GETDATE(),109) 
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 					
@@ -378,7 +398,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
 			SET @RecordCountDebug=@@ROWCOUNT 
-            PRINT '12' +   CONVERT (VARCHAR(50),GETDATE(),109) 
+            PRINT '13' +   CONVERT (VARCHAR(50),GETDATE(),109) 
 			PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 					
@@ -450,7 +470,7 @@ SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 				,LoadNote
 			)
 			SELECT 
-			     [PersonId], ISNULL([FirstName_DC],[FirstName]),[MiddleName], ISNULL([LastName_DC],[LastName]),[DimSuffixId], ISNULL([LicenseNumber_DC],[LicenseNumber])
+			     [PersonId], ISNULL([FirstName_DC],[FirstName]), ISNULL([MiddleName_DC],[MiddleName]), ISNULL([LastName_DC],[LastName]),[DimSuffixId], ISNULL([LicenseNumber_DC],[LicenseNumber])
 				,CreatedDate
 				,LoadNote
 			FROM #Tmp_HoldData_Final
@@ -472,7 +492,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 	
 INSERT INTO [RVRS_testdb].[RVRS].[DeathFuneralDirector_Log]
 			(
-				 SrId, FirstName_DC ,LastName_DC ,LicenseNumber_DC ,Suffix_DC ,LastName_Suffix_DC 
+				 SrId, FirstName_DC ,MiddleName_DC ,LastName_DC ,LicenseNumber_DC ,Suffix_DC ,LastName_Suffix_DC 
 				 , [PersonId],[FirstName],[MiddleName],[LastName],[DimSuffixId],[LicenseNumber]	
 				 , LastName_Suffix,Suffix
 				,SrCreatedDate
@@ -482,7 +502,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[DeathFuneralDirector_Log]
 				,LoadNote
 			)
 			SELECT 
-			    SrId , FirstName_DC ,LastName_DC ,LicenseNumber_DC ,Suffix_DC ,LastName_Suffix_DC 
+			    SrId , FirstName_DC ,MiddleName_DC ,LastName_DC ,LicenseNumber_DC ,Suffix_DC ,LastName_Suffix_DC 
 				, [PersonId],[FirstName],[MiddleName],[LastName],[DimSuffixId],[LicenseNumber]
 				, LastName_Suffix,Suffix
 				,SrCreatedDate
@@ -528,6 +548,34 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 			FROM #Tmp_HoldData_Final MT
 			JOIN [RVRS_testdb].[RVRS].[DeathFuneralDirector]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.FirstName_Flag=1
+
+			SET @RecordCountDebug=@@ROWCOUNT
+			
+PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
+
+	
+/*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR MiddleName*/
+
+			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			(
+				 SrId
+				,Entity
+				,EntityColumnName
+				,EntityId
+				,ConvertedColumn
+				,OriginalValue
+				,ConvertedValue
+			)
+			SELECT MT.SrId AS SrId
+				,'DeathFuneralDirector' AS Entity
+				,'DeathFuneralDirectorId' AS EntityColumnName
+				,PA.DeathFuneralDirectorId AS EntityId
+				,'MiddleName' AS ConvertedColumn
+				,MT.MiddleName AS OriginalValue
+				,MT.MiddleName_DC AS ConvertedValue
+			FROM #Tmp_HoldData_Final MT
+			JOIN [RVRS_testdb].[RVRS].[DeathFuneralDirector]  PA ON PA.PersonId=MT.PersonId 	
+			WHERE MT.MiddleName_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
 			
