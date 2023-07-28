@@ -13,13 +13,13 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_DeathDispositionPr]
 AUTHOR	:Sailendra Singh
-CREATED	:Jul 27 2023  
+CREATED	:Jul 28 2023  
 PURPOSE	:TO LOAD DATA INTO FACT DeathDisposition TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Jul 27 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathDisposition DATA FROM STAGING TO ODS
+Jul 28 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathDisposition DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
@@ -141,7 +141,7 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		        FROM [RVRS_Staging].RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
-				LEFT JOIN [RVRS_STAGING].[RVRS].[VIP_VT_CEMETERIES_CD] F ON D.DISP_NME = F.CEM_NAME
+				LEFT JOIN (SELECT DISTINCT CEM_NAME FROM  [RVRS_STAGING].[RVRS].[VIP_VT_CEMETERIES_CD]  ) F ON D.DISP_NME = F.CEM_NAME	
 				WHERE 
 		              CAST(VRV_DATE_CHANGED AS DATE) > @LastLoadedDate
 					  AND CAST(VRV_DATE_CHANGED AS DATE) != CAST(@CurentTime AS DATE)				  
