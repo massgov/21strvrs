@@ -1,6 +1,3 @@
- USE [RVRS_testdb]
-
-
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE [OBJECT_ID]=OBJECT_ID('[RVRS].[Load_VIP_DeathDispositionPr]') AND [type]='P')
 	DROP PROCEDURE [RVRS].[Load_VIP_DeathDispositionPr]
 GO 
@@ -13,21 +10,21 @@ AS
 /*
 NAME	:[RVRS].[Load_VIP_DeathDispositionPr]
 AUTHOR	:Sailendra Singh
-CREATED	:Jul 28 2023  
+CREATED	:Jul 31 2023  
 PURPOSE	:TO LOAD DATA INTO FACT DeathDisposition TABLE 
 
 REVISION HISTORY
 ----------------------------------------------------------------------------------------------------------------------------------------------
 DATE		         NAME						DESCRIPTION
-Jul 28 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathDisposition DATA FROM STAGING TO ODS
+Jul 31 2023 		Sailendra Singh						RVRS 174 : LOAD DECEDENT DeathDisposition DATA FROM STAGING TO ODS
 
 *****************************************************************************************
  For testing diff senarios you start using fresh data
 *****************************************************************************************
-DELETE FROM [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathDisposition'
-TRUNCATE TABLE [RVRS_testdb].[RVRS].[DeathDisposition]
-DROP TABLE [RVRS_testdb].[RVRS].[DeathDisposition_Log]
-DELETE FROM [RVRS_testdb].[RVRS].[Execution] WHERE Entity = 'DeathDisposition'
+DELETE FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal] WHERE Entity = 'DeathDisposition'
+TRUNCATE TABLE [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathDisposition]
+DROP TABLE [RVRS].[DeathDisposition_Log]
+DELETE FROM [RVRS].[Execution] WHERE Entity = 'DeathDisposition'
 
 *****************************************************************************************
  After execute the procedure you can run procedure 
@@ -73,8 +70,8 @@ IF OBJECT_ID('tempdb..#Tmp_HoldData_Final') IS NOT NULL
 */
 
 
-IF OBJECT_ID('[RVRS_testdb].[RVRS].[DeathDisposition_Log]') IS NULL 
-	CREATE TABLE [RVRS_testdb].[RVRS].[DeathDisposition_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), DispMethod_DC VARCHAR(128),OtherDispMethod_DC VARCHAR(128),DispPlace_DC VARCHAR(128), [PersonId] BIGINT,[DimDispMethodId] INT,[DimOtherDispMethodId] INT,[DispYear] VARCHAR(16),[DispMonth] VARCHAR(16),[DispDay] VARCHAR(16),[PermitStatus] VARCHAR(516),[DimDispPlaceId] INT, DispMethod VARCHAR(128),OtherDispMethod VARCHAR(128),DISP_DATE VARCHAR(128),DispPlace VARCHAR(128),CREM_CEM_UNLISTED VARCHAR(128),DOD_4_FD VARCHAR(128),CEM_NAME VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathDisposition_Log_Flag BIT ,LoadNote VARCHAR(MAX))
+IF OBJECT_ID('[RVRS].[DeathDisposition_Log]') IS NULL 
+	CREATE TABLE [RVRS].[DeathDisposition_Log] (Id BIGINT IDENTITY (1,1), SrId VARCHAR(64), DispMethod_DC VARCHAR(128),OtherDispMethod_DC VARCHAR(128),DispPlace_DC VARCHAR(128), [PersonId] BIGINT,[DimDispMethodId] INT,[DimOtherDispMethodId] INT,[DispYear] VARCHAR(16),[DispMonth] VARCHAR(16),[DispDay] VARCHAR(16),[PermitStatus] VARCHAR(516),[DimDispPlaceId] INT, DispMethod VARCHAR(128),OtherDispMethod VARCHAR(128),DISP_DATE VARCHAR(128),DispPlace VARCHAR(128),CREM_CEM_UNLISTED VARCHAR(128),DOD_4_FD VARCHAR(128),CEM_NAME VARCHAR(128),SrCreatedDate DATETIME,SrUpdatedDate DATETIME,CreatedDate DATETIME NOT NULL DEFAULT GetDate(),DeathDisposition_Log_Flag BIT ,LoadNote VARCHAR(MAX))
 
 BEGIN TRY
 
@@ -90,7 +87,7 @@ PRINT '1'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 	
 			
-INSERT INTO [RVRS_testdb].[RVRS].[Execution] 
+INSERT INTO [RVRS].[Execution] 
 		(
 			 Entity
 			,ExecutionStatus
@@ -124,7 +121,7 @@ INSERT INTO [RVRS_testdb].[RVRS].[Execution]
 */
 
 	
-SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS_testdb].[RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathDisposition' AND ExecutionStatus='Completed')
+SET @LastLoadedDate=(SELECT MAX(LastLoadDate) FROM [RVRS].[Execution] WITH(NOLOCK) WHERE Entity='DeathDisposition' AND ExecutionStatus='Completed')
 	        IF @LastLoadedDate IS NULL SET @LastLoadedDate = '01/01/1900'
 PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
@@ -139,7 +136,7 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		        INTO #Tmp_HoldData
 
-		        FROM [RVRS_Staging].RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
+		        FROM RVRS.VIP_VRV_Death_Tbl D WITH(NOLOCK)
 				LEFT JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[Person] P WITH(NOLOCK) ON P.SrId=D.DEATH_REC_ID
 				LEFT JOIN (SELECT DISTINCT CEM_NAME FROM  [RVRS_STAGING].[RVRS].[VIP_VT_CEMETERIES_CD]  ) F ON D.DISP_NME = F.CEM_NAME	
 				WHERE 
@@ -157,7 +154,6 @@ PRINT '2'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 		   PRINT  @TotalProcessedRecords
 			
- select * from #Tmp_HoldData 
 PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			
 
@@ -165,7 +161,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 			BEGIN 
                 PRINT '5'  + CONVERT (VARCHAR(50),GETDATE(),109)	
 						
-				UPDATE [RVRS_testdb].[RVRS].[Execution]
+				UPDATE [RVRS].[Execution]
 						SET ExecutionStatus='Completed'
 						,LastLoadDate=@LastLoadedDate						
 						,EndTime=@CurentTime
@@ -189,7 +185,7 @@ PRINT '4'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 IF (SElECT count(1) from #Tmp_HoldData where PersonId is not null ) = 0
 			BEGIN
-					UPDATE [RVRS_testdb].[RVRS].[Execution]
+					UPDATE [RVRS].[Execution]
 					SET ExecutionStatus=@ExecutionStatus
 						,LastLoadDate=@LastLoadedDate					
 						,EndTime=@CurentTime
@@ -283,7 +279,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.DispMethod_Flag=1
 				,MT.LoadNote='DispMethod|Warning:DimDispMethodId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.DispMethod
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.DispMethod
 			WHERE  DC.TableName='DimDispMethod'
 				 AND MT.OtherDispMethod = DC.FilterValue AND DC.Mapping_Previous = 'O'
 
@@ -330,7 +326,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.OtherDispMethod_Flag=1
 				,MT.LoadNote='OtherDispMethod|Warning:DimOtherDispMethodId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.OtherDispMethod
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.OtherDispMethod
 			WHERE  DC.TableName='DimOtherDispMethod'
 				AND MT.DimOtherDispMethodId IS NULL
 			
@@ -377,7 +373,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				,MT.DispPlace_Flag=1
 				,MT.LoadNote='DispPlace|Warning:DimDispPlaceId got value from data conversion' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END  
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_Staging].[RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.DispPlace
+			JOIN [RVRS].[Data_Conversion] DC WITH(NOLOCK) ON DC.Mapping_Previous=MT.DispPlace
 			WHERE  DC.TableName='DimDispPlace'
 				AND MT.DimDispPlaceId IS NULL
 			
@@ -411,7 +407,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				SET DeathDisposition_Log_Flag=1
 					,LoadNote= 'Person|ParentMissing:Validation Errors' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					WHERE PersonId IS NULL
-					AND SrId IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					AND SrId IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 
 				SET @RecordCountDebug=@@ROWCOUNT 
 				
@@ -422,7 +418,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 				UPDATE #Tmp_HoldData_Final
 					SET LoadNote='Person|ParentMissing:Not Processed' + CASE WHEN LoadNote !='' THEN '||' + LoadNote ELSE '' END 
 					 WHERE PersonId IS NULL
-					  AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log WITH(NOLOCK))
+					  AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log WITH(NOLOCK))
 					  AND DeathDisposition_Log_Flag=1
 
 			    SET @RecordCountDebug=@@ROWCOUNT 
@@ -436,7 +432,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
                               ,LoadNote=CASE WHEN LoadNote!='' 
                                         THEN 'Person|ParentMissing:Not Processed' + ' || ' +  LoadNote  ELSE 'Person|ParentMissing:Not Processed' END
                                  WHERE PersonId IS NULL 
-                                 AND SrId NOT IN (SELECT SRID FROM [RVRS_Staging].RVRS.Person_Log)
+                                 AND SrId NOT IN (SELECT SRID FROM RVRS.Person_Log)
                                  AND DeathDisposition_Log_Flag = 0
 
                     SET @TotalParentMissingRecords=@@rowcount
@@ -449,11 +445,6 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 
 					SET @RecordCountDebug=@@ROWCOUNT
                 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))  
- select * from #Tmp_HoldData_Final 
- SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDispMethod] DS WITH(NOLOCK) 
-			 SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimOtherDispMethod] DS WITH(NOLOCK) 
-			 SELECT * FROM [RVRS_PROD].[RVRS_ODS].[RVRS].[DimDispPlace] DS WITH(NOLOCK) 
-			
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 10 - LOAD to Target    
@@ -463,7 +454,7 @@ PRINT '7'  + CONVERT (VARCHAR(50),GETDATE(),109)
 	
 SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathDisposition]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathDisposition]
 			(
 				 [PersonId],[DimDispMethodId],[DimOtherDispMethodId],[DispYear],[DispMonth],[DispDay],[PermitStatus],[DimDispPlaceId]
 				,CreatedDate
@@ -482,7 +473,6 @@ SET @LastLoadDate = (SELECT MAX(SrUpdatedDate) FROM #Tmp_HoldData)
 PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathDisposition]
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 11 - LOAD to Log    
@@ -490,7 +480,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalLoadedRecord AS VARCHAR(10))
 */
 
 	
-INSERT INTO [RVRS_testdb].[RVRS].[DeathDisposition_Log]
+INSERT INTO [RVRS].[DeathDisposition_Log]
 			(
 				 SrId, DispMethod_DC ,OtherDispMethod_DC ,DispPlace_DC 
 				 , [PersonId],[DimDispMethodId],[DimOtherDispMethodId],[DispYear],[DispMonth],[DispDay],[PermitStatus],[DimDispPlaceId]	
@@ -518,7 +508,6 @@ INSERT INTO [RVRS_testdb].[RVRS].[DeathDisposition_Log]
 PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathDisposition_Log] 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 12 - LOAD to DeathOriginal    
@@ -528,7 +517,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimDispMethodId*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -546,7 +535,7 @@ PRINT ' Number of Record = ' +  CAST(@TotalErrorRecord AS VARCHAR(10))
 				,MT.DispMethod AS OriginalValue
 				,MT.DispMethod_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathDisposition]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathDisposition]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.DispMethod_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -556,7 +545,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimOtherDispMethodId*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -574,7 +563,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.OtherDispMethod AS OriginalValue
 				,MT.OtherDispMethod_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathDisposition]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathDisposition]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.OtherDispMethod_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -584,7 +573,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 	
 /*INSERTING DATA INTO RVRS.DeathOriginal FOR THE RECORDS WHERE WE HAVE A CONVERSION FOR DimDispPlaceId*/
 
-			INSERT INTO [RVRS_testdb].[RVRS].[DeathOriginal]
+			INSERT INTO [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathOriginal]
 			(
 				 SrId
 				,Entity
@@ -602,7 +591,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 				,MT.DispPlace AS OriginalValue
 				,MT.DispPlace_DC AS ConvertedValue
 			FROM #Tmp_HoldData_Final MT
-			JOIN [RVRS_testdb].[RVRS].[DeathDisposition]  PA ON PA.PersonId=MT.PersonId 	
+			JOIN [RVRS_PROD].[RVRS_ODS].[RVRS].[DeathDisposition]  PA ON PA.PersonId=MT.PersonId 	
 			WHERE MT.DispPlace_Flag=1
 
 			SET @RecordCountDebug=@@ROWCOUNT
@@ -610,7 +599,6 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
 
 	
- select * from [RVRS_testdb].[RVRS].[DeathOriginal] WHERE Entity = 'DeathDisposition'
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------
 13 - Update Execution  Status  
@@ -622,7 +610,7 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 									AND LoadNote LIKE '%|Pending Review%')
 	SET @TotalWarningRecord=(SELECT COUNT(1) FROM #Tmp_HoldData_Final WHERE LoadNote NOT LIKE '%|Pending Review%'
 								AND LoadNote LIKE '%|WARNING%')
-	UPDATE [RVRS_testdb].[RVRS].[Execution]
+	UPDATE [RVRS].[Execution]
 			SET ExecutionStatus=@ExecutionStatus
 				,LastLoadDate=@LastLoadDate			
 				,EndTime=@CurentTime
@@ -638,11 +626,10 @@ PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10))
 
 		
 PRINT ' Number of Record = ' +  CAST(@RecordCountDebug AS VARCHAR(10)) 
- select * from [RVRS_testdb].[RVRS].[Execution] WHERE Entity= 'DeathDisposition'
 END TRY
  BEGIN CATCH
 		PRINT 'CATCH'
-		UPDATE [RVRS_testdb].[RVRS].[Execution]
+		UPDATE [RVRS].[Execution]
 		SET ExecutionStatus='Failed'
 			,LastLoadDate=@LastLoadDate			
 			,EndTime=@CurentTime
