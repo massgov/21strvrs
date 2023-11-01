@@ -8,6 +8,7 @@ CREATE VIEW "RVRS"."VU_EXCEL_DEATH_ABRIDGED" ("SFN_NUM", "LNAME", "GNAME", "DOD_
 "CERT_DESIG") AS 
   (
 
+
 SELECT     SFN_NUM    ,
     LNAME    ,
     GNAME    ,
