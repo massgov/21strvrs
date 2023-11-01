@@ -37,3 +37,16 @@ RVRS_ODS/NavicatDataModeler/RVRS_ODS_Death_Conceptual.ndmc2
 *.ndml2
 *.ndm2
 RVRS_Staging/Database/Script/CodeLayout_DeathFuneralHomeSr.sql
+RVRS_Staging/Database/Procedure/FOR_MASTER_AMENDMENT_DATA_SCRAMBLING.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_DeathBurialAgentPr.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_VIP_DeathCremationPr.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_VIP_DeathDispositionPr.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_VIP_DeathFuneralDirectorPr.sql
+*.sql
+RVRS_Staging/Database/Procedure/FOR_MASTER_AMENDMENT_DATA_SCRAMBLING.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_VIP_DeathCremationPr.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_VIP_DeathDispositionPr.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_VIP_DeathFuneralDirectorPr.sql
+RVRS_Staging/Database/Procedure/FOR_MASTER_AMENDMENT_DATA_SCRAMBLING.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_VIP_DeathCremationPr.sql
+RVRS_Staging/Database/Procedure/RVRS.Load_VIP_DeathDispositionPr.sql
