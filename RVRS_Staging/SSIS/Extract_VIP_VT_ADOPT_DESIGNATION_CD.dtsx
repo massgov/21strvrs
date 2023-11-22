@@ -1,0 +1,576 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/13/2023 12:46:20 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DPH-5CD031C633"
+  DTS:CreatorName="EHS\NKSarker"
+  DTS:DTSID="{C2720342-8A48-4E14-ADFF-61F94AD39FB6}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5270.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package5"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{EA056840-5E3C-4D8F-A9AC-092E47ABF32E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{87C4B559-5684-47DF-9E3C-302719B8E875}"
+      DTS:ObjectName="10.202.75.136.RVRS_Staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.202.75.136;Initial Catalog=RVRS_Staging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package5-{87C4B559-5684-47DF-9E3C-302719B8E875}10.202.75.136.RVRS_Staging;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow DWP1RAC to RVRS Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{818CC1C4-6E51-4B3E-8D64-8B48946B52F2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow DWP1RAC to RVRS Staging">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="VIP_VT_ADOPT_DESIGNATION"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT *  FROM [DWP1RAC]..[MA_VRVWEB_VT].[VT_ADOPT_DESIGNATION]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[VT_ADOPT_DESIGNATION_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[VT_ADOPT_DESIGNATION_ID]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[VT_ADOPT_DESIGNATION_ID]"
+                      name="VT_ADOPT_DESIGNATION_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[VOID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[VOID]"
+                      name="VOID"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      name="BUBBLE_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[DESIGN_CODE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[DESIGN_CODE]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[DESIGN_CODE]"
+                      name="DESIGN_CODE"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[DESIGN_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[DESIGN_NAME]"
+                      length="28"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[DESIGN_NAME]"
+                      name="DESIGN_NAME"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[VT_ADOPT_DESIGNATION_ID]"
+                      dataType="numeric"
+                      name="VT_ADOPT_DESIGNATION_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      dataType="numeric"
+                      name="VOID"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[DESIGN_CODE]"
+                      dataType="numeric"
+                      name="DESIGN_CODE"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].ExternalColumns[DESIGN_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      name="DESIGN_NAME" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[VT_ADOPT_DESIGNATION_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[VT_ADOPT_DESIGNATION_ID]"
+                      name="VT_ADOPT_DESIGNATION_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      name="VOID"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[DESIGN_CODE]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[DESIGN_CODE]"
+                      name="DESIGN_CODE"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[DESIGN_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[DESIGN_NAME]"
+                      name="DESIGN_NAME" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="VIP_VT_ADOPT_DESIGNATION_CD"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[VIP_VT_ADOPT_DESIGNATION_CD]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.136.RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].Columns[VT_ADOPT_DESIGNATION_ID]"
+                      cachedDataType="numeric"
+                      cachedName="VT_ADOPT_DESIGNATION_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_ADOPT_DESIGNATION_ID]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[VT_ADOPT_DESIGNATION_ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].Columns[VOID]"
+                      cachedDataType="numeric"
+                      cachedName="VOID"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[VOID]" />
+                    <inputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="BUBBLE_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
+                    <inputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].Columns[DESIGN_CODE]"
+                      cachedDataType="numeric"
+                      cachedName="DESIGN_CODE"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[DESIGN_CODE]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[DESIGN_CODE]" />
+                    <inputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].Columns[DESIGN_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="28"
+                      cachedName="DESIGN_NAME"
+                      externalMetadataColumnId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[DESIGN_NAME]"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output].Columns[DESIGN_NAME]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_ADOPT_DESIGNATION_ID]"
+                      dataType="numeric"
+                      name="VT_ADOPT_DESIGNATION_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      dataType="numeric"
+                      name="VOID"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[DESIGN_CODE]"
+                      dataType="numeric"
+                      name="DESIGN_CODE"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input].ExternalColumns[DESIGN_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      name="DESIGN_NAME" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow DWP1RAC to RVRS Staging.Paths[OLE DB Source Output]"
+              endId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table VIP_VT_VT_ADOPT_DESIGNATION_CD of RVRS Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7970EA84-59C5-478D-8344-F8E1538070D9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table VIP_VT_VT_ADOPT_DESIGNATION_CD of RVRS Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{87C4B559-5684-47DF-9E3C-302719B8E875}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE RVRS.VIP_VT_ADOPT_DESIGNATION_CD" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D5B628D1-9B76-4BE7-9DF6-BB294BCA0116}"
+      DTS:From="Package\Truncate Table VIP_VT_VT_ADOPT_DESIGNATION_CD of RVRS Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Data Flow DWP1RAC to RVRS Staging" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="266.666666666667,42.6666666666667"
+          Id="Package\Data Flow DWP1RAC to RVRS Staging"
+          TopLeft="585.5,287.5" />
+        <NodeLayout
+          Size="446.666666666667,42"
+          Id="Package\Truncate Table VIP_VT_VT_ADOPT_DESIGNATION_CD of RVRS Staging"
+          TopLeft="554.5,127.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="777.833333333333,169.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-59,118"
+              Start="0,0"
+              End="-59,110.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,55"
+                    Point2="0,59"
+                    Point3="-4,59" />
+                  <mssgle:LineSegment
+                    End="-55,59" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-55,59"
+                    Point2="-59,59"
+                    Point3="-59,63" />
+                  <mssgle:LineSegment
+                    End="-59,110.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow DWP1RAC to RVRS Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="260,42.6666666666667"
+          Id="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD"
+          TopLeft="379.071428571429,214.785714285714" />
+        <NodeLayout
+          Size="242.666666666667,42"
+          Id="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION"
+          TopLeft="359.785714285714,64.7857142857143" />
+        <EdgeLayout
+          Id="Package\Data Flow DWP1RAC to RVRS Staging.Paths[OLE DB Source Output]"
+          TopLeft="481.119047619047,106.785714285714">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="27.9523809523817,108"
+              Start="0,0"
+              End="27.9523809523817,100.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.9999999999998" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,49.9999999999998"
+                    Point2="0,53.9999999999998"
+                    Point3="4,53.9999999999998" />
+                  <mssgle:LineSegment
+                    End="23.9523809523817,53.9999999999998" />
+                  <mssgle:CubicBezierSegment
+                    Point1="23.9523809523817,53.9999999999998"
+                    Point2="27.9523809523817,53.9999999999998"
+                    Point3="27.9523809523817,57.9999999999998" />
+                  <mssgle:LineSegment
+                    End="27.9523809523817,100.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow DWP1RAC to RVRS Staging\VIP_VT_ADOPT_DESIGNATION_CD">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
