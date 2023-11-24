@@ -1,0 +1,2167 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/4/2021 3:20:27 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DPH-MXL00429DQ"
+  DTS:CreatorName="EHS\RNagaraj"
+  DTS:DTSID="{4EBF69ED-A375-4206-9FFF-5F0A57D81048}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Extract_VIP_FIELD_ADMIN"
+  DTS:PackageType="5"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{5CDED633-F24F-4896-8B0F-62630E61A4DA}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{312CC59F-4EAA-464B-A479-C9E98F69F842}"
+      DTS:ObjectName="10.202.75.247.RVRS_ODS">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.202.75.247;Initial Catalog=RVRS_ODS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Data from Staging to ODS"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{22E3A923-E88D-4821-9146-2E43BB7E795E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data from Staging to ODS"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Data from Staging to ODS\Extract Data from Staging"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Extract Data from Staging"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[VIP_FIELD_ADMIN]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[FIELD_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[FIELD_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[FIELD_ID]"
+                      name="FIELD_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[HIDDEN_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[HIDDEN_FLAG]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[HIDDEN_FLAG]"
+                      name="HIDDEN_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[LABEL]"
+                      length="350"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[LABEL]"
+                      name="LABEL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DESCRIPTION]"
+                      length="2500"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DESCRIPTION]"
+                      name="DESCRIPTION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SORT]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[SORT]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SORT]"
+                      name="SORT"
+                      precision="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DUPLICATE_CHECK]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DUPLICATE_CHECK]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DUPLICATE_CHECK]"
+                      name="DUPLICATE_CHECK"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MASTER_FIELD_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[MASTER_FIELD_FLAG]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MASTER_FIELD_FLAG]"
+                      name="MASTER_FIELD_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SYSTEM_FIELD_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[SYSTEM_FIELD_FLAG]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SYSTEM_FIELD_FLAG]"
+                      name="SYSTEM_FIELD_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DB_STORED_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DB_STORED_FLAG]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DB_STORED_FLAG]"
+                      name="DB_STORED_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[NAME]"
+                      length="30"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[NAME]"
+                      name="NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SECTION_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[SECTION_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SECTION_ID]"
+                      name="SECTION_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DATA_TYPE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DATA_TYPE_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DATA_TYPE_ID]"
+                      name="DATA_TYPE_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[FIELD_PRESEN_TYPE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[FIELD_PRESEN_TYPE_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[FIELD_PRESEN_TYPE_ID]"
+                      name="FIELD_PRESEN_TYPE_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[HELP_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[HELP_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[HELP_ID]"
+                      name="HELP_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MMR_CAT_MOD_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[MMR_CAT_MOD_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MMR_CAT_MOD_ID]"
+                      name="MMR_CAT_MOD_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MODULE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[MODULE_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MODULE_ID]"
+                      name="MODULE_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[LONG_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[LONG_NAME]"
+                      length="500"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[LONG_NAME]"
+                      name="LONG_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SHOWONFORM_FL]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[SHOWONFORM_FL]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SHOWONFORM_FL]"
+                      name="SHOWONFORM_FL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ALT_LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[ALT_LABEL]"
+                      length="250"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ALT_LABEL]"
+                      name="ALT_LABEL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MIXED_CASE_VALUE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[MIXED_CASE_VALUE]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MIXED_CASE_VALUE]"
+                      name="MIXED_CASE_VALUE"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[FIELD_ID]"
+                      dataType="numeric"
+                      name="FIELD_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[HIDDEN_FLAG]"
+                      dataType="numeric"
+                      name="HIDDEN_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      name="LABEL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2500"
+                      name="DESCRIPTION" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[SORT]"
+                      dataType="numeric"
+                      name="SORT"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DUPLICATE_CHECK]"
+                      dataType="numeric"
+                      name="DUPLICATE_CHECK"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[MASTER_FIELD_FLAG]"
+                      dataType="numeric"
+                      name="MASTER_FIELD_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[SYSTEM_FIELD_FLAG]"
+                      dataType="numeric"
+                      name="SYSTEM_FIELD_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DB_STORED_FLAG]"
+                      dataType="numeric"
+                      name="DB_STORED_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[SECTION_ID]"
+                      dataType="numeric"
+                      name="SECTION_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DATA_TYPE_ID]"
+                      dataType="numeric"
+                      name="DATA_TYPE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[FIELD_PRESEN_TYPE_ID]"
+                      dataType="numeric"
+                      name="FIELD_PRESEN_TYPE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[HELP_ID]"
+                      dataType="numeric"
+                      name="HELP_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[MMR_CAT_MOD_ID]"
+                      dataType="numeric"
+                      name="MMR_CAT_MOD_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[MODULE_ID]"
+                      dataType="numeric"
+                      name="MODULE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[LONG_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="LONG_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[SHOWONFORM_FL]"
+                      dataType="r8"
+                      name="SHOWONFORM_FL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[ALT_LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ALT_LABEL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[MIXED_CASE_VALUE]"
+                      dataType="numeric"
+                      name="MIXED_CASE_VALUE"
+                      precision="1" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[FIELD_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[FIELD_ID]"
+                      name="FIELD_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[HIDDEN_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[HIDDEN_FLAG]"
+                      name="HIDDEN_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[LABEL]"
+                      name="LABEL" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2500"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[DESCRIPTION]"
+                      name="DESCRIPTION" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[SORT]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[SORT]"
+                      name="SORT"
+                      precision="3" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[DUPLICATE_CHECK]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[DUPLICATE_CHECK]"
+                      name="DUPLICATE_CHECK"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[MASTER_FIELD_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[MASTER_FIELD_FLAG]"
+                      name="MASTER_FIELD_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[SYSTEM_FIELD_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[SYSTEM_FIELD_FLAG]"
+                      name="SYSTEM_FIELD_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[DB_STORED_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[DB_STORED_FLAG]"
+                      name="DB_STORED_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[NAME]"
+                      name="NAME" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[SECTION_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[SECTION_ID]"
+                      name="SECTION_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[DATA_TYPE_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[DATA_TYPE_ID]"
+                      name="DATA_TYPE_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[FIELD_PRESEN_TYPE_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[FIELD_PRESEN_TYPE_ID]"
+                      name="FIELD_PRESEN_TYPE_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[HELP_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[HELP_ID]"
+                      name="HELP_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[MMR_CAT_MOD_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[MMR_CAT_MOD_ID]"
+                      name="MMR_CAT_MOD_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[MODULE_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[MODULE_ID]"
+                      name="MODULE_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[LONG_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[LONG_NAME]"
+                      name="LONG_NAME" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[SHOWONFORM_FL]"
+                      dataType="r8"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[SHOWONFORM_FL]"
+                      name="SHOWONFORM_FL" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ALT_LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ALT_LABEL]"
+                      name="ALT_LABEL" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[MIXED_CASE_VALUE]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[MIXED_CASE_VALUE]"
+                      name="MIXED_CASE_VALUE"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load Data from Staging to ODS"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[DAVE_MIGRATION].[VIP_FIELD_ADMIN]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.247.RVRS_ODS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[FIELD_ID]"
+                      cachedDataType="numeric"
+                      cachedName="FIELD_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[FIELD_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[FIELD_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[HIDDEN_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="HIDDEN_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[HIDDEN_FLAG]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[HIDDEN_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[LABEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="350"
+                      cachedName="LABEL"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[LABEL]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[LABEL]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[DESCRIPTION]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2500"
+                      cachedName="DESCRIPTION"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[DESCRIPTION]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DESCRIPTION]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[SORT]"
+                      cachedDataType="numeric"
+                      cachedName="SORT"
+                      cachedPrecision="3"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[SORT]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SORT]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[DUPLICATE_CHECK]"
+                      cachedDataType="numeric"
+                      cachedName="DUPLICATE_CHECK"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[DUPLICATE_CHECK]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DUPLICATE_CHECK]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[MASTER_FIELD_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="MASTER_FIELD_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[MASTER_FIELD_FLAG]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MASTER_FIELD_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[SYSTEM_FIELD_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="SYSTEM_FIELD_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[SYSTEM_FIELD_FLAG]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SYSTEM_FIELD_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[DB_STORED_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="DB_STORED_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[DB_STORED_FLAG]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DB_STORED_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="NAME"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[NAME]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[NAME]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[SECTION_ID]"
+                      cachedDataType="numeric"
+                      cachedName="SECTION_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[SECTION_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SECTION_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[DATA_TYPE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="DATA_TYPE_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[DATA_TYPE_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[DATA_TYPE_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[FIELD_PRESEN_TYPE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="FIELD_PRESEN_TYPE_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[FIELD_PRESEN_TYPE_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[FIELD_PRESEN_TYPE_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[HELP_ID]"
+                      cachedDataType="numeric"
+                      cachedName="HELP_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[HELP_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[HELP_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[MMR_CAT_MOD_ID]"
+                      cachedDataType="numeric"
+                      cachedName="MMR_CAT_MOD_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[MMR_CAT_MOD_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MMR_CAT_MOD_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[MODULE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="MODULE_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[MODULE_ID]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MODULE_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[LONG_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="LONG_NAME"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[LONG_NAME]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[LONG_NAME]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[SHOWONFORM_FL]"
+                      cachedDataType="r8"
+                      cachedName="SHOWONFORM_FL"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[SHOWONFORM_FL]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[SHOWONFORM_FL]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[ALT_LABEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ALT_LABEL"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[ALT_LABEL]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ALT_LABEL]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].Columns[MIXED_CASE_VALUE]"
+                      cachedDataType="numeric"
+                      cachedName="MIXED_CASE_VALUE"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[MIXED_CASE_VALUE]"
+                      lineageId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[MIXED_CASE_VALUE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[FIELD_ID]"
+                      dataType="numeric"
+                      name="FIELD_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[HIDDEN_FLAG]"
+                      dataType="numeric"
+                      name="HIDDEN_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      name="LABEL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2500"
+                      name="DESCRIPTION" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[SORT]"
+                      dataType="numeric"
+                      name="SORT"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[DUPLICATE_CHECK]"
+                      dataType="numeric"
+                      name="DUPLICATE_CHECK"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[MASTER_FIELD_FLAG]"
+                      dataType="numeric"
+                      name="MASTER_FIELD_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[SYSTEM_FIELD_FLAG]"
+                      dataType="numeric"
+                      name="SYSTEM_FIELD_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[DB_STORED_FLAG]"
+                      dataType="numeric"
+                      name="DB_STORED_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[SECTION_ID]"
+                      dataType="numeric"
+                      name="SECTION_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[DATA_TYPE_ID]"
+                      dataType="numeric"
+                      name="DATA_TYPE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[FIELD_PRESEN_TYPE_ID]"
+                      dataType="numeric"
+                      name="FIELD_PRESEN_TYPE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[HELP_ID]"
+                      dataType="numeric"
+                      name="HELP_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[MMR_CAT_MOD_ID]"
+                      dataType="numeric"
+                      name="MMR_CAT_MOD_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[MODULE_ID]"
+                      dataType="numeric"
+                      name="MODULE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[LONG_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="LONG_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[SHOWONFORM_FL]"
+                      dataType="r8"
+                      name="SHOWONFORM_FL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[ALT_LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ALT_LABEL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input].ExternalColumns[MIXED_CASE_VALUE]"
+                      dataType="numeric"
+                      name="MIXED_CASE_VALUE"
+                      precision="1" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Data from Staging to ODS.Paths[OLE DB Source Output]"
+              endId="Package\Load Data from Staging to ODS\Load Data from Staging to ODS.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Data from Staging to ODS\Extract Data from Staging.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Data from VIP to Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F534B6E8-F9F0-45FB-AB01-88B7D09DA83F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data from VIP to Staging">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Extarct Data from VIP to Staging"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select *  FROM [DWP1RAC]..[MA_VRVWEB_ADMIN].[FIELD]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[FIELD_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[FIELD_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[FIELD_ID]"
+                      name="FIELD_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[HIDDEN_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[HIDDEN_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[HIDDEN_FLAG]"
+                      name="HIDDEN_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[LABEL]"
+                      length="350"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[LABEL]"
+                      name="LABEL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[DESCRIPTION]"
+                      length="2500"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DESCRIPTION]"
+                      name="DESCRIPTION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SORT]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[SORT]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SORT]"
+                      name="SORT"
+                      precision="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DUPLICATE_CHECK]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[DUPLICATE_CHECK]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DUPLICATE_CHECK]"
+                      name="DUPLICATE_CHECK"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MASTER_FIELD_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[MASTER_FIELD_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MASTER_FIELD_FLAG]"
+                      name="MASTER_FIELD_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SYSTEM_FIELD_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[SYSTEM_FIELD_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SYSTEM_FIELD_FLAG]"
+                      name="SYSTEM_FIELD_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DB_STORED_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[DB_STORED_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DB_STORED_FLAG]"
+                      name="DB_STORED_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[NAME]"
+                      length="30"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[NAME]"
+                      name="NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SECTION_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[SECTION_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SECTION_ID]"
+                      name="SECTION_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DATA_TYPE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[DATA_TYPE_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DATA_TYPE_ID]"
+                      name="DATA_TYPE_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[FIELD_PRESEN_TYPE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[FIELD_PRESEN_TYPE_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[FIELD_PRESEN_TYPE_ID]"
+                      name="FIELD_PRESEN_TYPE_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[HELP_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[HELP_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[HELP_ID]"
+                      name="HELP_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MMR_CAT_MOD_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[MMR_CAT_MOD_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MMR_CAT_MOD_ID]"
+                      name="MMR_CAT_MOD_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MODULE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[MODULE_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MODULE_ID]"
+                      name="MODULE_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[LONG_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[LONG_NAME]"
+                      length="500"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[LONG_NAME]"
+                      name="LONG_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SHOWONFORM_FL]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[SHOWONFORM_FL]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SHOWONFORM_FL]"
+                      name="SHOWONFORM_FL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[ALT_LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[ALT_LABEL]"
+                      length="250"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[ALT_LABEL]"
+                      name="ALT_LABEL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MIXED_CASE_VALUE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[MIXED_CASE_VALUE]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MIXED_CASE_VALUE]"
+                      name="MIXED_CASE_VALUE"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[FIELD_ID]"
+                      dataType="numeric"
+                      name="FIELD_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[HIDDEN_FLAG]"
+                      dataType="numeric"
+                      name="HIDDEN_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      name="LABEL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2500"
+                      name="DESCRIPTION" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[SORT]"
+                      dataType="numeric"
+                      name="SORT"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[DUPLICATE_CHECK]"
+                      dataType="numeric"
+                      name="DUPLICATE_CHECK"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[MASTER_FIELD_FLAG]"
+                      dataType="numeric"
+                      name="MASTER_FIELD_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[SYSTEM_FIELD_FLAG]"
+                      dataType="numeric"
+                      name="SYSTEM_FIELD_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[DB_STORED_FLAG]"
+                      dataType="numeric"
+                      name="DB_STORED_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[SECTION_ID]"
+                      dataType="numeric"
+                      name="SECTION_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[DATA_TYPE_ID]"
+                      dataType="numeric"
+                      name="DATA_TYPE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[FIELD_PRESEN_TYPE_ID]"
+                      dataType="numeric"
+                      name="FIELD_PRESEN_TYPE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[HELP_ID]"
+                      dataType="numeric"
+                      name="HELP_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[MMR_CAT_MOD_ID]"
+                      dataType="numeric"
+                      name="MMR_CAT_MOD_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[MODULE_ID]"
+                      dataType="numeric"
+                      name="MODULE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[LONG_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="LONG_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[SHOWONFORM_FL]"
+                      dataType="r8"
+                      name="SHOWONFORM_FL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[ALT_LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ALT_LABEL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].ExternalColumns[MIXED_CASE_VALUE]"
+                      dataType="numeric"
+                      name="MIXED_CASE_VALUE"
+                      precision="1" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[FIELD_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[FIELD_ID]"
+                      name="FIELD_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[HIDDEN_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[HIDDEN_FLAG]"
+                      name="HIDDEN_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[LABEL]"
+                      name="LABEL" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2500"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[DESCRIPTION]"
+                      name="DESCRIPTION" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[SORT]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[SORT]"
+                      name="SORT"
+                      precision="3" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[DUPLICATE_CHECK]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[DUPLICATE_CHECK]"
+                      name="DUPLICATE_CHECK"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[MASTER_FIELD_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[MASTER_FIELD_FLAG]"
+                      name="MASTER_FIELD_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[SYSTEM_FIELD_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[SYSTEM_FIELD_FLAG]"
+                      name="SYSTEM_FIELD_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[DB_STORED_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[DB_STORED_FLAG]"
+                      name="DB_STORED_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[NAME]"
+                      name="NAME" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[SECTION_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[SECTION_ID]"
+                      name="SECTION_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[DATA_TYPE_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[DATA_TYPE_ID]"
+                      name="DATA_TYPE_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[FIELD_PRESEN_TYPE_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[FIELD_PRESEN_TYPE_ID]"
+                      name="FIELD_PRESEN_TYPE_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[HELP_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[HELP_ID]"
+                      name="HELP_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[MMR_CAT_MOD_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[MMR_CAT_MOD_ID]"
+                      name="MMR_CAT_MOD_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[MODULE_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[MODULE_ID]"
+                      name="MODULE_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[LONG_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[LONG_NAME]"
+                      name="LONG_NAME" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[SHOWONFORM_FL]"
+                      dataType="r8"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[SHOWONFORM_FL]"
+                      name="SHOWONFORM_FL" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[ALT_LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[ALT_LABEL]"
+                      name="ALT_LABEL" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[MIXED_CASE_VALUE]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[MIXED_CASE_VALUE]"
+                      name="MIXED_CASE_VALUE"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data from VIP to Staging\Load Vip to Staging"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load Vip to Staging"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[VIP_FIELD_ADMIN]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[FIELD_ID]"
+                      cachedDataType="numeric"
+                      cachedName="FIELD_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[FIELD_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[FIELD_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[HIDDEN_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="HIDDEN_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[HIDDEN_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[HIDDEN_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[LABEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="350"
+                      cachedName="LABEL"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[LABEL]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[LABEL]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[DESCRIPTION]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2500"
+                      cachedName="DESCRIPTION"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[DESCRIPTION]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DESCRIPTION]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[SORT]"
+                      cachedDataType="numeric"
+                      cachedName="SORT"
+                      cachedPrecision="3"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[SORT]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SORT]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[DUPLICATE_CHECK]"
+                      cachedDataType="numeric"
+                      cachedName="DUPLICATE_CHECK"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[DUPLICATE_CHECK]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DUPLICATE_CHECK]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[MASTER_FIELD_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="MASTER_FIELD_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[MASTER_FIELD_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MASTER_FIELD_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[SYSTEM_FIELD_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="SYSTEM_FIELD_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[SYSTEM_FIELD_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SYSTEM_FIELD_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[DB_STORED_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="DB_STORED_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[DB_STORED_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DB_STORED_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="NAME"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[NAME]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[NAME]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[SECTION_ID]"
+                      cachedDataType="numeric"
+                      cachedName="SECTION_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[SECTION_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SECTION_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[DATA_TYPE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="DATA_TYPE_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[DATA_TYPE_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[DATA_TYPE_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[FIELD_PRESEN_TYPE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="FIELD_PRESEN_TYPE_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[FIELD_PRESEN_TYPE_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[FIELD_PRESEN_TYPE_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[HELP_ID]"
+                      cachedDataType="numeric"
+                      cachedName="HELP_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[HELP_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[HELP_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[MMR_CAT_MOD_ID]"
+                      cachedDataType="numeric"
+                      cachedName="MMR_CAT_MOD_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[MMR_CAT_MOD_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MMR_CAT_MOD_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[MODULE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="MODULE_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[MODULE_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MODULE_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[LONG_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="LONG_NAME"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[LONG_NAME]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[LONG_NAME]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[SHOWONFORM_FL]"
+                      cachedDataType="r8"
+                      cachedName="SHOWONFORM_FL"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[SHOWONFORM_FL]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[SHOWONFORM_FL]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[ALT_LABEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ALT_LABEL"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[ALT_LABEL]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[ALT_LABEL]" />
+                    <inputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].Columns[MIXED_CASE_VALUE]"
+                      cachedDataType="numeric"
+                      cachedName="MIXED_CASE_VALUE"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[MIXED_CASE_VALUE]"
+                      lineageId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output].Columns[MIXED_CASE_VALUE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[FIELD_ID]"
+                      dataType="numeric"
+                      name="FIELD_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[HIDDEN_FLAG]"
+                      dataType="numeric"
+                      name="HIDDEN_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      name="LABEL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[DESCRIPTION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2500"
+                      name="DESCRIPTION" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[SORT]"
+                      dataType="numeric"
+                      name="SORT"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[DUPLICATE_CHECK]"
+                      dataType="numeric"
+                      name="DUPLICATE_CHECK"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[MASTER_FIELD_FLAG]"
+                      dataType="numeric"
+                      name="MASTER_FIELD_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[SYSTEM_FIELD_FLAG]"
+                      dataType="numeric"
+                      name="SYSTEM_FIELD_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[DB_STORED_FLAG]"
+                      dataType="numeric"
+                      name="DB_STORED_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[SECTION_ID]"
+                      dataType="numeric"
+                      name="SECTION_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[DATA_TYPE_ID]"
+                      dataType="numeric"
+                      name="DATA_TYPE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[FIELD_PRESEN_TYPE_ID]"
+                      dataType="numeric"
+                      name="FIELD_PRESEN_TYPE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[HELP_ID]"
+                      dataType="numeric"
+                      name="HELP_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[MMR_CAT_MOD_ID]"
+                      dataType="numeric"
+                      name="MMR_CAT_MOD_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[MODULE_ID]"
+                      dataType="numeric"
+                      name="MODULE_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[LONG_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="LONG_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[SHOWONFORM_FL]"
+                      dataType="r8"
+                      name="SHOWONFORM_FL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[ALT_LABEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ALT_LABEL" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input].ExternalColumns[MIXED_CASE_VALUE]"
+                      dataType="numeric"
+                      name="MIXED_CASE_VALUE"
+                      precision="1" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from VIP to Staging\Load Vip to Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data from VIP to Staging\Load Vip to Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from VIP to Staging\Load Vip to Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Data from VIP to Staging.Paths[OLE DB Source Output]"
+              endId="Package\Load Data from VIP to Staging\Load Vip to Staging.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{5BDD3990-677F-43C1-8B4E-2DD479D503AD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}"
+          SQLTask:SqlStatementSource="Truncate table [RVRS].[VIP_FIELD_ADMIN]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table Dave Migration"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{DAF079E3-AD0C-4B77-B35C-7CFAC6A70333}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table Dave Migration"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{312CC59F-4EAA-464B-A479-C9E98F69F842}"
+          SQLTask:SqlStatementSource="Truncate Table [DAVE_MIGRATION].[VIP_FIELD_ADMIN]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{39BE1EDF-D913-444A-8A14-AF72594274CD}"
+      DTS:From="Package\Truncate Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Data from VIP to Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E01B34B2-6BF1-4039-8948-3AD08CB41482}"
+      DTS:From="Package\Load Data from VIP to Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Truncate Table Dave Migration" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{FDE60AE2-DAAC-4FE3-AE4B-9B786C23517C}"
+      DTS:From="Package\Truncate Table Dave Migration"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Load Data from Staging to ODS" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="228,42"
+          Id="Package\Load Data from VIP to Staging"
+          TopLeft="227.5,135.5" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Truncate Table"
+          TopLeft="256,45" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="332.5,87">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9,48.5"
+              Start="0,0"
+              End="9,41">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.25"
+                    Point2="0,24.25"
+                    Point3="4,24.25" />
+                  <mssgle:LineSegment
+                    End="5,24.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5,24.25"
+                    Point2="9,24.25"
+                    Point3="9,28.25" />
+                  <mssgle:LineSegment
+                    End="9,41" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="230,42"
+          Id="Package\Truncate Table Dave Migration"
+          TopLeft="347,249" />
+        <NodeLayout
+          Size="234,42"
+          Id="Package\Load Data from Staging to ODS"
+          TopLeft="480,342" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="341.5,177.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="120.5,71.5"
+              Start="0,0"
+              End="120.5,64">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.75"
+                    Point2="0,35.75"
+                    Point3="4,35.75" />
+                  <mssgle:LineSegment
+                    End="116.5,35.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="116.5,35.75"
+                    Point2="120.5,35.75"
+                    Point3="120.5,39.75" />
+                  <mssgle:LineSegment
+                    End="120.5,64" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="462,291">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="135,51"
+              Start="0,0"
+              End="135,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.5"
+                    Point2="0,25.5"
+                    Point3="4,25.5" />
+                  <mssgle:LineSegment
+                    End="131,25.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="131,25.5"
+                    Point2="135,25.5"
+                    Point3="135,29.5" />
+                  <mssgle:LineSegment
+                    End="135,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Data from VIP to Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Load Data from VIP to Staging\Load Vip to Staging"
+          TopLeft="658,201" />
+        <NodeLayout
+          Size="237,42"
+          Id="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging"
+          TopLeft="611,82" />
+        <EdgeLayout
+          Id="Package\Load Data from VIP to Staging.Paths[OLE DB Source Output]"
+          TopLeft="729.5,124">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="16,77"
+              Start="0,0"
+              End="16,69.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.5"
+                    Point2="0,38.5"
+                    Point3="4,38.5" />
+                  <mssgle:LineSegment
+                    End="12,38.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12,38.5"
+                    Point2="16,38.5"
+                    Point3="16,42.5" />
+                  <mssgle:LineSegment
+                    End="16,69.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data from VIP to Staging\Extarct Data from VIP to Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data from VIP to Staging\Load Vip to Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Data from Staging to ODS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Load Data from Staging to ODS\Extract Data from Staging"
+          TopLeft="445,118" />
+        <NodeLayout
+          Size="234,42"
+          Id="Package\Load Data from Staging to ODS\Load Data from Staging to ODS"
+          TopLeft="536,241" />
+        <EdgeLayout
+          Id="Package\Load Data from Staging to ODS.Paths[OLE DB Source Output]"
+          TopLeft="547.5,160">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="105.5,81"
+              Start="0,0"
+              End="105.5,73.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.5"
+                    Point2="0,40.5"
+                    Point3="4,40.5" />
+                  <mssgle:LineSegment
+                    End="101.5,40.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="101.5,40.5"
+                    Point2="105.5,40.5"
+                    Point3="105.5,44.5" />
+                  <mssgle:LineSegment
+                    End="105.5,73.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data from Staging to ODS\Extract Data from Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data from Staging to ODS\Load Data from Staging to ODS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
