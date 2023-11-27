@@ -7,31 +7,501 @@
   DTS:CreatorName="EHS\RNagaraj"
   DTS:DTSID="{49381CD0-378A-43BB-95CE-AE47EDCF34CD}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
   DTS:LocaleID="1033"
   DTS:ObjectName="Extract_VIP_MARITAL_STATUS_DEATH_CD"
   DTS:PackageType="5"
-  DTS:VersionBuild="2"
-  DTS:VersionGUID="{16F8FF79-7FBE-436D-86A8-65E678F4CD8E}">
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{1D0F65F1-6C27-4C27-9A47-CB2ECAE7E6EF}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.202.75.247.RVRS_ISSUANCE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{5EC226B6-3FC6-4E8F-9A67-7FC267276165}"
+      DTS:ObjectName="10.202.75.247.RVRS_ISSUANCE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.202.75.247;Initial Catalog=RVRS_ISSUANCE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Data Flow Task"
+      DTS:refId="Package\Load Data from Staging to Issuance"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
-      DTS:DTSID="{87A72DC5-DCA6-4DD7-ACC9-9EC8B99A4B4A}"
+      DTS:DTSID="{11f9cb27-5617-42f1-90ab-752d6eddd972}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Data Flow Task">
+      DTS:ObjectName="Load Data from Staging to Issuance">
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
           version="1">
           <components>
             <component
-              refId="Package\Data Flow Task\MARITAL_STATUS_DEATH"
+              refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Extract Data from Staging MARITAL_STATUS_DEATH"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[VIP_VT_Marital_Status_Death_CD]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select *  FROM [DWP1RAC]..[MA_VRVWEB_VT].[VT_MARITAL_STATUS_DEATH]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      name="VT_MARITAL_STATUS_DEATH_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]"
+                      name="VOID"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      name="BUBBLE_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS]"
+                      length="28"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]"
+                      name="MARITAL_STATUS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[ABBR]"
+                      length="1"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]"
+                      name="ABBR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]"
+                      name="CODE"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      name="MARITAL_STATUS_FOR_EXPORT"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
+                      dataType="numeric"
+                      name="VT_MARITAL_STATUS_DEATH_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      dataType="numeric"
+                      name="VOID"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      name="MARITAL_STATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[ABBR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ABBR" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
+                      dataType="numeric"
+                      name="CODE"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
+                      dataType="numeric"
+                      name="MARITAL_STATUS_FOR_EXPORT"
+                      precision="1" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      name="VT_MARITAL_STATUS_DEATH_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      name="VOID"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS]"
+                      name="MARITAL_STATUS" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ABBR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ABBR]"
+                      name="ABBR" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[CODE]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[CODE]"
+                      name="CODE"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      name="MARITAL_STATUS_FOR_EXPORT"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load Data from Staging to Issuance Marital_Status_Death_CD"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[VIP_VT_Marital_Status_Death_CD]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.247.RVRS_ISSUANCE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.247.RVRS_ISSUANCE]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      cachedDataType="numeric"
+                      cachedName="VT_MARITAL_STATUS_DEATH_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[VOID]"
+                      cachedDataType="numeric"
+                      cachedName="VOID"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="BUBBLE_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[MARITAL_STATUS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="28"
+                      cachedName="MARITAL_STATUS"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[ABBR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ABBR"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[ABBR]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[CODE]"
+                      cachedDataType="numeric"
+                      cachedName="CODE"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]" />
+                    <inputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      cachedDataType="numeric"
+                      cachedName="MARITAL_STATUS_FOR_EXPORT"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
+                      lineageId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
+                      dataType="numeric"
+                      name="VT_MARITAL_STATUS_DEATH_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      dataType="numeric"
+                      name="VOID"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="28"
+                      name="MARITAL_STATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[ABBR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ABBR" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
+                      dataType="numeric"
+                      name="CODE"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
+                      dataType="numeric"
+                      name="MARITAL_STATUS_FOR_EXPORT"
+                      precision="1" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Data from Staging to Issuance.Paths[OLE DB Source Output]"
+              endId="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Data from VIP to Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{87A72DC5-DCA6-4DD7-ACC9-9EC8B99A4B4A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data from VIP to Staging">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH"
               componentClassID="Microsoft.OLEDBSource"
               contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
               description="OLE DB Source"
@@ -80,7 +550,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Connections[OleDbConnection]"
+                  refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Connections[OleDbConnection]"
                   connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
@@ -88,78 +558,78 @@
               </connections>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output]"
+                  refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output]"
                   name="OLE DB Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
                       name="VT_MARITAL_STATUS_DEATH_ID"
                       precision="10"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]"
                       name="VOID"
                       precision="1"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
                       name="BUBBLE_FLAG"
                       precision="1"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS]"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS]"
                       length="28"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]"
                       name="MARITAL_STATUS"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[ABBR]"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[ABBR]"
                       length="1"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]"
                       name="ABBR"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]"
                       name="CODE"
                       precision="1"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
                       name="MARITAL_STATUS_FOR_EXPORT"
                       precision="1"
                       truncationRowDisposition="FailComponent" />
@@ -167,103 +637,103 @@
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
                       dataType="numeric"
                       name="VT_MARITAL_STATUS_DEATH_ID"
                       precision="10" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
                       dataType="numeric"
                       name="VOID"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
                       dataType="numeric"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS]"
                       codePage="1252"
                       dataType="str"
                       length="28"
                       name="MARITAL_STATUS" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[ABBR]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[ABBR]"
                       codePage="1252"
                       dataType="str"
                       length="1"
                       name="ABBR" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
                       dataType="numeric"
                       name="CODE"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
                       dataType="numeric"
                       name="MARITAL_STATUS_FOR_EXPORT"
                       precision="1" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output]"
+                  refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output]"
                   isErrorOut="true"
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VT_MARITAL_STATUS_DEATH_ID]"
                       name="VT_MARITAL_STATUS_DEATH_ID"
                       precision="10" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VOID]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[VOID]"
                       name="VOID"
                       precision="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS]"
                       codePage="1252"
                       dataType="str"
                       length="28"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS]"
                       name="MARITAL_STATUS" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ABBR]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ABBR]"
                       codePage="1252"
                       dataType="str"
                       length="1"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ABBR]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ABBR]"
                       name="ABBR" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[CODE]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[CODE]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[CODE]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[CODE]"
                       name="CODE"
                       precision="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[MARITAL_STATUS_FOR_EXPORT]"
                       name="MARITAL_STATUS_FOR_EXPORT"
                       precision="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -272,7 +742,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task\Marital_Status_Death_CD"
+              refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
@@ -329,7 +799,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\Marital_Status_Death_CD.Connections[OleDbConnection]"
+                  refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Connections[OleDbConnection]"
                   connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
@@ -337,100 +807,100 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input]"
+                  refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[VT_MARITAL_STATUS_DEATH_ID]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[VT_MARITAL_STATUS_DEATH_ID]"
                       cachedDataType="numeric"
                       cachedName="VT_MARITAL_STATUS_DEATH_ID"
                       cachedPrecision="10"
-                      externalMetadataColumnId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]" />
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VT_MARITAL_STATUS_DEATH_ID]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[VOID]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[VOID]"
                       cachedDataType="numeric"
                       cachedName="VOID"
                       cachedPrecision="1"
-                      externalMetadataColumnId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]" />
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[VOID]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
                       cachedDataType="numeric"
                       cachedName="BUBBLE_FLAG"
                       cachedPrecision="1"
-                      externalMetadataColumnId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[MARITAL_STATUS]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[MARITAL_STATUS]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="28"
                       cachedName="MARITAL_STATUS"
-                      externalMetadataColumnId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]" />
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[ABBR]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[ABBR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="1"
                       cachedName="ABBR"
-                      externalMetadataColumnId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[ABBR]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]" />
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[ABBR]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[ABBR]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[CODE]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[CODE]"
                       cachedDataType="numeric"
                       cachedName="CODE"
                       cachedPrecision="1"
-                      externalMetadataColumnId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]" />
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[CODE]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[MARITAL_STATUS_FOR_EXPORT]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].Columns[MARITAL_STATUS_FOR_EXPORT]"
                       cachedDataType="numeric"
                       cachedName="MARITAL_STATUS_FOR_EXPORT"
                       cachedPrecision="1"
-                      externalMetadataColumnId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
-                      lineageId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]" />
+                      externalMetadataColumnId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
+                      lineageId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output].Columns[MARITAL_STATUS_FOR_EXPORT]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VT_MARITAL_STATUS_DEATH_ID]"
                       dataType="numeric"
                       name="VT_MARITAL_STATUS_DEATH_ID"
                       precision="10" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
                       dataType="numeric"
                       name="VOID"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
                       dataType="numeric"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS]"
                       codePage="1252"
                       dataType="str"
                       length="28"
                       name="MARITAL_STATUS" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[ABBR]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[ABBR]"
                       codePage="1252"
                       dataType="str"
                       length="1"
                       name="ABBR" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
                       dataType="numeric"
                       name="CODE"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input].ExternalColumns[MARITAL_STATUS_FOR_EXPORT]"
                       dataType="numeric"
                       name="MARITAL_STATUS_FOR_EXPORT"
                       precision="1" />
@@ -439,22 +909,22 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -465,15 +935,75 @@
           </components>
           <paths>
             <path
-              refId="Package\Data Flow Task.Paths[OLE DB Source Output]"
-              endId="Package\Data Flow Task\Marital_Status_Death_CD.Inputs[OLE DB Destination Input]"
+              refId="Package\Load Data from VIP to Staging.Paths[OLE DB Source Output]"
+              endId="Package\Load Data from VIP to Staging\Marital_Status_Death_CD.Inputs[OLE DB Destination Input]"
               name="OLE DB Source Output"
-              startId="Package\Data Flow Task\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output]" />
+              startId="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH.Outputs[OLE DB Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Issuance"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{85cee92b-cb7e-4033-9b75-a80a839dec6f}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Issuance"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5EC226B6-3FC6-4E8F-9A67-7FC267276165}"
+          SQLTask:SqlStatementSource="Truncate Table RVRS.VIP_VT_Marital_Status_Death_CD" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FFF5188F-8EDD-46BD-8047-251D3BC42137}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}"
+          SQLTask:SqlStatementSource="Truncate Table RVRS.VIP_VT_Marital_Status_Death_CD" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{3DA7EA2C-C8D4-4C3F-8D47-AC0DF1E81911}"
+      DTS:From="Package\Truncate Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Data from VIP to Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{68C2C160-C88B-4500-8E3A-AE68F64C3E76}"
+      DTS:From="Package\Load Data from VIP to Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Truncate Issuance" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{C4F85081-0A24-4711-A866-10028F79EF3D}"
+      DTS:From="Package\Truncate Issuance"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Load Data from Staging to Issuance" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -485,53 +1015,167 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="150.4,41.6"
-          Id="Package\Data Flow Task"
-          TopLeft="5.5,5.5" />
-      </GraphLayout>
-    </LayoutInfo>
-  </Package>
-  <TaskHost
-    design-time-name="Package\Data Flow Task">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+          Size="228,42"
+          Id="Package\Load Data from VIP to Staging"
+          TopLeft="226.5,154.5" />
         <NodeLayout
-          Size="199.2,41.6"
-          Id="Package\Data Flow Task\Marital_Status_Death_CD"
-          TopLeft="387,188.5" />
-        <NodeLayout
-          Size="211.2,41.6"
-          Id="Package\Data Flow Task\MARITAL_STATUS_DEATH"
-          TopLeft="395.833333333333,82.1666666666667" />
+          Size="163,42"
+          Id="Package\Truncate Staging"
+          TopLeft="226,54" />
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
-          TopLeft="501.433333333333,123.766666666667">
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="307.5,96">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-14.8333333333334,64.7333333333333"
+              EndConnector="33,58.5"
               Start="0,0"
-              End="-14.8333333333334,57.2333333333333">
+              End="33,51">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,28.3666666666666" />
+                    End="0,25.25" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,28.3666666666666"
-                    Point2="0,32.3666666666666"
-                    Point3="-4,32.3666666666666" />
+                    Point1="0,25.25"
+                    Point2="0,29.25"
+                    Point3="4,29.25" />
                   <mssgle:LineSegment
-                    End="-10.8333333333334,32.3666666666666" />
+                    End="29,29.25" />
                   <mssgle:CubicBezierSegment
-                    Point1="-10.8333333333334,32.3666666666666"
-                    Point2="-14.8333333333334,32.3666666666666"
-                    Point3="-14.8333333333334,36.3666666666666" />
+                    Point1="29,29.25"
+                    Point2="33,29.25"
+                    Point3="33,33.25" />
                   <mssgle:LineSegment
-                    End="-14.8333333333334,57.2333333333333" />
+                    End="33,51" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Truncate Issuance"
+          TopLeft="280,269" />
+        <NodeLayout
+          Size="254,42"
+          Id="Package\Load Data from Staging to Issuance"
+          TopLeft="226,371" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="340.5,196.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="24,72.5"
+              Start="0,0"
+              End="24,65">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.25"
+                    Point2="0,36.25"
+                    Point3="4,36.25" />
+                  <mssgle:LineSegment
+                    End="20,36.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="20,36.25"
+                    Point2="24,36.25"
+                    Point3="24,40.25" />
+                  <mssgle:LineSegment
+                    End="24,65" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="364.5,311">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-11.5,60"
+              Start="0,0"
+              End="-11.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-7.5,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-7.5,30"
+                    Point2="-11.5,30"
+                    Point3="-11.5,34" />
+                  <mssgle:LineSegment
+                    End="-11.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Data from VIP to Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Load Data from VIP to Staging\Marital_Status_Death_CD"
+          TopLeft="387,188.5" />
+        <NodeLayout
+          Size="219,42"
+          Id="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH"
+          TopLeft="395.833333333333,82.1666666666667" />
+        <EdgeLayout
+          Id="Package\Load Data from VIP to Staging.Paths[OLE DB Source Output]"
+          TopLeft="505.333333333333,124.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-18.833333333333,64.3333333333333"
+              Start="0,0"
+              End="-18.833333333333,56.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.1666666666667"
+                    Point2="0,32.1666666666667"
+                    Point3="-4,32.1666666666667" />
+                  <mssgle:LineSegment
+                    End="-14.833333333333,32.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-14.833333333333,32.1666666666667"
+                    Point2="-18.833333333333,32.1666666666667"
+                    Point3="-18.833333333333,36.1666666666667" />
+                  <mssgle:LineSegment
+                    End="-18.833333333333,56.8333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -544,7 +1188,7 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\MARITAL_STATUS_DEATH">
+    design-time-name="Package\Load Data from VIP to Staging\MARITAL_STATUS_DEATH">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -552,7 +1196,83 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Marital_Status_Death_CD">
+    design-time-name="Package\Load Data from VIP to Staging\Marital_Status_Death_CD">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Data from Staging to Issuance">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="348,42"
+          Id="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH"
+          TopLeft="395.833333333333,82.1666666666667" />
+        <NodeLayout
+          Size="385,42"
+          Id="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD"
+          TopLeft="387,188.5" />
+        <EdgeLayout
+          Id="Package\Load Data from Staging to Issuance.Paths[OLE DB Source Output]"
+          TopLeft="569.833333333333,124.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.66666666666697,64.3333333333333"
+              Start="0,0"
+              End="9.66666666666697,56.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.1666666666667"
+                    Point2="0,32.1666666666667"
+                    Point3="4,32.1666666666667" />
+                  <mssgle:LineSegment
+                    End="5.66666666666697,32.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.66666666666697,32.1666666666667"
+                    Point2="9.66666666666697,32.1666666666667"
+                    Point3="9.66666666666697,36.1666666666667" />
+                  <mssgle:LineSegment
+                    End="9.66666666666697,56.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data from Staging to Issuance\Extract Data from Staging MARITAL_STATUS_DEATH">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data from Staging to Issuance\Load Data from Staging to Issuance Marital_Status_Death_CD">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

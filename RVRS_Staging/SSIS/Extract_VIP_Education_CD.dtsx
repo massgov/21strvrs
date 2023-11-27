@@ -7,31 +7,534 @@
   DTS:CreatorName="EHS\RNagaraj"
   DTS:DTSID="{857F658D-FBD5-4431-81D0-05C4A5DC5E1E}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
   DTS:LocaleID="1033"
   DTS:ObjectName="Extract_VIP_Education_CD"
   DTS:PackageType="5"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{D7596A5B-0B61-4D28-B280-D60A8CF86276}">
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{391E27D1-6F30-48DB-9D5B-70A1B077AF58}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.202.75.247.RVRS_ISSUANCE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{EE16F0D1-FFB0-4AA5-B2B8-372A4EFBFB14}"
+      DTS:ObjectName="10.202.75.247.RVRS_ISSUANCE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.202.75.247;Initial Catalog=RVRS_ISSUANCE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Data Flow Task"
+      DTS:refId="Package\Load Data from  Staging to Issuance"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
-      DTS:DTSID="{C7FD24AD-E753-4FBF-AB3D-4B6524F42D0C}"
+      DTS:DTSID="{1520eb4b-18c8-49e8-b47f-9063ffd7f2bb}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Data Flow Task">
+      DTS:ObjectName="Load Data from  Staging to Issuance">
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
           version="1">
           <components>
             <component
-              refId="Package\Data Flow Task\EDUCATION Source"
+              refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Extract Data from Staging"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[VIP_VT_Education_CD]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select *  FROM [DWP1RAC]..[MA_VRVWEB_VT].[VT_EDUCATION]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Connections[OleDbConnection]"
+                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[VT_EDUCATION_ID]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]"
+                      name="VT_EDUCATION_ID"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[VOID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[VOID]"
+                      name="VOID"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      name="BUBBLE_FLAG"
+                      precision="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[EDUCATION]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[EDUCATION]"
+                      length="80"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[EDUCATION]"
+                      name="EDUCATION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[CODE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[CODE]"
+                      name="CODE"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[EMPTY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[EMPTY]"
+                      length="1"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[EMPTY]"
+                      name="EMPTY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ED_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[ED_ID]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ED_ID]"
+                      name="ED_ID"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ED_SORT]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[ED_SORT]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ED_SORT]"
+                      name="ED_SORT"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[VT_EDUCATION_ID]"
+                      dataType="numeric"
+                      name="VT_EDUCATION_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      dataType="numeric"
+                      name="VOID"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[EDUCATION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="80"
+                      name="EDUCATION" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
+                      dataType="numeric"
+                      name="CODE"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[EMPTY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EMPTY" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[ED_ID]"
+                      dataType="numeric"
+                      name="ED_ID"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[ED_SORT]"
+                      dataType="numeric"
+                      name="ED_SORT"
+                      precision="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[VT_EDUCATION_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[VT_EDUCATION_ID]"
+                      name="VT_EDUCATION_ID"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      name="VOID"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[EDUCATION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="80"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[EDUCATION]"
+                      name="EDUCATION" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[CODE]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[CODE]"
+                      name="CODE"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[EMPTY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[EMPTY]"
+                      name="EMPTY" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ED_ID]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ED_ID]"
+                      name="ED_ID"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ED_SORT]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ED_SORT]"
+                      name="ED_SORT"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load Education_CD from Staging to Issuance"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[RVRS].[VIP_VT_Education_CD]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.202.75.247.RVRS_ISSUANCE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.202.75.247.RVRS_ISSUANCE]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].Columns[VT_EDUCATION_ID]"
+                      cachedDataType="numeric"
+                      cachedName="VT_EDUCATION_ID"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[VT_EDUCATION_ID]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].Columns[VOID]"
+                      cachedDataType="numeric"
+                      cachedName="VOID"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[VOID]" />
+                    <inputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
+                      cachedDataType="numeric"
+                      cachedName="BUBBLE_FLAG"
+                      cachedPrecision="1"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
+                    <inputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].Columns[EDUCATION]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="80"
+                      cachedName="EDUCATION"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[EDUCATION]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[EDUCATION]" />
+                    <inputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].Columns[CODE]"
+                      cachedDataType="numeric"
+                      cachedName="CODE"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[CODE]" />
+                    <inputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].Columns[EMPTY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="EMPTY"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[EMPTY]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[EMPTY]" />
+                    <inputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].Columns[ED_ID]"
+                      cachedDataType="numeric"
+                      cachedName="ED_ID"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[ED_ID]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ED_ID]" />
+                    <inputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].Columns[ED_SORT]"
+                      cachedDataType="numeric"
+                      cachedName="ED_SORT"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[ED_SORT]"
+                      lineageId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output].Columns[ED_SORT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[VT_EDUCATION_ID]"
+                      dataType="numeric"
+                      name="VT_EDUCATION_ID"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      dataType="numeric"
+                      name="VOID"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      dataType="numeric"
+                      name="BUBBLE_FLAG"
+                      precision="1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[EDUCATION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="80"
+                      name="EDUCATION" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
+                      dataType="numeric"
+                      name="CODE"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[EMPTY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EMPTY" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[ED_ID]"
+                      dataType="numeric"
+                      name="ED_ID"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input].ExternalColumns[ED_SORT]"
+                      dataType="numeric"
+                      name="ED_SORT"
+                      precision="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Data from  Staging to Issuance.Paths[OLE DB Source Output]"
+              endId="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Data from  Staging to Issuance\Extract Data from Staging.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Data from Source To Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C7FD24AD-E753-4FBF-AB3D-4B6524F42D0C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data from Source To Staging">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Data from Source To Staging\EDUCATION Source"
               componentClassID="Microsoft.OLEDBSource"
               contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
               description="OLE DB Source"
@@ -80,7 +583,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\EDUCATION Source.Connections[OleDbConnection]"
+                  refId="Package\Load Data from Source To Staging\EDUCATION Source.Connections[OleDbConnection]"
                   connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
@@ -88,88 +591,88 @@
               </connections>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output]"
+                  refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output]"
                   name="OLE DB Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[VT_EDUCATION_ID]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]"
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[VT_EDUCATION_ID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]"
                       name="VT_EDUCATION_ID"
                       precision="10"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VOID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VOID]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VOID]"
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VOID]"
                       name="VOID"
                       precision="1"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
                       name="BUBBLE_FLAG"
                       precision="1"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EDUCATION]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EDUCATION]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[EDUCATION]"
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[EDUCATION]"
                       length="80"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EDUCATION]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EDUCATION]"
                       name="EDUCATION"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[CODE]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[CODE]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[CODE]"
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[CODE]"
                       name="CODE"
                       precision="2"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EMPTY]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EMPTY]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[EMPTY]"
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[EMPTY]"
                       length="1"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EMPTY]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EMPTY]"
                       name="EMPTY"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_ID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_ID]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[ED_ID]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_ID]"
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[ED_ID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_ID]"
                       name="ED_ID"
                       precision="2"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_SORT]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_SORT]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[ED_SORT]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_SORT]"
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[ED_SORT]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_SORT]"
                       name="ED_SORT"
                       precision="2"
                       truncationRowDisposition="FailComponent" />
@@ -177,114 +680,114 @@
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[VT_EDUCATION_ID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[VT_EDUCATION_ID]"
                       dataType="numeric"
                       name="VT_EDUCATION_ID"
                       precision="10" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
                       dataType="numeric"
                       name="VOID"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
                       dataType="numeric"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[EDUCATION]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[EDUCATION]"
                       codePage="1252"
                       dataType="str"
                       length="80"
                       name="EDUCATION" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[CODE]"
                       dataType="numeric"
                       name="CODE"
                       precision="2" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[EMPTY]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[EMPTY]"
                       codePage="1252"
                       dataType="str"
                       length="1"
                       name="EMPTY" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[ED_ID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[ED_ID]"
                       dataType="numeric"
                       name="ED_ID"
                       precision="2" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[ED_SORT]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].ExternalColumns[ED_SORT]"
                       dataType="numeric"
                       name="ED_SORT"
                       precision="2" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output]"
+                  refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output]"
                   isErrorOut="true"
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[VT_EDUCATION_ID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[VT_EDUCATION_ID]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[VT_EDUCATION_ID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[VT_EDUCATION_ID]"
                       name="VT_EDUCATION_ID"
                       precision="10" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[VOID]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[VOID]"
                       name="VOID"
                       precision="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[EDUCATION]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[EDUCATION]"
                       codePage="1252"
                       dataType="str"
                       length="80"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[EDUCATION]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[EDUCATION]"
                       name="EDUCATION" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[CODE]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[CODE]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[CODE]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[CODE]"
                       name="CODE"
                       precision="2" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[EMPTY]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[EMPTY]"
                       codePage="1252"
                       dataType="str"
                       length="1"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[EMPTY]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[EMPTY]"
                       name="EMPTY" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ED_ID]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ED_ID]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ED_ID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ED_ID]"
                       name="ED_ID"
                       precision="2" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ED_SORT]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ED_SORT]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ED_SORT]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ED_SORT]"
                       name="ED_SORT"
                       precision="2" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -293,7 +796,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task\Education_CD Destination"
+              refId="Package\Load Data from Source To Staging\Education_CD Destination"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
@@ -350,7 +853,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\Education_CD Destination.Connections[OleDbConnection]"
+                  refId="Package\Load Data from Source To Staging\Education_CD Destination.Connections[OleDbConnection]"
                   connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
@@ -358,112 +861,112 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input]"
+                  refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[VT_EDUCATION_ID]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[VT_EDUCATION_ID]"
                       cachedDataType="numeric"
                       cachedName="VT_EDUCATION_ID"
                       cachedPrecision="10"
-                      externalMetadataColumnId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[VT_EDUCATION_ID]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]" />
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[VT_EDUCATION_ID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VT_EDUCATION_ID]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[VOID]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[VOID]"
                       cachedDataType="numeric"
                       cachedName="VOID"
                       cachedPrecision="1"
-                      externalMetadataColumnId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VOID]" />
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[VOID]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
                       cachedDataType="numeric"
                       cachedName="BUBBLE_FLAG"
                       cachedPrecision="1"
-                      externalMetadataColumnId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[EDUCATION]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[EDUCATION]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="80"
                       cachedName="EDUCATION"
-                      externalMetadataColumnId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[EDUCATION]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EDUCATION]" />
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[EDUCATION]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EDUCATION]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[CODE]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[CODE]"
                       cachedDataType="numeric"
                       cachedName="CODE"
                       cachedPrecision="2"
-                      externalMetadataColumnId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[CODE]" />
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[CODE]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[EMPTY]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[EMPTY]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="1"
                       cachedName="EMPTY"
-                      externalMetadataColumnId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMPTY]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EMPTY]" />
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMPTY]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[EMPTY]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[ED_ID]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[ED_ID]"
                       cachedDataType="numeric"
                       cachedName="ED_ID"
                       cachedPrecision="2"
-                      externalMetadataColumnId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[ED_ID]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_ID]" />
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[ED_ID]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_ID]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[ED_SORT]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].Columns[ED_SORT]"
                       cachedDataType="numeric"
                       cachedName="ED_SORT"
                       cachedPrecision="2"
-                      externalMetadataColumnId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[ED_SORT]"
-                      lineageId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_SORT]" />
+                      externalMetadataColumnId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[ED_SORT]"
+                      lineageId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output].Columns[ED_SORT]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[VT_EDUCATION_ID]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[VT_EDUCATION_ID]"
                       dataType="numeric"
                       name="VT_EDUCATION_ID"
                       precision="10" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
                       dataType="numeric"
                       name="VOID"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
                       dataType="numeric"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[EDUCATION]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[EDUCATION]"
                       codePage="1252"
                       dataType="str"
                       length="80"
                       name="EDUCATION" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[CODE]"
                       dataType="numeric"
                       name="CODE"
                       precision="2" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMPTY]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMPTY]"
                       codePage="1252"
                       dataType="str"
                       length="1"
                       name="EMPTY" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[ED_ID]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[ED_ID]"
                       dataType="numeric"
                       name="ED_ID"
                       precision="2" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[ED_SORT]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input].ExternalColumns[ED_SORT]"
                       dataType="numeric"
                       name="ED_SORT"
                       precision="2" />
@@ -472,22 +975,22 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\Education_CD Destination.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Load Data from Source To Staging\Education_CD Destination.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Education_CD Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load Data from Source To Staging\Education_CD Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Education_CD Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load Data from Source To Staging\Education_CD Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Education_CD Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load Data from Source To Staging\Education_CD Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -498,15 +1001,75 @@
           </components>
           <paths>
             <path
-              refId="Package\Data Flow Task.Paths[OLE DB Source Output]"
-              endId="Package\Data Flow Task\Education_CD Destination.Inputs[OLE DB Destination Input]"
+              refId="Package\Load Data from Source To Staging.Paths[OLE DB Source Output]"
+              endId="Package\Load Data from Source To Staging\Education_CD Destination.Inputs[OLE DB Destination Input]"
               name="OLE DB Source Output"
-              startId="Package\Data Flow Task\EDUCATION Source.Outputs[OLE DB Source Output]" />
+              startId="Package\Load Data from Source To Staging\EDUCATION Source.Outputs[OLE DB Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table in Issuance"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{5fc4398a-663f-41b4-b551-ef36108faf4a}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table in Issuance"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE16F0D1-FFB0-4AA5-B2B8-372A4EFBFB14}"
+          SQLTask:SqlStatementSource="Truncate Table [RVRS].VIP_VT_Education_CD" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table in Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{86BC0AC9-4CCB-4A53-B6C2-97B574299C23}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table in Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}"
+          SQLTask:SqlStatementSource="Truncate Table [RVRS].VIP_VT_Education_CD" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{008465D1-C6B5-47DD-9C8F-6111267F143A}"
+      DTS:From="Package\Truncate Table in Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Data from Source To Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{27697593-2221-4B63-B97E-2BA6F275AA16}"
+      DTS:From="Package\Load Data from Source To Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Truncate Table in Issuance" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{B6E38D2A-2F1F-48C9-9017-B99D216885FD}"
+      DTS:From="Package\Truncate Table in Issuance"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Load Data from  Staging to Issuance" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -518,29 +1081,131 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="150.4,41.6"
-          Id="Package\Data Flow Task"
-          TopLeft="5.5,5.5" />
+          Size="248,42"
+          Id="Package\Load Data from Source To Staging"
+          TopLeft="208.5,169.5" />
+        <NodeLayout
+          Size="257,42"
+          Id="Package\Load Data from  Staging to Issuance"
+          TopLeft="207.5,374.5" />
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Truncate Table in Staging"
+          TopLeft="170,54" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="272.5,96">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="60,73.5"
+              Start="0,0"
+              End="60,66">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.75"
+                    Point2="0,36.75"
+                    Point3="4,36.75" />
+                  <mssgle:LineSegment
+                    End="56,36.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="56,36.75"
+                    Point2="60,36.75"
+                    Point3="60,40.75" />
+                  <mssgle:LineSegment
+                    End="60,66" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="211,42"
+          Id="Package\Truncate Table in Issuance"
+          TopLeft="220,255" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="329,211.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.5"
+              Start="0,0"
+              End="0,36">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="325.5,297">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10.5,77.5"
+              Start="0,0"
+              End="10.5,70">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.75"
+                    Point2="0,38.75"
+                    Point3="4,38.75" />
+                  <mssgle:LineSegment
+                    End="6.5,38.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6.5,38.75"
+                    Point2="10.5,38.75"
+                    Point3="10.5,42.75" />
+                  <mssgle:LineSegment
+                    End="10.5,70" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\Data Flow Task">
+    design-time-name="Package\Load Data from Source To Staging">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="200,41.6"
-          Id="Package\Data Flow Task\Education_CD Destination"
+          Id="Package\Load Data from Source To Staging\Education_CD Destination"
           TopLeft="545,187" />
         <NodeLayout
           Size="175.2,41.6"
-          Id="Package\Data Flow Task\EDUCATION Source"
+          Id="Package\Load Data from Source To Staging\EDUCATION Source"
           TopLeft="542,88" />
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
+          Id="Package\Load Data from Source To Staging.Paths[OLE DB Source Output]"
           TopLeft="629.6,129.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -570,14 +1235,16 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\EDUCATION Source">
+    design-time-name="Package\Load Data from Source To Staging\EDUCATION Source">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -585,7 +1252,83 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Education_CD Destination">
+    design-time-name="Package\Load Data from Source To Staging\Education_CD Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Data from  Staging to Issuance">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Load Data from  Staging to Issuance\Extract Data from Staging"
+          TopLeft="542,88" />
+        <NodeLayout
+          Size="302,42"
+          Id="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance"
+          TopLeft="545,187" />
+        <EdgeLayout
+          Id="Package\Load Data from  Staging to Issuance.Paths[OLE DB Source Output]"
+          TopLeft="644.5,130">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="51.5,57"
+              Start="0,0"
+              End="51.5,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.5"
+                    Point2="0,28.5"
+                    Point3="4,28.5" />
+                  <mssgle:LineSegment
+                    End="47.5,28.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="47.5,28.5"
+                    Point2="51.5,28.5"
+                    Point3="51.5,32.5" />
+                  <mssgle:LineSegment
+                    End="51.5,49.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data from  Staging to Issuance\Extract Data from Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data from  Staging to Issuance\Load Education_CD from Staging to Issuance">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
