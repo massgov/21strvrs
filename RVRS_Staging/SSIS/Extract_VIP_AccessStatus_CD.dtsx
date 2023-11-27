@@ -7,31 +7,31 @@
   DTS:CreatorName="EHS\RNagaraj"
   DTS:DTSID="{E5264730-5879-4E95-BC14-D1FB28E8C38F}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
   DTS:LocaleID="1033"
   DTS:ObjectName="Extract_VIP_AccessStatus_CD"
   DTS:PackageType="5"
-  DTS:VersionBuild="6"
-  DTS:VersionGUID="{AEBAFF3F-5124-43CB-B0E0-20209737D264}">
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{AE85BED4-8E35-4AB6-98D1-052328735547}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Data Flow Task"
+      DTS:refId="Package\Load Staging VIP_AccessStatus_CD"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{F2428462-0CB6-4CDE-B947-563914780F9A}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Data Flow Task">
+      DTS:ObjectName="Load Staging VIP_AccessStatus_CD">
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
           version="1">
           <components>
             <component
-              refId="Package\Data Flow Task\Acces Status Cd"
+              refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
@@ -88,7 +88,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\Acces Status Cd.Connections[OleDbConnection]"
+                  refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Connections[OleDbConnection]"
                   connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
@@ -96,61 +96,61 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input]"
+                  refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].Columns[VOID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].Columns[VOID]"
                       cachedDataType="numeric"
                       cachedName="VOID"
                       cachedPrecision="1"
-                      externalMetadataColumnId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[VOID]" />
+                      externalMetadataColumnId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[VOID]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].Columns[BUBBLE_FLAG]"
                       cachedDataType="numeric"
                       cachedName="BUBBLE_FLAG"
                       cachedPrecision="1"
-                      externalMetadataColumnId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
+                      externalMetadataColumnId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].Columns[VT_ACCESS_STATUS_ID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].Columns[VT_ACCESS_STATUS_ID]"
                       cachedDataType="numeric"
                       cachedName="VT_ACCESS_STATUS_ID"
                       cachedPrecision="10"
-                      externalMetadataColumnId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[VT_ACCESS_STATUS_ID]"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[VT_ACCESS_STATUS_ID]" />
+                      externalMetadataColumnId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[VT_ACCESS_STATUS_ID]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[VT_ACCESS_STATUS_ID]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].Columns[STATUS]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].Columns[STATUS]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="16"
                       cachedName="STATUS"
-                      externalMetadataColumnId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[STATUS]"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[STATUS]" />
+                      externalMetadataColumnId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[STATUS]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[STATUS]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[VOID]"
                       dataType="numeric"
                       name="VOID"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[BUBBLE_FLAG]"
                       dataType="numeric"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[VT_ACCESS_STATUS_ID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[VT_ACCESS_STATUS_ID]"
                       dataType="numeric"
                       name="VT_ACCESS_STATUS_ID"
                       precision="10" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[STATUS]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input].ExternalColumns[STATUS]"
                       codePage="1252"
                       dataType="str"
                       length="16"
@@ -160,22 +160,22 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\Acces Status Cd.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Acces Status Cd.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Acces Status Cd.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Acces Status Cd.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -184,7 +184,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task\Access"
+              refId="Package\Load Staging VIP_AccessStatus_CD\Access"
               componentClassID="Microsoft.OLEDBSource"
               contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
               description="OLE DB Source"
@@ -233,7 +233,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\Access.Connections[OleDbConnection]"
+                  refId="Package\Load Staging VIP_AccessStatus_CD\Access.Connections[OleDbConnection]"
                   connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
@@ -241,70 +241,70 @@
               </connections>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output]"
+                  refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output]"
                   name="OLE DB Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[VOID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[VOID]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[VOID]"
+                      externalMetadataColumnId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[VOID]"
                       name="VOID"
                       precision="1"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
+                      externalMetadataColumnId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[BUBBLE_FLAG]"
                       name="BUBBLE_FLAG"
                       precision="1"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[VT_ACCESS_STATUS_ID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[VT_ACCESS_STATUS_ID]"
                       dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].ExternalColumns[VT_ACCESS_STATUS_ID]"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[VT_ACCESS_STATUS_ID]"
+                      externalMetadataColumnId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].ExternalColumns[VT_ACCESS_STATUS_ID]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[VT_ACCESS_STATUS_ID]"
                       name="VT_ACCESS_STATUS_ID"
                       precision="10"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[STATUS]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[STATUS]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].ExternalColumns[STATUS]"
+                      externalMetadataColumnId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].ExternalColumns[STATUS]"
                       length="16"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].Columns[STATUS]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].Columns[STATUS]"
                       name="STATUS"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].ExternalColumns[VOID]"
                       dataType="numeric"
                       name="VOID"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].ExternalColumns[BUBBLE_FLAG]"
                       dataType="numeric"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].ExternalColumns[VT_ACCESS_STATUS_ID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].ExternalColumns[VT_ACCESS_STATUS_ID]"
                       dataType="numeric"
                       name="VT_ACCESS_STATUS_ID"
                       precision="10" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output].ExternalColumns[STATUS]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output].ExternalColumns[STATUS]"
                       codePage="1252"
                       dataType="str"
                       length="16"
@@ -312,45 +312,45 @@
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output]"
+                  refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output]"
                   isErrorOut="true"
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[VT_ACCESS_STATUS_ID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[VT_ACCESS_STATUS_ID]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[VT_ACCESS_STATUS_ID]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[VT_ACCESS_STATUS_ID]"
                       name="VT_ACCESS_STATUS_ID"
                       precision="10" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[VOID]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[VOID]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[VOID]"
                       name="VOID"
                       precision="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
                       dataType="numeric"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[BUBBLE_FLAG]"
                       name="BUBBLE_FLAG"
                       precision="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[STATUS]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[STATUS]"
                       codePage="1252"
                       dataType="str"
                       length="16"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[STATUS]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[STATUS]"
                       name="STATUS" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Access.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -361,15 +361,42 @@
           </components>
           <paths>
             <path
-              refId="Package\Data Flow Task.Paths[OLE DB Source Output]"
-              endId="Package\Data Flow Task\Acces Status Cd.Inputs[OLE DB Destination Input]"
+              refId="Package\Load Staging VIP_AccessStatus_CD.Paths[OLE DB Source Output]"
+              endId="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd.Inputs[OLE DB Destination Input]"
               name="OLE DB Source Output"
-              startId="Package\Data Flow Task\Access.Outputs[OLE DB Source Output]" />
+              startId="Package\Load Staging VIP_AccessStatus_CD\Access.Outputs[OLE DB Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table VIP_AccessStatus_CD"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9DDEBB1D-94F4-482D-BD40-F54EB2B73849}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table VIP_AccessStatus_CD"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}"
+          SQLTask:SqlStatementSource="Truncate Table RVRS.VIP_VT_Access_Status_CD" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{77CE9C82-5DCC-448A-BDCB-49F34B75C3F8}"
+      DTS:From="Package\Truncate Table VIP_AccessStatus_CD"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Staging VIP_AccessStatus_CD" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -381,29 +408,55 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="150.4,41.6"
-          Id="Package\Data Flow Task"
-          TopLeft="5.5,5.5" />
+          Size="259,42"
+          Id="Package\Load Staging VIP_AccessStatus_CD"
+          TopLeft="314.5,138.5" />
+        <NodeLayout
+          Size="268,42"
+          Id="Package\Truncate Table VIP_AccessStatus_CD"
+          TopLeft="312,49" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="445,91">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.5"
+              Start="0,0"
+              End="0,40">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\Data Flow Task">
+    design-time-name="Package\Load Staging VIP_AccessStatus_CD">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="112,41.6"
-          Id="Package\Data Flow Task\Access"
+          Size="112,42"
+          Id="Package\Load Staging VIP_AccessStatus_CD\Access"
           TopLeft="536,37" />
         <NodeLayout
-          Size="155.2,41.6"
-          Id="Package\Data Flow Task\Acces Status Cd"
+          Size="155,42"
+          Id="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd"
           TopLeft="531,120" />
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
+          Id="Package\Load Staging VIP_AccessStatus_CD.Paths[OLE DB Source Output]"
           TopLeft="592,78.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -440,7 +493,7 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Acces Status Cd">
+    design-time-name="Package\Load Staging VIP_AccessStatus_CD\Acces Status Cd">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -453,7 +506,7 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Access">
+    design-time-name="Package\Load Staging VIP_AccessStatus_CD\Access">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
