@@ -1,5 +1,6 @@
 -- drop table [RVRS].[Education]
 -- sp_help '[RVRS].[Education]'
+--use rvrs_testdb 
 SET ANSI_NULLS ON
 GO
 

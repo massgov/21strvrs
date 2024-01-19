@@ -13,7 +13,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		CREATE TABLE [RVRS].[Race] (  
 		   [RaceId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column to store the
 		   [PersonId] BIGINT NOT NULL ,  --  RVRS Column to store the	  
-		   [DimRaceParentId] INT NOT NULL CONSTRAINT [df_RaceDimRaceParentId] DEFAULT (0), --	 RACE15,DETHNIC4 
+		   [DimOtherRaceId] INT NOT NULL CONSTRAINT [df_RaceDimOtherRaceId] DEFAULT (0), --	 RACE15,DETHNIC4 
 		   [DimRaceId] INT NOT NULL CONSTRAINT [df_RaceDimRaceId] DEFAULT (0), --Multiple Columns (e.g.DETHNIC_AFRICAN_CB,DETHNIC_AMERICAN)		 
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_RaceCreatedDate] DEFAULT (GETDATE()) -- RVRS Column to store the 		   
 		CONSTRAINT [pk_RaceId] PRIMARY KEY CLUSTERED 
