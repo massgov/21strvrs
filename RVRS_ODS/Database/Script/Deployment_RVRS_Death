@@ -1,0 +1,1795 @@
+/* Warning: Table [RVRS].[Person], Column: [PersonId], IDENTITY Column change requires drop & create column. */
+
+CREATE TABLE [RVRS].[Address] (
+  [AddressId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimAddressTypeId] int DEFAULT 0 NOT NULL,
+  [DimPrefixId] int DEFAULT 0 NOT NULL,
+  [StreetNumber] int  NULL,
+  [StreetName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimStreetDesigId] int DEFAULT 0 NOT NULL,
+  [DimSuffixId] int DEFAULT 0 NOT NULL,
+  [AptOrUnitNumber] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimCityId] int DEFAULT 0 NOT NULL,
+  [DimCountyId] int DEFAULT 0 NOT NULL,
+  [DimStateId] int DEFAULT 0 NOT NULL,
+  [DimZipCodeId] int DEFAULT 0 NOT NULL,
+  [DimCountryId] int DEFAULT 0 NOT NULL,
+  [IsInSideCityLimits] int DEFAULT 0 NOT NULL,
+  [PoBox] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_AddressId] PRIMARY KEY CLUSTERED ([AddressId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[Address] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[Death] (
+  [DeathId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [InternalCaseNumber] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SfnType] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Sfn] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SfnOutOfState] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SfnYear] decimal(4)  NULL,
+  [RecordType] char(3) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [OtherRecordType] char(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DeathYear] decimal(4)  NULL,
+  [DeathMonth] decimal(2)  NULL,
+  [DeathDay] decimal(2)  NULL,
+  [DeathHour] decimal(2)  NULL,
+  [DeathMinute] decimal(2)  NULL,
+  [DimDeathTimeIndId] int DEFAULT 0 NOT NULL,
+  [DimDeathMannerId] int DEFAULT 0 NOT NULL,
+  [DimPregnancyStatusId] int DEFAULT 0 NOT NULL,
+  [DimTobaccoUseId] int DEFAULT 0 NOT NULL,
+  [DimCertifierDesignId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathId] PRIMARY KEY CLUSTERED ([DeathId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[Death] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathBirthMatch] (
+  [DeathBirthMatchId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimBirthMatchId] int DEFAULT 0 NOT NULL,
+  [BirthSfn] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [BirthInternalCaseNumber] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathBirthMatchId] PRIMARY KEY CLUSTERED ([DeathBirthMatchId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathBirthMatch] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathBurialAgent] (
+  [DeathBurialAgentId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimBurialAgentId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathBurialAgentId] PRIMARY KEY CLUSTERED ([DeathBurialAgentId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathBurialAgent] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathBurialPermit] (
+  [DeathBurialPermitId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimNoBurialPermitId] int DEFAULT 0 NOT NULL,
+  [DeathBurialPermitDate] datetime  NULL,
+  [DeathBurialPermitNumber] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [NoPermitReason] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Comment] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StatePermitDate] datetime  NULL,
+  [StateTrackNumber] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathBurialPermitId] PRIMARY KEY CLUSTERED ([DeathBurialPermitId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathBurialPermit] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathCause] (
+  [DeathCauseId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [CauseOrder] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Cause] varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [IntervalOrginal] varchar(127) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimUnitOrginalId] int DEFAULT 0 NOT NULL,
+  [IntervalTypeConv] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Interval1Conv] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Interval2Conv] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimUnit1ConvId] int DEFAULT 0 NOT NULL,
+  [DimUnit2ConvId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathCauseId] PRIMARY KEY CLUSTERED ([DeathCauseId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathCause] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathCauseAcme] (
+  [DeathCauseAcmeId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [Order] decimal(3)  NOT NULL,
+  [Line] decimal(3)  NOT NULL,
+  [Sequence] decimal(3)  NOT NULL,
+  [CauseCategory] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [InjuryNature] decimal(3)  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathCauseAcmeId] PRIMARY KEY CLUSTERED ([DeathCauseAcmeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathCauseAcme] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathCauseAcmeOtherAttr] (
+  [DeathCauseAcmeOtherAttrId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimFlTransaxConversionId] int DEFAULT 0 NOT NULL,
+  [CauseManual] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [InjuryPlace] varchar(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimSystemRejectId] int DEFAULT 0 NOT NULL,
+  [DimIntentionalRejectId] int DEFAULT 0 NOT NULL,
+  [ActivityAtTimeOfDeath] decimal(1)  NULL,
+  [UnderlyingCause] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [RecordAxisCode] varchar(1024) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathCauseAcmeOtherAttrId] PRIMARY KEY CLUSTERED ([DeathCauseAcmeOtherAttrId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathCauseAcmeOtherAttr] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathCremation] (
+  [DeathCremationId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimMeClearedId] int DEFAULT 0 NOT NULL,
+  [ClearedComment] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimMeReleasedId] int DEFAULT 0 NOT NULL,
+  [MeCremationDate] datetime  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathCremationId] PRIMARY KEY CLUSTERED ([DeathCremationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathCremation] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathDisposition] (
+  [DeathDispositionId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimDispMethodId] int DEFAULT 0 NOT NULL,
+  [OtherDispMethod] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DispDate] datetime  NULL,
+  [PermitStatus] varchar(516) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimDispPlaceId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathDispositionId] PRIMARY KEY CLUSTERED ([DeathDispositionId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathDisposition] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathDorDocument] (
+  [DeathDorDocumentId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [SrcDocumentId] int  NOT NULL,
+  [DocumentName] varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathDorDocumentId] PRIMARY KEY CLUSTERED ([DeathDorDocumentId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathDorDocument] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathExport] (
+  [DeathExportId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [AgeType] decimal(2)  NULL,
+  [MaritalStatus] decimal(2)  NULL,
+  [Education] decimal(2)  NULL,
+  [Ethnicity1] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Ethnicity2] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Ethnicity3] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Ethnicity4] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Ethnicity5] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race1] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race2] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race3] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race10] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race14] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race15] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race16] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race17] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race18] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race19] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race20] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race21] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race22] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Race23] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [AnotherRace1] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [AutoSpy] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [AutoSpyFinding] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [TransportationInjury] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CertifierDesignation] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DeathTime] varchar(5) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DeathTimeInd] varchar(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathExportId] PRIMARY KEY CLUSTERED ([DeathExportId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathExport] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathFuneralDirector] (
+  [DeathFuneralDirectorId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimFuneralDirectorId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathFuneralDirectorId] PRIMARY KEY CLUSTERED ([DeathFuneralDirectorId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathFuneralDirector] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathFuneralHome] (
+  [DeathFuneralHomeId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimTradeServiceCallId] int DEFAULT 0 NOT NULL,
+  [DimFuneralHomeId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathFuneralHomeId] PRIMARY KEY CLUSTERED ([DeathFuneralHomeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathFuneralHome] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathPlace] (
+  [DeathPlaceId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimDeathPlaceId] int DEFAULT 0 NOT NULL,
+  [DimDeathFacilityId] int DEFAULT 0 NOT NULL,
+  [DimOtherDeathPlaceId] int DEFAULT 0 NOT NULL,
+  [DeathFacilityCode] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathPlaceId] PRIMARY KEY CLUSTERED ([DeathPlaceId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathPlace] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DeathView] (
+  [DeathViewId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [FlViewNeeded] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [FlViewPassed] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [DateSent] datetime  NOT NULL,
+  [FailedReason] varchar(4000) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_DeathViewId] PRIMARY KEY CLUSTERED ([DeathViewId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DeathView] SET (LOCK_ESCALATION = TABLE)
+GO
+
+ALTER TABLE [RVRS].[DimAddressTypeInternal] ADD CONSTRAINT [pk_DimAddressTypeInternalId] PRIMARY KEY CLUSTERED ([DimAddressTypeInternalId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+CREATE TABLE [RVRS].[DimAgeType] (
+  [DimAgeTypeId] int  IDENTITY(1,1) NOT NULL,
+  [BkAgeTypeId] int  NOT NULL,
+  [Code] decimal(2)  NOT NULL,
+  [AgeType4Exports] decimal(2)  NULL,
+  [AgeTypeDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimAgeTypeId] PRIMARY KEY CLUSTERED ([DimAgeTypeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimAgeType] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimArmyBranch] (
+  [DimArmyBranchId] int  IDENTITY(1,1) NOT NULL,
+  [BkArmyBranchId] int  NOT NULL,
+  [ArmyBranchDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimArmyBranchId] PRIMARY KEY CLUSTERED ([DimArmyBranchId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimArmyBranch] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimAutopsyPerformed] (
+  [DimAutopsyPerformedId] int  IDENTITY(1,1) NOT NULL,
+  [BkAutopsyPerformedId] int  NOT NULL,
+  [AutopsyPerformedDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimAutopsyPerformedId] PRIMARY KEY CLUSTERED ([DimAutopsyPerformedId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimAutopsyPerformed] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimBirthMatch] (
+  [DimBirthMatchId] int  IDENTITY(1,1) NOT NULL,
+  [BkBirthMatchId] int  NOT NULL,
+  [Code] decimal(2)  NULL,
+  [BirthMatchDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimBirthMatchId] PRIMARY KEY CLUSTERED ([DimBirthMatchId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimBirthMatch] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimBurialAgent] (
+  [DimBurialAgentId] int  IDENTITY(1,1) NOT NULL,
+  [BkBurialAgentId] int  NOT NULL,
+  [Title] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FirstName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [MiddleName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [LastName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimSuffixId] int DEFAULT 0 NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimBurialAgentId] PRIMARY KEY CLUSTERED ([DimBurialAgentId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimBurialAgent] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimBurialAgentLocation] (
+  [DimBurialAgentLocationId] int  IDENTITY(1,1) NOT NULL,
+  [DimBurialAgentId] int DEFAULT 0 NOT NULL,
+  [DimLocationId] int DEFAULT 0 NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimBurialAgentLocationId] PRIMARY KEY CLUSTERED ([DimBurialAgentLocationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimBurialAgentLocation] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimBusKeyTypeInternal] (
+  [DimBusKeyTypeInternalId] int  IDENTITY(1,1) NOT NULL,
+  [BusKeyTypeInternalDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Void] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimBusKeyTypeInternalId] PRIMARY KEY CLUSTERED ([DimBusKeyTypeInternalId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimBusKeyTypeInternal] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimCaseAccess] (
+  [DimCaseAccessId] int  IDENTITY(1,1) NOT NULL,
+  [CaseAccessDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimCaseAccessId] PRIMARY KEY CLUSTERED ([DimCaseAccessId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimCaseAccess] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimCertifierDesign] (
+  [DimCertifierDesignId] int  IDENTITY(1,1) NOT NULL,
+  [BkCertifierDesignId] int  NOT NULL,
+  [CertifierDesignDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimCertifierDesignId] PRIMARY KEY CLUSTERED ([DimCertifierDesignId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimCertifierDesign] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimCompanion] (
+  [DimCompanionId] int  IDENTITY(1,1) NOT NULL,
+  [BkCompanionId] int  NOT NULL,
+  [CompanionDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimCompanionId] PRIMARY KEY CLUSTERED ([DimCompanionId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimCompanion] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimDate] (
+  [DateKey] int  NOT NULL,
+  [Date] datetime  NULL,
+  [FullDate] char(10) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DayOfMonth] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DaySuffix] varchar(4) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DayName] varchar(9) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DayOfWeek] char(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DayOfWeekInMonth] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DayOfWeekInYear] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DayOfQuarter] varchar(3) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DayOfYear] varchar(3) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [WeekOfMonth] varchar(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [WeekOfQuarter] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [WeekOfYear] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Month] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [MonthName] varchar(9) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [MonthOfQuarter] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Quarter] char(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [QuarterName] varchar(9) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Year] char(4) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [YearName] char(7) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [MonthYear] char(10) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [MMYYYY] char(6) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FirstDayOfMonth] date  NULL,
+  [LastDayOfMonth] date  NULL,
+  [FirstDayOfQuarter] date  NULL,
+  [LastDayOfQuarter] date  NULL,
+  [FirstDayOfYear] date  NULL,
+  [LastDayOfYear] date  NULL,
+  [IsHoliday] bit  NULL,
+  [IsWeekday] bit  NULL,
+  [HolidayName] varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalDayOfYear] varchar(3) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalWeekOfYear] varchar(3) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalMonth] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalQuarter] char(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalQuarterName] varchar(9) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalYear] char(4) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalYearName] char(7) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalMonthYear] char(10) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalMMYYYY] char(6) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FiscalFirstDayOfMonth] date  NULL,
+  [FiscalLastDayOfMonth] date  NULL,
+  [FiscalFirstDayOfQuarter] date  NULL,
+  [FiscalLastDayOfQuarter] date  NULL,
+  [FiscalFirstDayOfYear] date  NULL,
+  [FiscalLastDayOfYear] date  NULL,
+  CONSTRAINT [PK__DimDate__40DF45E39AD568FE] PRIMARY KEY CLUSTERED ([DateKey])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimDate] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimDateType] (
+  [DimDateTypeId] int  IDENTITY(1,1) NOT NULL,
+  [BkDateTypeId] int  NOT NULL,
+  [DateTypeDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimDateTypeId] PRIMARY KEY CLUSTERED ([DimDateTypeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimDateType] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimDeathCauseUnit] (
+  [DimDeathCauseUnitId] int  IDENTITY(1,1) NOT NULL,
+  [BkDeathCauseUnitId] int  NOT NULL,
+  [DeathCauseUnitDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimDeathCauseUnitId] PRIMARY KEY CLUSTERED ([DimDeathCauseUnitId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimDeathCauseUnit] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimDeathFacility] (
+  [DimDeathFacilityId] int  IDENTITY(1,1) NOT NULL,
+  [BkDeathFacilityId] int  NOT NULL,
+  [DeathFacilityDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimDeathFacilityId] PRIMARY KEY CLUSTERED ([DimDeathFacilityId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimDeathFacility] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimDeathManner] (
+  [DimDeathMannerId] int  IDENTITY(1,1) NOT NULL,
+  [BkDeathMannerId] int  NOT NULL,
+  [DeathMannerDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Code] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimDeathMannerId] PRIMARY KEY CLUSTERED ([DimDeathMannerId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimDeathManner] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimDeathPlace] (
+  [DimDeathPlaceId] int  IDENTITY(1,1) NOT NULL,
+  [BkDeathPlaceId] int  NOT NULL,
+  [DeathPlaceDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] decimal(5)  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimDeathPlaceId] PRIMARY KEY CLUSTERED ([DimDeathPlaceId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimDeathPlace] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimDispMethod] (
+  [DimDispMethodId] int  IDENTITY(1,1) NOT NULL,
+  [BkDispMethodId] int  NOT NULL,
+  [DispMethodDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] decimal(2)  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimDispMethodId] PRIMARY KEY CLUSTERED ([DimDispMethodId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimDispMethod] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimDispPlace] (
+  [DimDispPlaceId] int  IDENTITY(1,1) NOT NULL,
+  [BkDispPlaceId] int  NOT NULL,
+  [DispPlaceDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimDispPlaceId] PRIMARY KEY CLUSTERED ([DimDispPlaceId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimDispPlace] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimEducation] (
+  [DimEducationId] int  IDENTITY(1,1) NOT NULL,
+  [BkEducationId] int  NOT NULL,
+  [EducationDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [SrcEducationId] int  NOT NULL,
+  [Code] tinyint  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimEducationId] PRIMARY KEY CLUSTERED ([DimEducationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimEducation] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimEmployer] (
+  [DimEmployerId] int  IDENTITY(1,1) NOT NULL,
+  [BkEmployerId] int  NOT NULL,
+  [EmployerDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimEmployerId] PRIMARY KEY CLUSTERED ([DimEmployerId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimEmployer] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimEthnicity] (
+  [DimEthnicityId] int  IDENTITY(1,1) NOT NULL,
+  [BkEthnicityId] int  NOT NULL,
+  [EthnicityDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimEthnicityId] PRIMARY KEY CLUSTERED ([DimEthnicityId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimEthnicity] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimFlTransaxConversion] (
+  [DimFlTransaxConversionId] int  IDENTITY(1,1) NOT NULL,
+  [BkFlTransaxConversionId] int  NOT NULL,
+  [FlTransaxConversionDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] decimal(2)  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimFlTransaxConversionId] PRIMARY KEY CLUSTERED ([DimFlTransaxConversionId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimFlTransaxConversion] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimFuneralDirector] (
+  [DimFuneralDirectorId] int  IDENTITY(1,1) NOT NULL,
+  [BkFuneralDirectorId] int  NOT NULL,
+  [FirstName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [MiddleName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [LastName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimSuffixId] int DEFAULT 0 NOT NULL,
+  [LicenseNumber] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimLocationId] int DEFAULT 0 NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimFuneralDirectorId] PRIMARY KEY CLUSTERED ([DimFuneralDirectorId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimFuneralDirector] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimFuneralHome] (
+  [DimFuneralHomeId] int  IDENTITY(1,1) NOT NULL,
+  [BkFuneralHomeId] int  NOT NULL,
+  [FuneralHomeDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [LicenseNumber] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [WayToContact] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [ContactInfo] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CaseAccess] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [FaxNumber] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [PhoneNumber] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [DimLocationId] int DEFAULT 0 NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimFuneralHomeId] PRIMARY KEY CLUSTERED ([DimFuneralHomeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimFuneralHome] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimHcProvider] (
+  [DimHcProviderId] int  IDENTITY(1,1) NOT NULL,
+  [BkHcProviderId] int  NOT NULL,
+  [FirstName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [MiddleName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [LastName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimSuffixId] int DEFAULT 0 NOT NULL,
+  [LicenseNumber] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimHcProviderId] PRIMARY KEY CLUSTERED ([DimHcProviderId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimHcProvider] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimHcProviderContact] (
+  [DimHcProviderContactId] int  IDENTITY(1,1) NOT NULL,
+  [BkHcProviderContactId] int  NOT NULL,
+  [DimHcProviderId] tinyint DEFAULT 0 NOT NULL,
+  [HcProviderContactDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [ContactType] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimHcProviderContactId] PRIMARY KEY CLUSTERED ([DimHcProviderContactId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimHcProviderContact] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimHcProviderTitle] (
+  [DimHcProviderTitleId] int  IDENTITY(1,1) NOT NULL,
+  [BkHcProviderTitleId] int  NOT NULL,
+  [HcProviderTitleDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] decimal(2)  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimHcProviderTitleId] PRIMARY KEY CLUSTERED ([DimHcProviderTitleId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimHcProviderTitle] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimHcProviderTypeInternal] (
+  [DimHcProviderTypeInternalId] int  IDENTITY(1,1) NOT NULL,
+  [HcProviderTypeInternalDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimHcProviderTypeInternalId] PRIMARY KEY CLUSTERED ([DimHcProviderTypeInternalId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimHcProviderTypeInternal] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimIndustry] (
+  [DimIndustryId] int  IDENTITY(1,1) NOT NULL,
+  [BkIndustryId] int  NOT NULL,
+  [IndustryDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [CensusTitle] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimIndustryId] PRIMARY KEY CLUSTERED ([DimIndustryId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimIndustry] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimInformantRelation] (
+  [DimInformantRelationId] int  IDENTITY(1,1) NOT NULL,
+  [BkInformantRelationId] int  NOT NULL,
+  [InformantRelationDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] decimal(2)  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimInformantRelationId] PRIMARY KEY CLUSTERED ([DimInformantRelationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimInformantRelation] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimInjuryOccurred] (
+  [DimInjuryOccurredId] int  IDENTITY(1,1) NOT NULL,
+  [BkInjuryOccurredId] int  NOT NULL,
+  [InjuryOccurredDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimInjuryOccurredId] PRIMARY KEY CLUSTERED ([DimInjuryOccurredId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimInjuryOccurred] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimInjuryPlace] (
+  [DimInjuryPlaceId] int  IDENTITY(1,1) NOT NULL,
+  [BkInjuryPlaceId] int  NOT NULL,
+  [InjuryPlaceDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimInjuryPlaceId] PRIMARY KEY CLUSTERED ([DimInjuryPlaceId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimInjuryPlace] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimInjuryTransport] (
+  [DimInjuryTransportId] int  IDENTITY(1,1) NOT NULL,
+  [BkInjuryTransportId] int  NOT NULL,
+  [InjuryTransportDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimInjuryTransportId] PRIMARY KEY CLUSTERED ([DimInjuryTransportId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimInjuryTransport] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimInjuryTransportOther] (
+  [DimInjuryTransportOtherId] int  IDENTITY(1,1) NOT NULL,
+  [BkInjuryTransportOtherId] int  NOT NULL,
+  [InjuryTransportOtherDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimInjuryTransportOtherId] PRIMARY KEY CLUSTERED ([DimInjuryTransportOtherId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimInjuryTransportOther] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimIntentionalReject] (
+  [DimIntentionalRejectId] int  IDENTITY(1,1) NOT NULL,
+  [BkIntentionalRejectId] int  NOT NULL,
+  [IntentionalRejectDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] decimal(2)  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimIntentionalRejectId] PRIMARY KEY CLUSTERED ([DimIntentionalRejectId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimIntentionalReject] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimMaritalStatus] (
+  [DimMaritalStatusId] int  IDENTITY(1,1) NOT NULL,
+  [BkMaritalStatusId] int  NOT NULL,
+  [MaritalStatusDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Code] tinyint  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimMaritalStatusId] PRIMARY KEY CLUSTERED ([DimMaritalStatusId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimMaritalStatus] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimModuleInternal] (
+  [DimModuleInternalId] int  NOT NULL,
+  [ModuleInternalDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [ModuleGuidCode] char(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Void] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimModuleInternalId] PRIMARY KEY CLUSTERED ([DimModuleInternalId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimModuleInternal] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimNioshIndustry] (
+  [DimNioshIndustryId] int  IDENTITY(1,1) NOT NULL,
+  [BkNioshIndustryId] int  NOT NULL,
+  [NioshIndustryDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [CensusTitle] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimNioshIndustryId] PRIMARY KEY CLUSTERED ([DimNioshIndustryId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimNioshIndustry] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimNioshOccupation] (
+  [DimNioshOccupationId] int  IDENTITY(1,1) NOT NULL,
+  [BkNioshOccupationId] int  NOT NULL,
+  [NioshOccupationDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [CensusTitle] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimNioshOccupationId] PRIMARY KEY CLUSTERED ([DimNioshOccupationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimNioshOccupation] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimOtherDeathPlace] (
+  [DimOtherDeathPlaceId] int  IDENTITY(1,1) NOT NULL,
+  [BkOtherDeathPlaceId] int  NOT NULL,
+  [OtherDeathPlaceDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimOtherDeathPlaceId] PRIMARY KEY CLUSTERED ([DimOtherDeathPlaceId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimOtherDeathPlace] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimOtherDispMethod] (
+  [DimOtherDispMethodId] int  IDENTITY(1,1) NOT NULL,
+  [BkOtherDispMethodId] int  NOT NULL,
+  [OtherDispMethodDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimOtherDispMethodId] PRIMARY KEY CLUSTERED ([DimOtherDispMethodId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimOtherDispMethod] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimOtherInformantRelation] (
+  [DimOtherInformantRelationId] int  IDENTITY(1,1) NOT NULL,
+  [BkOtherInformantRelationId] int  NOT NULL,
+  [OtherInformantRelationDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimOtherInformantRelationId] PRIMARY KEY CLUSTERED ([DimOtherInformantRelationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimOtherInformantRelation] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimOtherInjuryPlace] (
+  [DimOtherInjuryPlaceId] int  IDENTITY(1,1) NOT NULL,
+  [BkOtherInjuryPlaceId] int  NOT NULL,
+  [OtherInjuryPlaceDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimOtherInjuryPlaceId] PRIMARY KEY CLUSTERED ([DimOtherInjuryPlaceId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimOtherInjuryPlace] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimOvsStatus] (
+  [DimOvsStatusId] int  IDENTITY(1,1) NOT NULL,
+  [BkOvsStatusId] int  NOT NULL,
+  [OvsStatusDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] tinyint  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimOvsStatusId] PRIMARY KEY CLUSTERED ([DimOvsStatusId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimOvsStatus] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimPageEntryType] (
+  [DimPageEntryTypeId] int  IDENTITY(1,1) NOT NULL,
+  [BkPageEntryTypeId] int  NOT NULL,
+  [PageEntryTypeDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimPageEntryTypeId] PRIMARY KEY CLUSTERED ([DimPageEntryTypeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimPageEntryType] SET (LOCK_ESCALATION = TABLE)
+GO
+
+ALTER TABLE [RVRS].[DimPersonTypeInternal] DROP CONSTRAINT [pk_DimPersonTypeId]
+GO
+
+ALTER TABLE [RVRS].[DimPersonTypeInternal] ADD [DimPersonTypeInternalId] int  NOT NULL
+GO
+
+ALTER TABLE [RVRS].[DimPersonTypeInternal] ADD [PersonTypeInternalDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL
+GO
+
+ALTER TABLE [RVRS].[DimPersonTypeInternal] ALTER COLUMN [PersonGuidCode] char(3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+GO
+
+ALTER TABLE [RVRS].[DimPersonTypeInternal] DROP COLUMN [DimPersonTypeId]
+GO
+
+ALTER TABLE [RVRS].[DimPersonTypeInternal] DROP COLUMN [PersonTypeDesc]
+GO
+
+ALTER TABLE [RVRS].[DimPersonTypeInternal] ADD CONSTRAINT [pk_DimPersonTypeInternalId] PRIMARY KEY CLUSTERED ([DimPersonTypeInternalId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+CREATE TABLE [RVRS].[DimPhysicianLocation] (
+  [DimPhysicianLocationId] int  IDENTITY(1,1) NOT NULL,
+  [DimPhysicianId] tinyint DEFAULT 0 NOT NULL,
+  [DimLocationId] tinyint DEFAULT 0 NOT NULL,
+  [DimFacilityLocationId] tinyint DEFAULT 0 NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimPhysicianLocationId] PRIMARY KEY CLUSTERED ([DimPhysicianLocationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimPhysicianLocation] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimPregnancyStatus] (
+  [DimPregnancyStatusId] int  IDENTITY(1,1) NOT NULL,
+  [BkPregnancyStatusId] int  NOT NULL,
+  [PregnancyStatusDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimPregnancyStatusId] PRIMARY KEY CLUSTERED ([DimPregnancyStatusId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimPregnancyStatus] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimRace] (
+  [DimRaceId] int  IDENTITY(1,1) NOT NULL,
+  [BkRaceId] int  NOT NULL,
+  [RaceDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimRaceId] PRIMARY KEY CLUSTERED ([DimRaceId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimRace] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimRecordAccess] (
+  [DimRecordAccessId] int  IDENTITY(1,1) NOT NULL,
+  [BkRecordAccessId] int  NOT NULL,
+  [RecordAccessDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimRecordAccessId] PRIMARY KEY CLUSTERED ([DimRecordAccessId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimRecordAccess] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimRecordAction] (
+  [DimRecordActionId] int  IDENTITY(1,1) NOT NULL,
+  [BkRecordActionId] int  NOT NULL,
+  [GroupName] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [RecordActionDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimRecordActionId] PRIMARY KEY CLUSTERED ([DimRecordActionId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimRecordAction] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimRecordStatus] (
+  [DimRecordStatusId] int  IDENTITY(1,1) NOT NULL,
+  [BkRecordStatusId] int  NOT NULL,
+  [RecordStatusDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimRecordStatusId] PRIMARY KEY CLUSTERED ([DimRecordStatusId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimRecordStatus] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimRegistrationStatus] (
+  [DimRegistrationStatusId] int  IDENTITY(1,1) NOT NULL,
+  [BkRegistrationStatusId] int  NULL,
+  [RegistrationStatusDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimRegistrationStatusId] PRIMARY KEY CLUSTERED ([DimRegistrationStatusId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimRegistrationStatus] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimSourceInternal] (
+  [DimSourceInternalId] int  NOT NULL,
+  [SourceInternalDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [SourceGuidCode] char(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Void] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimSourceInternalId] PRIMARY KEY CLUSTERED ([DimSourceInternalId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimSourceInternal] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimSuffix] (
+  [DimSuffixId] int  IDENTITY(1,1) NOT NULL,
+  [BkSuffixId] int  NOT NULL,
+  [Code] decimal(2)  NOT NULL,
+  [SuffixDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimSuffixId] PRIMARY KEY CLUSTERED ([DimSuffixId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimSuffix] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimSystemFlag] (
+  [DimSystemFlagId] int  IDENTITY(1,1) NOT NULL,
+  [BkSystemFlagId] int  NOT NULL,
+  [SystemFlagDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [GroupName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimSystemFlagId] PRIMARY KEY CLUSTERED ([DimSystemFlagId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimSystemFlag] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimSystemReject] (
+  [DimSystemRejectId] int  IDENTITY(1,1) NOT NULL,
+  [BkSystemRejectId] int  NOT NULL,
+  [Code] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [SystemRejectDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimSystemRejectId] PRIMARY KEY CLUSTERED ([DimSystemRejectId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimSystemReject] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimTimeInd] (
+  [DimTimeIndId] int  IDENTITY(1,1) NOT NULL,
+  [BkTimeIndId] int  NOT NULL,
+  [TimeIndDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimTimeIndId] PRIMARY KEY CLUSTERED ([DimTimeIndId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimTimeInd] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimTobaccoUse] (
+  [DimTobaccoUseId] int  IDENTITY(1,1) NOT NULL,
+  [BkTobaccoUseId] int  NOT NULL,
+  [TobaccoUseDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Code] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimTobaccoUseId] PRIMARY KEY CLUSTERED ([DimTobaccoUseId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimTobaccoUse] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimTribe] (
+  [DimTribeId] int  IDENTITY(1,1) NOT NULL,
+  [BkTribeId] int  NOT NULL,
+  [TribeDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimTribeId] PRIMARY KEY CLUSTERED ([DimTribeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimTribe] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimUserType] (
+  [DimUserTypeId] int  IDENTITY(1,1) NOT NULL,
+  [BkUserTypeId] int  NOT NULL,
+  [UserTypeDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [Void] tinyint DEFAULT 0 NOT NULL,
+  CONSTRAINT [pk_DimUserTypeId] PRIMARY KEY CLUSTERED ([DimUserTypeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimUserType] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimWar] (
+  [DimWarId] int  IDENTITY(1,1) NOT NULL,
+  [BkWarId] int  NOT NULL,
+  [WarDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimWarId] PRIMARY KEY CLUSTERED ([DimWarId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimWar] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[DimYesNo] (
+  [DimYesNoId] int  IDENTITY(1,1) NOT NULL,
+  [BkYesNoId] int  NOT NULL,
+  [YesNoDesc] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [Abbr] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [StartDate] datetime  NULL,
+  [EndDate] datetime  NULL,
+  [SrcVoid] tinyint  NOT NULL,
+  CONSTRAINT [pk_DimYesNoId] PRIMARY KEY CLUSTERED ([DimYesNoId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[DimYesNo] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[Ethnicity] (
+  [EthnicityId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimEthnicityId] int DEFAULT 0 NOT NULL,
+  [DimOtherEthnicityId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  CONSTRAINT [pk_EthnicityId] PRIMARY KEY CLUSTERED ([EthnicityId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[Ethnicity] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[EthnicityRaceOtherAtr] (
+  [EthnicityRaceOtherAtrId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [IsHispanic] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [IsSpecificHispanic] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [IsOtherHispanic] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [AppearDeathCertificate] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [HispanicCodeLiteral] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  CONSTRAINT [pk_EthnicityRaceOtherAtrId] PRIMARY KEY CLUSTERED ([EthnicityRaceOtherAtrId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[EthnicityRaceOtherAtr] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[FaxAttestation] (
+  [FaxAttestationId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [SerialNumber] decimal(10)  NULL,
+  [FlSigned] varchar(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FlDeclined] varchar(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [AttestationStatus] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [ObjectId] varchar(28) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [ReturnCode] int  NOT NULL,
+  [ReturnMessage] varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [SentDate] datetime2(7)  NULL,
+  [WaitingNew] varchar(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_FaxAttestationId] PRIMARY KEY CLUSTERED ([FaxAttestationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[FaxAttestation] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[HcProvider] (
+  [HcProviderId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimHcProviderTypeInternalId] int DEFAULT 0 NOT NULL,
+  [DimHcProviderTitleId] int DEFAULT 0 NOT NULL,
+  [DimHcProviderId] int DEFAULT 0 NOT NULL,
+  [DimPhoneId] int DEFAULT 0 NOT NULL,
+  [DimFaxId] int DEFAULT 0 NOT NULL,
+  [DimCaseAccessId] int DEFAULT 0 NOT NULL,
+  [DimEmployerId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_HcProviderId] PRIMARY KEY CLUSTERED ([HcProviderId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[HcProvider] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[History] (
+  [HistoryId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimHcFacilityId] int DEFAULT 0 NOT NULL,
+  [Note] varchar(1024) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [History] varchar(4000) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [MeApprovedHistory] varchar(1024) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [FiledMode] decimal(1)  NOT NULL,
+  [GrpStartCase] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [GrpCreatedModification] varchar(2) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_HistoryId] PRIMARY KEY CLUSTERED ([HistoryId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[History] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[Location] (
+  [LocationId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimLocationTypeInternalId] int DEFAULT 0 NOT NULL,
+  [DimLocationId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_LocationId] PRIMARY KEY CLUSTERED ([LocationId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[Location] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[OtherDate] (
+  [OtherDateId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [ActionDate] datetime  NOT NULL,
+  [DimDateTypeId] int DEFAULT 0 NOT NULL,
+  [DimRecordActionId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_OtherDateId] PRIMARY KEY CLUSTERED ([OtherDateId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[OtherDate] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[OtherUser] (
+  [OtherUserId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [ScrUserID] int  NOT NULL,
+  [DimUserTypeId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_OtherUserId] PRIMARY KEY CLUSTERED ([OtherUserId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[OtherUser] SET (LOCK_ESCALATION = TABLE)
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT 0 FOR [DimModuleInternalId]
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT 0 FOR [DimPersonTypeInternalId]
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [SrVersion] decimal(2) NOT NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [FlCurrent] decimal(1) NOT NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [FlAbandoned] decimal(1) NOT NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [SrVoided] decimal(1) NOT NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT 0 FOR [DimSuffixId]
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT 0 FOR [DimSexId]
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [BirthYear] decimal(4) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [BirthMonth] decimal(2) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [BirthDay] decimal(2) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [AgeCalcYear] decimal(3) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [AgeYear] decimal(4) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [AgeMonth] decimal(2) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [AgeDay] decimal(2) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [AgeHour] decimal(2) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ALTER COLUMN [AgeMinute] decimal(2) NULL
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT 0 FOR [DimAgeTypeId]
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT 0 FOR [DimMaritalStatusId]
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT 0 FOR [SrCreatedUserId]
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT 0 FOR [SrUpdatedUserId]
+GO
+
+ALTER TABLE [RVRS].[Person] ADD DEFAULT getdate() FOR [CreatedDate]
+GO
+
+ALTER TABLE [RVRS].[Person] ADD CONSTRAINT [pk_PersonId] PRIMARY KEY CLUSTERED ([PersonId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+CREATE TABLE [RVRS].[PersonAkaName] (
+  [PersonAkaNameId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [AkaOrder] tinyint  NOT NULL,
+  [FirstName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [MiddleName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [LastName] varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DimSuffixId] int DEFAULT 0 NOT NULL,
+  [NameChangedDate] datetime  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_PersonAkaNameId] PRIMARY KEY CLUSTERED ([PersonAkaNameId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[PersonAkaName] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[Race] (
+  [RaceId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimOtherRaceId] int DEFAULT 0 NOT NULL,
+  [DimRaceId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  CONSTRAINT [pk_RaceId] PRIMARY KEY CLUSTERED ([RaceId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[Race] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[RecordAction] (
+  [RecordActionId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimRecordActionId] int DEFAULT 0 NOT NULL,
+  [Value] decimal(1)  NOT NULL,
+  [Comment] varchar(4000) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_RecordActionId] PRIMARY KEY CLUSTERED ([RecordActionId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[RecordAction] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[RecordStatus] (
+  [RecordStatusId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimMedicalInfoStatusId] int DEFAULT 0 NOT NULL,
+  [DimPersonalInfoStatusId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_RecordStatusId] PRIMARY KEY CLUSTERED ([RecordStatusId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[RecordStatus] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[SsnVerify] (
+  [SsnVerifyId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [DimCompanionId] int DEFAULT 0 NOT NULL,
+  [DimOvsStatusId] int DEFAULT 0 NOT NULL,
+  [FlInvokeOvs] varchar(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [FlVerified] varchar(1) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [OvsCount] decimal(3)  NULL,
+  [OvsDate] datetime  NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_SsnVerifyId] PRIMARY KEY CLUSTERED ([SsnVerifyId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[SsnVerify] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[SystemFlag] (
+  [SystemFlagId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [Value] decimal(1)  NOT NULL,
+  [DimSystemFlagId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  CONSTRAINT [pk_SystemFlagId] PRIMARY KEY CLUSTERED ([SystemFlagId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[SystemFlag] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE TABLE [RVRS].[Tribe] (
+  [TribeId] bigint  IDENTITY(1,1) NOT NULL,
+  [PersonId] bigint  NOT NULL,
+  [EthnicityId] bigint  NOT NULL,
+  [DimTribeId] int DEFAULT 0 NOT NULL,
+  [DimOtherTribeId] int DEFAULT 0 NOT NULL,
+  [CreatedDate] datetime DEFAULT getdate() NOT NULL,
+  CONSTRAINT [pk_TribeId] PRIMARY KEY CLUSTERED ([TribeId])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)
+GO
+
+ALTER TABLE [RVRS].[Tribe] SET (LOCK_ESCALATION = TABLE)
+GO
+
+ALTER TABLE [RVRS].[VeteranOtherAtr] ADD [LoadNote] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+GO
+
+ALTER TABLE [RVRS].[VeteranOtherAtr] DROP COLUMN [Loadnote]

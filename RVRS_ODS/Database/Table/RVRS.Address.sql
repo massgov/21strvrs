@@ -13,7 +13,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 	BEGIN 
 		CREATE TABLE [RVRS].[Address] (  
 		   [AddressId] BIGINT NOT NULL IDENTITY (1,1), 
-		   [PersonId] BIGINT NULL, 		  
+		   [PersonId] BIGINT NOT NULL, 		  
 		   [DimAddressTypeId] INT NOT NULL  CONSTRAINT [df_AddressDimAddressTypeId]  DEFAULT ((0)) , --seed
 		   [DimPrefixId] INT NOT NULL CONSTRAINT [df_AddressDimPrefixId]  DEFAULT ((0)),
 		   [StreetNumber] INT NULL,		   

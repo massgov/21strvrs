@@ -22,8 +22,9 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		   [InjuryMinute] DECIMAL(2,0) NULL,--TOI
 		   [DimInjuryTimeIndId] INT NOT NULL CONSTRAINT [df_DeathInjuryDimInjuryTimeIndId] DEFAULT (0), --TOI_IND
 		   [DimInjuryAtWorkId] INT NOT NULL CONSTRAINT [df_DeathInjuryDimInjuryAtWorkId] DEFAULT (0),  
-		   [DimInjuryOccurredId] INT NOT NULL CONSTRAINT [df_DeathInjuryDimInjuryOccurredId] DEFAULT (0),
+		   [InjuryNature] VARCHAR(512) NULL,
 		   [DimInjuryPlaceId] INT NOT NULL CONSTRAINT [df_DeathInjuryDimInjuryPlaceId] DEFAULT (0),
+		   [DimOtherInjuryPlaceId] INT NOT NULL CONSTRAINT [df_DeathInjuryDimOtherInjuryPlaceId] DEFAULT (0),
 		   [DimInjuryTransportId] INT NOT NULL CONSTRAINT [df_DeathInjuryDimInjuryTransportId] DEFAULT (0),
 		   [DimInjuryTransportOtherId] INT NOT NULL CONSTRAINT [df_DeathInjuryDimInjuryTransportOtherId] DEFAULT (0),		
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathInjuryCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store the 

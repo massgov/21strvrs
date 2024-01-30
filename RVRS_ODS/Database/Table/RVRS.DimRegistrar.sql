@@ -19,12 +19,12 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[LastName] VARCHAR(128), --CLERK_LAST_NAME
 			[DimSuffixId]INT NOT NULL CONSTRAINT [df_DimRegistrarDimSuffixId] DEFAULT (0),--CLERK_SUFFIX			
 			[Title] VARCHAR(32) NULL, --CLERK_TITLE	
-			[TownCode] DECIMAL (5,0) NULL,  --CLERK_TOWN_CODE		
 			[DimCityId] INT NOT NULL CONSTRAINT [df_DimRegistrarDimCityId] DEFAULT (0),  --CLERK_CITY		
 			[DimCountyId] INT NOT NULL CONSTRAINT [df_DimRegistrarDimCountyId] DEFAULT (0),  --CLERK_CITY
 			[DimStateId] INT NOT NULL CONSTRAINT [df_DimRegistrarDimStateId] DEFAULT (0),  --CLERK_STATE	
 			[DimLocationId] INT NOT NULL CONSTRAINT [df_DimRegistrarDimLocationId] DEFAULT (0), --CLERK_SEC_LOC_ID
-			[IsCurrent] VARCHAR(2) NULL, --CLERK_CURRENT		 
+			[IsCurrent] VARCHAR(2) NULL, --CLERK_CURRENT	
+			[RegistrarType] VARCHAR(32) NOT NULL , --STATE, TOWN CLERK
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
 			[SrcVoid] TINYINT  NOT NULL, -- it set by source - Src = Source 		

@@ -15,7 +15,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[DispPlaceDesc] VARCHAR(128) NOT NULL,  --DISP_NME
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
-			[Void] TINYINT NOT NULL CONSTRAINT [df_DimDispPlaceVoid] DEFAULT (0),			
+			[SrcVoid] TINYINT  NOT NULL, -- it set by source - Src = Source 			
 		CONSTRAINT [pk_DimDispPlaceId] PRIMARY KEY CLUSTERED 
 		(
 			[DimDispPlaceId] ASC

@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DPH-MXL00429DQ"
   DTS:CreatorName="EHS\RNagaraj"
-  DTS:DTSID="{4FDAA38B-996C-44B7-9AC9-B4BA4E43F82F}"
+  DTS:DTSID="{E7B09118-18AD-4335-94E7-06CB54A69231}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{AE4756CF-96D9-44D6-8FE3-B84C22E487B9}">
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{DF943B1B-3CAB-4A80-A0DB-C1780EBFDA87}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -21,7 +21,7 @@
       DTS:refId="Package\Data Flow Task"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
-      DTS:DTSID="{29719BCC-1887-4108-8EF9-D54D439B33AD}"
+      DTS:DTSID="{E90CA31A-8B44-4B9E-93F0-B2A88AAA8CF0}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
       DTS:ObjectName="Data Flow Task">
@@ -49,7 +49,7 @@
                   description="The SQL command to be executed."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from public.divorce_tbl_2016_present</property>
                 <property
                   dataType="System.Int32"
                   description="Specify the number of rows fetched per batch."
@@ -95,12 +95,12 @@
                   description="The mode used to access the database."
                   expressionType="Notify"
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">1</property>
               </properties>
               <connections>
                 <connection
                   refId="Package\Data Flow Task\ODBC Source.Connections[ODBCConnection]"
-                  connectionManagerID="{D745DCBF-643C-4620-9553-E651CDA40C50}:external"
+                  connectionManagerID="{616606B7-B251-410D-BE85-3E74C1565D06}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_Postgres32_unicode]"
                   description="The ODBC runtime connection used to access the database."
                   name="ODBCConnection" />
@@ -1746,7 +1746,7 @@
               <connections>
                 <connection
                   refId="Package\Data Flow Task\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerID="{6883065A-B99B-424C-92C9-6E2C0DCCFB40}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
@@ -2781,7 +2781,7 @@
       DTS:refId="Package\Truncate Table"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:DTSID="{422316D9-BC6A-4DF8-AE3C-89AF9509FA42}"
+      DTS:DTSID="{0206BF76-43AA-405F-AFB5-B5AA9048BC81}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate Table"
@@ -2790,8 +2790,8 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}"
-          SQLTask:SqlStatementSource="truncate table RVRS. Divorcetbl_2016Present" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:Connection="{6883065A-B99B-424C-92C9-6E2C0DCCFB40}"
+          SQLTask:SqlStatementSource="truncate table RVRS. LegacyPlus_Divorce_tbl_2016_Present" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -2799,7 +2799,7 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
-      DTS:DTSID="{5E1913A8-833D-417A-ACFB-E905E206D718}"
+      DTS:DTSID="{9FF944CB-62C4-4C59-9437-B17220233A5E}"
       DTS:From="Package\Truncate Table"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
@@ -2818,39 +2818,39 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="153.6,42.4"
+          Size="153.333333333334,42.6666666666667"
           Id="Package\Data Flow Task"
           TopLeft="460.499981919925,200.500001549721" />
         <NodeLayout
-          Size="148,41.6"
+          Size="152,42.6666666666667"
           Id="Package\Truncate Table"
           TopLeft="432.499982813995,110.066667541398" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="506.499982813995,151.666667541398">
+          TopLeft="508.499982813995,152.733334208065">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="30.7999991059302,48.8333340083229"
+              EndConnector="28.6666657725967,47.7666673416563"
               Start="0,0"
-              End="30.7999991059302,41.3333340083229">
+              End="28.6666657725967,40.2666673416563">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.4166670041614" />
+                    End="0,19.8833336708282" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,20.4166670041614"
-                    Point2="0,24.4166670041614"
-                    Point3="4,24.4166670041614" />
+                    Point1="0,19.8833336708282"
+                    Point2="0,23.8833336708282"
+                    Point3="4,23.8833336708282" />
                   <mssgle:LineSegment
-                    End="26.7999991059302,24.4166670041614" />
+                    End="24.6666657725967,23.8833336708282" />
                   <mssgle:CubicBezierSegment
-                    Point1="26.7999991059302,24.4166670041614"
-                    Point2="30.7999991059302,24.4166670041614"
-                    Point3="30.7999991059302,28.4166670041614" />
+                    Point1="24.6666657725967,23.8833336708282"
+                    Point2="28.6666657725967,23.8833336708282"
+                    Point3="28.6666657725967,27.8833336708282" />
                   <mssgle:LineSegment
-                    End="30.7999991059302,41.3333340083229" />
+                    End="28.6666657725967,40.2666673416563" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2868,27 +2868,27 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="174.4,42.4"
+          Size="174.666666666667,42.6666666666667"
           Id="Package\Data Flow Task\OLE DB Destination"
-          TopLeft="609,158" />
+          TopLeft="609.624999990687,157.315789460806" />
         <NodeLayout
-          Size="146.4,42.4"
+          Size="146.666666666667,42.6666666666667"
           Id="Package\Data Flow Task\ODBC Source"
           TopLeft="630,89" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[ODBC Source Output]"
-          TopLeft="699.833333333333,131.666666666667">
+          TopLeft="700.145833328677,131.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,26.3333333333333"
+              EndConnector="0,25.649122794139"
               Start="0,0"
-              End="0,18.8333333333333">
+              End="0,18.149122794139">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,18.8333333333333" />
+                    End="0,18.149122794139" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

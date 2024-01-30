@@ -13,6 +13,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[DimInjuryPlaceId] INT NOT NULL IDENTITY (1,1),	
 			[BkInjuryPlaceId] INT NOT NULL,
 			[InjuryPlaceDesc] VARCHAR(128) NOT NULL,  
+			[Code] VARCHAR(8) NULL,  
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
 			[Void] TINYINT NOT NULL CONSTRAINT [df_DimInjuryPlaceVoid] DEFAULT (0),			

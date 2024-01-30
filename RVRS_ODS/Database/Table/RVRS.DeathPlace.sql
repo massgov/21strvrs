@@ -15,7 +15,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		   [PersonId] BIGINT NOT NULL ,  --  RVRS Column 		
 		   [DimDeathPlaceId] INT NOT NULL CONSTRAINT [df_DeathPlaceDimDeathPlaceId] DEFAULT (0), --DPLACE,		   [
 		   [DimDeathFacilityId] INT NOT NULL CONSTRAINT [df_DeathPlaceDimDeathFacilityId] DEFAULT (0), --DHOSPITALL
-		   [DimDeathPlaceOtherId] INT NOT NULL CONSTRAINT [df_DeathPlaceDimDeathPlaceOtherId] DEFAULT (0), --DPLACE_OTHR	
+		   [DimOtherDeathPlaceId] INT NOT NULL CONSTRAINT [df_DeathPlaceDimOtherDeathPlaceId] DEFAULT (0), --DPLACE_OTHR	
 		   [DeathFacilityCode] VARCHAR(16) NULL, --DFACILITYL
 		   [FgSameAsResidence] VARCHAR(1) NULL, 
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathPlaceCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store created date

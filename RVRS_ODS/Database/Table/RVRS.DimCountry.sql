@@ -1,6 +1,8 @@
 --drop table [RVRS].[DimCountry]
 --sp_help '[RVRS].[DimCountry]'
 -- SELECT * FROM [RVRS].[DimCountry]
+--alter table [RVRS].[DimCountry] ADD ValueSet VARCHAR(512)  
+
 SET ANSI_NULLS ON
 GO
 
@@ -17,6 +19,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[FipsCode] VARCHAR(3) NULL,	
 			[NchsCode] TINYINT NULL,
 			[CountryDesc] VARCHAR(128) NOT NULL,
+			ValueSet VARCHAR(512), 
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,
 			[SrcVoid] TINYINT NOT NULL, -- Set it by source  CONSTRAINT [df_DimCountrySrcVoid]  DEFAULT ((0))

@@ -1,5 +1,6 @@
 --drop table [RVRS].[DeathDisposition]
 --sp_help '[RVRS].[DeathDisposition]'
+
 SET ANSI_NULLS ON
 GO
  
@@ -15,8 +16,10 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[DeathDispositionId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column 
 			[PersonId] BIGINT NOT NULL,  --  RVRS Column 
 			[DimDispMethodId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispMethodId] DEFAULT (0), --DISP
-			[DimDispMethodOtherId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispMethodOtherId] DEFAULT (0), --DISPL
-			[DispDate] DATETIME NULL, --DISP_DATE
+			[DimOtherDispMethodId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimOtherDispMethodId] DEFAULT (0), --DISPL
+			[DispYear] DECIMAL(4,0) NULL,--Year(DISP_DATE)
+		    [DispMonth] DECIMAL(2,0) NULL, --Month(DISP_DATE)
+		    [DispDay] DECIMAL(2,0) NULL, -- Day(DISP_DATE)
 			[PermitStatus] VARCHAR(516) NULL,
 			[DimDispPlaceId] INT NOT NULL CONSTRAINT [df_DeathDispositionDimDispPlaceId] DEFAULT (0), --DISP_NME
 			[CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathDispositionCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store created date

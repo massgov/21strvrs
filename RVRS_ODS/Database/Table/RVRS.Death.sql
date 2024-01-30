@@ -27,7 +27,11 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		   [DeathDay] DECIMAL(2,0) NULL, -- Day(DOD_4_FD)
 		   [DeathHour] DECIMAL(2,0) NULL,--TOD
 		   [DeathMinute] DECIMAL(2,0) NULL,--TOD
-		   [DimDeathTimeIndId] INT NOT NULL CONSTRAINT [df_DeathDimTimeOfDeathIndId] DEFAULT (0), --TOD_IN
+		   [DimDeathTimeIndId] INT NOT NULL CONSTRAINT [df_DeathDimDeathTimeIndId] DEFAULT (0), --TOD_IN
+		   [DimDeathMannerId] INT NOT NULL CONSTRAINT [df_DeathDimDeathMannerId] DEFAULT (0), --MANNER,MANNER_L
+		   [DimPregnancyStatusId] INT NOT NULL CONSTRAINT [df_DeathDimPregnancyStatusId] DEFAULT (0), --PREG
+           [DimTobaccoUseId] INT NOT NULL CONSTRAINT [df_DeathDimTobaccoUseId] DEFAULT (0), -- TOBAC
+           [DimCertifierDesignId] INT NOT NULL CONSTRAINT [df_DeathDimCertifierDesignId] DEFAULT (0),--CERT_DESIG,CERT_DESIG_CODE		   
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_DeathCreatedDate] DEFAULT (GETDATE()), -- RVRS Column to store the 
 		   [LoadNote] VARCHAR(MAX)
 		CONSTRAINT [pk_DeathId] PRIMARY KEY CLUSTERED 

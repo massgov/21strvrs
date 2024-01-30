@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DPH-MXL00429DQ"
   DTS:CreatorName="EHS\RNagaraj"
-  DTS:DTSID="{604FBDC3-D746-4821-A62F-DBFC005A99D5}"
+  DTS:DTSID="{66639DEE-D52A-4AC6-ACD5-FBA2021B681F}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="1033"
   DTS:ObjectName="Extract_LegacyPlus_Concept"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{C6223B41-57E2-4D14-ADFD-3703728AD518}">
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{7814FAF8-5A89-424A-A589-9BA06D91DC46}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -21,7 +21,7 @@
       DTS:refId="Package\Data Flow Task"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
-      DTS:DTSID="{ECF7511D-2E76-4342-A857-A4462B34EF07}"
+      DTS:DTSID="{6FD51A8D-54D1-407D-B0F4-D77BB7305C76}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
       DTS:ObjectName="Data Flow Task">
@@ -100,7 +100,7 @@
               <connections>
                 <connection
                   refId="Package\Data Flow Task\ODBC Source.Connections[ODBCConnection]"
-                  connectionManagerID="{D745DCBF-643C-4620-9553-E651CDA40C50}:external"
+                  connectionManagerID="{616606B7-B251-410D-BE85-3E74C1565D06}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_Postgres32_unicode]"
                   description="The ODBC runtime connection used to access the database."
                   name="ODBCConnection" />
@@ -482,7 +482,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[RVRS].[LegacyPlus_Concept]</property>
+                  name="OpenRowset">[RVRS].[LegacyPlus_Concept_CD]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -525,7 +525,7 @@
               <connections>
                 <connection
                   refId="Package\Data Flow Task\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="{F49F3C82-EAB2-42E9-8BDA-94767A5EA88E}:external"
+                  connectionManagerID="{6883065A-B99B-424C-92C9-6E2C0DCCFB40}:external"
                   connectionManagerRefId="Project.ConnectionManagers[Extract_LegacyPlus_10 202 75 136 RVRS_Staging]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
@@ -800,7 +800,7 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="150.4,41.6"
+          Size="150.666666666667,41.3333333333334"
           Id="Package\Data Flow Task"
           TopLeft="5.5,5.5" />
       </GraphLayout>
@@ -812,13 +812,13 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="144,41.6"
-          Id="Package\Data Flow Task\ODBC Source"
-          TopLeft="740,128" />
-        <NodeLayout
-          Size="171.2,41.6"
+          Size="171.333333333334,41.3333333333334"
           Id="Package\Data Flow Task\OLE DB Destination"
           TopLeft="793,245" />
+        <NodeLayout
+          Size="144,41.3333333333334"
+          Id="Package\Data Flow Task\ODBC Source"
+          TopLeft="740,128" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[ODBC Source Output]"
           TopLeft="812,169.6">

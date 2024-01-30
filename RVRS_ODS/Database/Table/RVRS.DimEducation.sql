@@ -14,6 +14,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 			[DimEducationId] INT NOT NULL IDENTITY (1,1),	
 			[BkEducationId] INT NOT NULL,
 		    [EducationDesc] VARCHAR(128) NOT NULL,
+			[SrcEducationId] INT NOT NULL, --UNIQUE ID that was stored in the Data
 			[Code] TINYINT NOT NULL,
 			[StartDate] DateTime NULL,
 			[EndDate] DateTime NULL,

@@ -13,9 +13,9 @@ IF NOT EXISTS (SELECT 1 FROM sys.Objects
 		CREATE TABLE [RVRS].[Tribe] (  
 		   [TribeId] BIGINT NOT NULL IDENTITY (1,1),--  RVRS Column to store the
 		   [PersonId] BIGINT NOT NULL ,  --  RVRS Column to store the		  
-		   [DimEthnicityGroupId] INT NOT NULL CONSTRAINT [df_TribeDimEthnicityGroupId] DEFAULT (0), --RACE3	 
-		   [DimTribeGroupId] INT NOT NULL CONSTRAINT [df_TribeDimTribeGroupId] DEFAULT (0), --RACE16		
-		   [DimTribeId] INT NOT NULL CONSTRAINT [df_TribeDimTribeId] DEFAULT (0), --Multiple Columns (e.g.DETHNIC_AFRICAN_CB,DETHNIC_AMERICAN)		  	     
+		   [EthnicityId] BIGINT NOT NULL , --RACE3	
+		   [DimTribeId] INT NOT NULL CONSTRAINT [df_TribeDimTribeId] DEFAULT (0), --Multiple Columns (e.g.DETHNIC_AFRICAN_CB,DETHNIC_AMERICAN)	
+		   [DimOtherTribeId] INT NOT NULL CONSTRAINT [df_TribeDimOtherTribeId] DEFAULT (0), --RACE16			  	  	     
 		   [CreatedDate] DATETIME NOT NULL CONSTRAINT [df_TribeCreatedDate] DEFAULT (GETDATE()) -- RVRS Column to store the 		   
 		CONSTRAINT [pk_TribeId] PRIMARY KEY CLUSTERED 
 		(
